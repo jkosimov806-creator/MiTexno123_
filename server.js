@@ -10,24 +10,29 @@ const SPREADSHEET_ID = '1DZ8GE-1psAyCCpaPwn5ISuCjg6eSL6RHL547GUpolow';
 let doc;
 
 try {
-    // 🆕 Читаем переменную с ПРАВИЛЬНЫМ именем, в котором лежит Base64 строка
-    const base64Data = process.env.GOOGLE_JSON_KEY_BASE64;
+    let base64Data = process.env.GOOGLE_JSON_KEY_BASE64;
     
     if (!base64Data) {
         throw new Error('Переменная GOOGLE_JSON_KEY_BASE64 не найдена в Amvera!');
     }
 
-    // Декодируем Base64 обратно в понятный для Node.js текст JSON
+    // 🔥 СВЕРХНАДЕЖНАЯ ОЧИСТКА: Удаляем вообще любые невидимые символы, пробелы и переносы, 
+    // которые телефон мог добавить при вставке в Amvera!
+    base64Data = base64Data.replace(/[^A-Za-z0-9+/=]/g, '').trim();
+
+    // Декодируем чистую строку в текст JSON
     const decodedText = Buffer.from(base64Data, 'base64').toString('utf8');
+    
+    // Парсим JSON
     const credentials = JSON.parse(decodedText);
 
     const serviceAccountAuth = new JWT({
         email: credentials.client_email,
-        key: credentials.private_key.replace(/\\n/g, '\n'), // Железобетонный фикс OpenSSL
-        scopes: ['https://googleapis.com'],
+        key: credentials.private_key.replace(/\\n/g, '\n'), // Фикс OpenSSL
+        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
     doc = new GoogleSpreadsheet(SPREADSHEET_ID, serviceAccountAuth);
-    console.log('✅ Авторизация в Google успешно настроена через Base64!');
+    console.log('✅ УСПЕХ: Авторизация в Google Sheets полностью настроена!');
 } catch (err) {
     console.error('❌ Ошибка инициализации Google Ключа:', err.message);
 }
