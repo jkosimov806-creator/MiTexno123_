@@ -7,32 +7,23 @@ const { JWT } = require('google-auth-library');
 const PORT = process.env.PORT || 80;
 const SPREADSHEET_ID = '1DZ8GE-1psAyCCpaPwn5ISuCjg6eSL6RHL547GUpolow';
 
+// Ваш email из сервисного аккаунта Google
+const GOOGLE_SERVICE_ACCOUNT_EMAIL = 'mitexnobot@://gserviceaccount.com';
+
+// ВАШ ПРИВАТНЫЙ КЛЮЧ, ПЕРЕВЕДЕННЫЙ В ОДНУ СТРОКУ (Символы \n заменены на обычный текст)
+const GOOGLE_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDLRcZtNmdqwpqZ\\nd3+x/VXR6gFysGXluoVhyAj5UgMpD0a5LndFhQX0Lk3pdm8jnyILAFKHL4/547Jr\\nob7hfw6fCWwk1KhulAoWzcs5Iowu9WhzWYXH2UhT/bvjgIHetIdI47v3rZl9Cvy8\\njxNdn7xcFXGYI/S1nRJWnp2IeegO3g2DdhNoNw06CRShwks4LdQjf4uNMHX7/3qk\\nK62R24gseE9swZcfYSCn2VhxDQD/KngGIwtHvJw8KhVkpDNPONMlspDJ2E6V7DP6\\np0lW8i0eI940a9G3Vaxo9cKik+WtOwkOnUi2/hSqRS6KR8VQizs4qTb6umcRuJLY\\ndNpMtR+rAgMBAAECggEAA/KGQ0IBNB40qQecX9/O4NVYfdpVwDulB3G+VYkgLUCc\\nsPqUBQeWRq2iLwcbwBIBCTxSXfRbKWZ15TKDkGwf4+VnnOIm+y6+G2ns/l5gtoYR\\nfIaf2xz/Ez0kKZYp73c2AVZaz258Qo9fZRH/ivE6foH0GMOUpvThPElhlHA5mhWb\\nlBL0GodyRYYtTLqGzUuRsX1JZeawgVrZ5rtnhKGDopr6VyAombeXKcV5VuzQ6oF1\\nKpDajbdJ85PRHrlzCjb/B/Ma/3gUTAJvh4SryY0AVNFC231Vw3xDbwQvN6a2Iufc\\nMuUd4/qxaICB4yCCtLoYnPAGK3OIVG3SuE2geMTNcQKBgQD84bZ08+vZo0ia3vVK\\n20FVtyzxmncbk7knmQNxS1eB4M0GbTZcN7ZRcC1EbOvtn4eOlZdltzI64HYWdGeS\\nDDlO0Q/TBEpnq1AHFlDp01PQoIXWbEBM0TtCS99Hzq9rX4b+ySuh6rVH2dtX/KtQ\\nRSyZyRyo/WkdbJFPZNbRzFGdzQKBgQDNx3VKegQ8HDoS/bTSzeWXBN4Fy4x7QNgb\\nvlKPrff4DoeO2CbX1C8f8N9ZiNvG8B9slhcFd37HxY5Onrj9Uq5E2Cl0+RnRLJMm\\nMjXKwDU/1FQ0sGUy7ovQT1GSVBui4RToU2TjU1dn/12wz2ACzyF6m0WpDKo9t8NC\\nwXXqP8N7VwKBgQCQw3Gcv+obG+M7bTlEkgFz3TmoUYGv0sAiz/BtkfDVU+hqrmh5\\nIBeJxUrUqfnhfPqwACi8PMRPeiF/t0F3FPJVkU6awRELCcH1XKwTPzvy6YHUfwHM\\nM9bRm/eE9ufq8rOn9We5+E+wgyGS2/0CJadjngJ/JxpeksEYjyR+05VBXQKBgEdM\\n+UMZDCaX0TeLWQBB/29YbGWtpbt/OGJEi+7k5Kq6vhWsp6jZCIsUtw8a8Kv5v6ms\\nR8XJJdCqjyiGrqp335JTI+o39c4Yl9QAScs61jiLpbGr/SSsqx0+npEJO5owS0JE\\nmwxRcFPEk/4TnLzccEk/S9/LV6GS7sFOr0C/X0h5AoGATur8cuQH995AjvcZmkgl\\nrS6rzALGWugOf03eo4KH7ncTdBMpKRNm5ViLnT2KHd8DwwdU+xAYDZGQilGX01br\\nJgkI/gi7CHGbDJjSL1QBID+fJH2BLagnMH+MY+7ku+xOr7fLe2FJMbMnoTbd9tBf\\nMXgrF5MHFSRYIYK+p27pBw8=\\n-----END PRIVATE KEY-----\\n";
+
 let doc;
 
 try {
-    let base64Data = process.env.GOOGLE_JSON_KEY_BASE64;
-    
-    if (!base64Data) {
-        throw new Error('Переменная GOOGLE_JSON_KEY_BASE64 не найдена в Amvera!');
-    }
-
-    // 🔥 СВЕРХНАДЕЖНАЯ ОЧИСТКА: Удаляем вообще любые невидимые символы, пробелы и переносы, 
-    // которые телефон мог добавить при вставке в Amvera!
-    base64Data = base64Data.replace(/[^A-Za-z0-9+/=]/g, '').trim();
-
-    // Декодируем чистую строку в текст JSON
-    const decodedText = Buffer.from(base64Data, 'base64').toString('utf8');
-    
-    // Парсим JSON
-    const credentials = JSON.parse(decodedText);
-
     const serviceAccountAuth = new JWT({
-        email: credentials.client_email,
-        key: credentials.private_key.replace(/\\n/g, '\n'), // Фикс OpenSSL
-        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+        email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
+        // Жесткая замена текстовых \n на реальные отступы для OpenSSL
+        key: GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'), 
+        scopes: ['https://googleapis.com'],
     });
     doc = new GoogleSpreadsheet(SPREADSHEET_ID, serviceAccountAuth);
-    console.log('✅ УСПЕХ: Авторизация в Google Sheets полностью настроена!');
+    console.log('✅ УСПЕХ: Авторизация в Google Sheets выполнена напрямую из кода!');
 } catch (err) {
     console.error('❌ Ошибка инициализации Google Ключа:', err.message);
 }
