@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mi Texno — Магазин электроники Xiaomi</title>
-  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- ========== HEADER ========== -->
+<!-- HEADER -->
 <header class="header" id="header">
   <div class="container header__inner">
     <a href="index.html" class="logo">
@@ -24,7 +24,10 @@
     </nav>
     <div class="header__actions">
       <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
         <span class="cart-count" id="cartCount">0</span>
       </button>
       <button class="burger" id="burger" onclick="toggleMenu()">
@@ -34,30 +37,29 @@
   </div>
 </header>
 
-<!-- ========== HERO ========== -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero__bg"></div>
   <div class="container hero__inner">
     <div class="hero__text">
-      <p class="hero__tag">Официальный магазин</p>
+      <p class="hero__tag">Официальный магазин электроники</p>
       <h1 class="hero__title">Технологии<br/>без компромиссов</h1>
-      <p class="hero__sub">Смартфоны, гаджеты и умные устройства<br/>Xiaomi по лучшим ценам</p>
+      <p class="hero__sub">Кондиционеры, телевизоры, гаджеты и умная техника<br/>по лучшим ценам в городе</p>
       <div class="hero__btns">
         <a href="#catalog" class="btn btn--primary">Смотреть каталог</a>
-        <a href="#promo" class="btn btn--ghost">Акции &amp; Скидки</a>
+        <a href="#contacts" class="btn btn--ghost">Связаться с нами</a>
       </div>
     </div>
     <div class="hero__img-wrap">
       <div class="hero__glow"></div>
-      <img src="https://i.imgur.com/w0IfPF2.png" alt="Xiaomi Phone" class="hero__img" onerror="this.src='https://via.placeholder.com/400x400/1a1a1a/ff6900?text=Xiaomi'"/>
+      <div class="hero__logo-big">
+        <span class="logo__mi">Mi</span><span class="logo__texno">Texno</span>
+      </div>
     </div>
-  </div>
-  <div class="hero__scroll">
-    <span></span>
   </div>
 </section>
 
-<!-- ========== STATS ========== -->
+<!-- STATS -->
 <section class="stats">
   <div class="container stats__grid">
     <div class="stat-card"><span class="stat__num" data-target="500">0</span><span class="stat__plus">+</span><p>Товаров</p></div>
@@ -67,49 +69,20 @@
   </div>
 </section>
 
-<!-- ========== CATEGORIES ========== -->
+<!-- CATEGORIES -->
 <section class="categories" id="catalog">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">Каталог</h2>
-      <p class="section-sub">Весь ассортимент Xiaomi в одном месте</p>
+      <p class="section-sub">Весь ассортимент в одном месте</p>
     </div>
-    <div class="cat-grid">
-      <div class="cat-card" onclick="filterCatalog('phones')">
-        <div class="cat-card__icon">📱</div>
-        <h3>Смартфоны</h3>
-        <span class="cat-card__count" id="count-phones">—</span>
-      </div>
-      <div class="cat-card" onclick="filterCatalog('tablets')">
-        <div class="cat-card__icon">💻</div>
-        <h3>Планшеты</h3>
-        <span class="cat-card__count" id="count-tablets">—</span>
-      </div>
-      <div class="cat-card" onclick="filterCatalog('wearables')">
-        <div class="cat-card__icon">⌚</div>
-        <h3>Носимые</h3>
-        <span class="cat-card__count" id="count-wearables">—</span>
-      </div>
-      <div class="cat-card" onclick="filterCatalog('audio')">
-        <div class="cat-card__icon">🎧</div>
-        <h3>Аудио</h3>
-        <span class="cat-card__count" id="count-audio">—</span>
-      </div>
-      <div class="cat-card" onclick="filterCatalog('smarthome')">
-        <div class="cat-card__icon">🏠</div>
-        <h3>Умный дом</h3>
-        <span class="cat-card__count" id="count-smarthome">—</span>
-      </div>
-      <div class="cat-card" onclick="filterCatalog('accessories')">
-        <div class="cat-card__icon">🔌</div>
-        <h3>Аксессуары</h3>
-        <span class="cat-card__count" id="count-accessories">—</span>
-      </div>
+    <div class="cat-grid" id="catGrid">
+      <!-- Заполняется из JS -->
     </div>
   </div>
 </section>
 
-<!-- ========== CATALOG / PRODUCTS ========== -->
+<!-- PRODUCTS -->
 <section class="products-section">
   <div class="container">
     <div class="products-toolbar">
@@ -123,7 +96,7 @@
     </div>
     <div class="loading-bar" id="loadingBar">
       <div class="loading-bar__inner"></div>
-      <p>Загружаем каталог из Google Таблицы...</p>
+      <p>Загружаем каталог...</p>
     </div>
     <div class="products-grid" id="productsGrid"></div>
     <div class="products-empty" id="productsEmpty" style="display:none">
@@ -132,7 +105,7 @@
   </div>
 </section>
 
-<!-- ========== PROMO ========== -->
+<!-- PROMO -->
 <section class="promo-section" id="promo">
   <div class="container">
     <div class="section-head">
@@ -140,39 +113,40 @@
     </div>
     <div class="promo-grid">
       <div class="promo-card promo-card--big">
-        <div class="promo-card__badge">-20%</div>
-        <h3>Недели смартфонов</h3>
-        <p>Скидки на все модели Xiaomi 14 и 15 серии</p>
-        <a href="#catalog" class="btn btn--primary" onclick="filterCatalog('phones')">Смотреть</a>
+        <div class="promo-card__badge">Сезонная распродажа</div>
+        <h3>Кондиционеры со скидкой</h3>
+        <p>Успей купить до конца месяца — скидки до 20% на весь ассортимент кондиционеров</p>
+        <a href="#catalog" class="btn btn--primary" onclick="filterCatalog('climate')">Смотреть</a>
       </div>
       <div class="promo-card">
         <div class="promo-card__badge">Хит</div>
-        <h3>Умный дом</h3>
-        <p>Комплекты со скидкой до 15%</p>
-        <a href="#catalog" class="btn btn--ghost" onclick="filterCatalog('smarthome')">Подробнее</a>
+        <h3>Умная техника</h3>
+        <p>Пылесосы, очистители воздуха и гаджеты для дома</p>
+        <a href="#catalog" class="btn btn--ghost" onclick="filterCatalog('gadgets')">Подробнее</a>
       </div>
       <div class="promo-card">
         <div class="promo-card__badge">Новинки</div>
-        <h3>Redmi Watch 5</h3>
-        <p>Только появились — уже со скидкой</p>
-        <a href="#catalog" class="btn btn--ghost" onclick="filterCatalog('wearables')">Подробнее</a>
+        <h3>Телевизоры 4K</h3>
+        <p>Большой выбор телевизоров с лучшим соотношением цена/качество</p>
+        <a href="#catalog" class="btn btn--ghost" onclick="filterCatalog('tv')">Подробнее</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== ABOUT ========== -->
+<!-- ABOUT -->
 <section class="about-section" id="about">
   <div class="container about__inner">
     <div class="about__text">
       <h2 class="section-title">О магазине</h2>
-      <p>Mi Texno — это официальный магазин электроники Xiaomi с широким ассортиментом смартфонов, планшетов, умной техники и аксессуаров.</p>
-      <p>Мы работаем с 2019 года и предлагаем только оригинальную технику с гарантией, быструю доставку и честный сервис.</p>
+      <p>Mi Texno — магазин электроники с широким ассортиментом техники Xiaomi и других ведущих брендов. Кондиционеры, телевизоры, холодильники, стиральные машины, гаджеты и многое другое.</p>
+      <p>Работаем с 2019 года. Только оригинальная техника, честные цены и профессиональная консультация.</p>
       <ul class="about__list">
         <li>✅ Оригинальная техника с гарантией</li>
-        <li>✅ Быстрая доставка по всей стране</li>
-        <li>✅ Обмен и возврат в течение 14 дней</li>
+        <li>✅ Доставка и установка</li>
+        <li>✅ Обмен и возврат 14 дней</li>
         <li>✅ Консультация перед покупкой</li>
+        <li>✅ Сервисное обслуживание</li>
       </ul>
     </div>
     <div class="about__visual">
@@ -181,12 +155,18 @@
           <span class="logo__mi">Mi</span><span class="logo__texno">Texno</span>
         </div>
         <p>Твой мир технологий</p>
+        <div class="about__badges">
+          <span>❄️ Климат</span>
+          <span>📺 ТВ</span>
+          <span>📱 Гаджеты</span>
+          <span>🏠 Дом</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== CONTACTS ========== -->
+<!-- CONTACTS -->
 <section class="contacts-section" id="contacts">
   <div class="container">
     <div class="section-head">
@@ -196,7 +176,7 @@
       <div class="contact-card">
         <span class="contact-icon">📍</span>
         <h4>Адрес</h4>
-        <p>ул. Ваша улица, 1<br/>Ваш город</p>
+        <p>Ваш адрес<br/>Ваш город</p>
       </div>
       <div class="contact-card">
         <span class="contact-icon">📞</span>
@@ -204,9 +184,9 @@
         <p><a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
       </div>
       <div class="contact-card">
-        <span class="contact-icon">📧</span>
-        <h4>Email</h4>
-        <p><a href="mailto:info@mitexno.ru">info@mitexno.ru</a></p>
+        <span class="contact-icon">💬</span>
+        <h4>Telegram</h4>
+        <p><a href="https://t.me/mitexno" target="_blank">@mitexno</a></p>
       </div>
       <div class="contact-card">
         <span class="contact-icon">🕐</span>
@@ -217,7 +197,7 @@
   </div>
 </section>
 
-<!-- ========== CART SIDEBAR ========== -->
+<!-- CART SIDEBAR -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <aside class="cart-sidebar" id="cartSidebar">
   <div class="cart-sidebar__head">
@@ -225,7 +205,7 @@
     <button onclick="toggleCart()">✕</button>
   </div>
   <div class="cart-sidebar__items" id="cartItems">
-    <p class="cart-empty">Корзина пуста</p>
+    <p class="cart-empty">🛒 Корзина пуста</p>
   </div>
   <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
     <div class="cart-total">Итого: <strong id="cartTotal">0 ₽</strong></div>
@@ -233,20 +213,20 @@
   </div>
 </aside>
 
-<!-- ========== FOOTER ========== -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="container footer__inner">
     <a href="index.html" class="logo">
       <span class="logo__mi">Mi</span><span class="logo__texno">Texno</span>
     </a>
-    <p class="footer__copy">© 2024 Mi Texno. Все права защищены.</p>
+    <p class="footer__copy">© 2025 Mi Texno. Все права защищены.</p>
     <div class="footer__links">
-      <a href="#">Политика конфиденциальности</a>
       <a href="#contacts">Контакты</a>
+      <a href="#about">О магазине</a>
     </div>
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
