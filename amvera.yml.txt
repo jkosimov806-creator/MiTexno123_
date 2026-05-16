@@ -8,3 +8,9 @@ build:
 run:
   command: node server.js
   persistenceMount: ""
+runtime: static
+version: 1
+
+deploy:
+  static:
+    root: .
