@@ -11,7 +11,6 @@
 </head>
 <body>
 
-    <!-- ==================== HEADER ==================== -->
     <header class="header" id="header">
         <div class="container header__inner">
             <a href="#" class="logo">
@@ -25,15 +24,14 @@
                     <li><a href="#contact" class="nav__link">Контакты</a></li>
                 </ul>
             </nav>
-            <button class="burger" id="burger" aria-label="Открыть меню">
+            <button class="burger" id="burger" aria-label="Меню">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </header>
 
-    <!-- ==================== HERO ==================== -->
     <section class="hero" id="hero">
-        <div class="hero__parallax" aria-hidden="true">
+        <div class="hero__parallax">
             <div class="parallax-circle parallax-circle--1"></div>
             <div class="parallax-circle parallax-circle--2"></div>
             <div class="parallax-circle parallax-circle--3"></div>
@@ -44,7 +42,7 @@
                     Техника Xiaomi<br>с <span class="gradient-text">официальной</span> гарантией
                 </h1>
                 <p class="hero__subtitle reveal">
-                    Смартфоны, носимые устройства, аудио и техника для умного дома — напрямую от бренда.
+                    Смартфоны, носимые устройства, аудио и умный дом — напрямую от бренда.
                 </p>
                 <div class="hero__actions reveal">
                     <a href="#catalog" class="btn btn--primary">
@@ -57,20 +55,15 @@
             <div class="hero__visual reveal">
                 <div class="hero__device">
                     <div class="device-screen"></div>
-                    <div class="device-camera"></div>
-                    <div class="device-button"></div>
                 </div>
             </div>
         </div>
         <div class="scroll-indicator">
             <span>Листайте</span>
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
+            <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
         </div>
     </section>
 
-    <!-- ==================== КАТАЛОГ ==================== -->
     <section class="section catalog" id="catalog">
         <div class="container">
             <div class="section__header reveal">
@@ -78,16 +71,15 @@
                 <h2 class="section__title">Популярные <span class="gradient-text">модели</span></h2>
             </div>
             <div class="catalog__grid">
-                <!-- Товар 1 -->
+                <!-- Карточки товаров (повторяются) -->
                 <article class="product-card reveal">
                     <div class="product-card__image">
                         <div class="device-icon device-icon--phone">
                             <span class="device-icon__screen"></span>
-                            <span class="device-icon__camera"></span>
                         </div>
                     </div>
                     <div class="product-card__body">
-                        <h3 class="product-card__title">Xiaomi 14</h3>
+                        <h3>Xiaomi 14</h3>
                         <p class="product-card__spec">8/256 ГБ, Snapdragon 8 Gen 3</p>
                         <div class="product-card__footer">
                             <span class="product-card__price">89 990 ₽</span>
@@ -95,8 +87,6 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Товар 2 -->
                 <article class="product-card reveal">
                     <div class="product-card__image">
                         <div class="device-icon device-icon--buds">
@@ -106,7 +96,7 @@
                         </div>
                     </div>
                     <div class="product-card__body">
-                        <h3 class="product-card__title">Redmi Buds 5 Pro</h3>
+                        <h3>Redmi Buds 5 Pro</h3>
                         <p class="product-card__spec">Активное шумоподавление, LDAC</p>
                         <div class="product-card__footer">
                             <span class="product-card__price">7 990 ₽</span>
@@ -114,8 +104,6 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Товар 3 -->
                 <article class="product-card reveal">
                     <div class="product-card__image">
                         <div class="device-icon device-icon--band">
@@ -124,7 +112,7 @@
                         </div>
                     </div>
                     <div class="product-card__body">
-                        <h3 class="product-card__title">Mi Band 8 Pro</h3>
+                        <h3>Mi Band 8 Pro</h3>
                         <p class="product-card__spec">AMOLED, GPS, SpO2, Always-On</p>
                         <div class="product-card__footer">
                             <span class="product-card__price">6 990 ₽</span>
@@ -132,8 +120,6 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Товар 4 -->
                 <article class="product-card reveal">
                     <div class="product-card__image">
                         <div class="device-icon device-icon--vacuum">
@@ -142,7 +128,7 @@
                         </div>
                     </div>
                     <div class="product-card__body">
-                        <h3 class="product-card__title">Xiaomi Robot Vacuum X20+</h3>
+                        <h3>Robot Vacuum X20+</h3>
                         <p class="product-card__spec">LiDAR, влажная уборка, 5000 Па</p>
                         <div class="product-card__footer">
                             <span class="product-card__price">49 990 ₽</span>
@@ -154,7 +140,6 @@
         </div>
     </section>
 
-    <!-- ==================== ПОЧЕМУ МЫ ==================== -->
     <section class="section why" id="why">
         <div class="container">
             <div class="section__header reveal">
@@ -181,12 +166,11 @@
         </div>
     </section>
 
-    <!-- ==================== КОНТАКТЫ / ФУТЕР ==================== -->
-    <footer class="footer section" id="contact">
+    <footer class="footer" id="contact">
         <div class="container footer__grid">
             <div class="footer__brand">
                 <a href="#" class="logo logo--footer">Mi <span class="logo__accent">Техно</span></a>
-                <p>Официальный партнёр Xiaomi в России. Продаём технику, в которую верим сами.</p>
+                <p>Официальный партнёр Xiaomi. Продаём технику, в которую верим сами.</p>
             </div>
             <div class="footer__nav">
                 <h4>Каталог</h4>
@@ -209,11 +193,11 @@
                 <h4>Связаться</h4>
                 <a href="tel:+78000000000" class="footer__phone">8 (800) 000-00-00</a>
                 <a href="mailto:hello@mi-techno.ru" class="footer__email">hello@mi-techno.ru</a>
-                <p class="footer__address">Москва, ул. Техническая, 12</p>
+                <p>Москва, ул. Техническая, 12</p>
             </div>
         </div>
         <div class="container footer__bottom">
-            <p>© 2026 Mi Техно. Все права защищены. Не является публичной офертой.</p>
+            <p>© 2026 Mi Техно</p>
         </div>
     </footer>
 
