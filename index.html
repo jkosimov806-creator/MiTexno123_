@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Техно — официальный магазин техники Xiaomi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="header" id="header">
+        <div class="container header__inner">
+            <a href="#" class="logo">
+                Mi <span class="logo__accent">Техно</span>
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav__list">
+                    <li><a href="#hero" class="nav__link">Главная</a></li>
+                    <li><a href="#catalog" class="nav__link">Каталог</a></li>
+                    <li><a href="#why" class="nav__link">Почему мы</a></li>
+                    <li><a href="#contact" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+            <button class="burger" id="burger" aria-label="Открыть меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="hero">
+        <div class="hero__parallax" aria-hidden="true">
+            <div class="parallax-circle parallax-circle--1"></div>
+            <div class="parallax-circle parallax-circle--2"></div>
+            <div class="parallax-circle parallax-circle--3"></div>
+        </div>
+        <div class="container hero__container">
+            <div class="hero__content">
+                <h1 class="hero__title reveal">
+                    Техника Xiaomi<br>с <span class="gradient-text">официальной</span> гарантией
+                </h1>
+                <p class="hero__subtitle reveal">
+                    Смартфоны, носимые устройства, аудио и техника для умного дома — напрямую от бренда.
+                </p>
+                <div class="hero__actions reveal">
+                    <a href="#catalog" class="btn btn--primary">
+                        Смотреть каталог
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="#why" class="btn btn--ghost">Узнать больше</a>
+                </div>
+            </div>
+            <div class="hero__visual reveal">
+                <div class="hero__device">
+                    <div class="device-screen"></div>
+                    <div class="device-camera"></div>
+                    <div class="device-button"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Листайте</span>
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== КАТАЛОГ ==================== -->
+    <section class="section catalog" id="catalog">
+        <div class="container">
+            <div class="section__header reveal">
+                <p class="section__tag">Хиты продаж</p>
+                <h2 class="section__title">Популярные <span class="gradient-text">модели</span></h2>
+            </div>
+            <div class="catalog__grid">
+                <!-- Товар 1 -->
+                <article class="product-card reveal">
+                    <div class="product-card__image">
+                        <div class="device-icon device-icon--phone">
+                            <span class="device-icon__screen"></span>
+                            <span class="device-icon__camera"></span>
+                        </div>
+                    </div>
+                    <div class="product-card__body">
+                        <h3 class="product-card__title">Xiaomi 14</h3>
+                        <p class="product-card__spec">8/256 ГБ, Snapdragon 8 Gen 3</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">89 990 ₽</span>
+                            <button class="btn btn--small btn--primary">В корзину</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Товар 2 -->
+                <article class="product-card reveal">
+                    <div class="product-card__image">
+                        <div class="device-icon device-icon--buds">
+                            <span class="device-icon__bud"></span>
+                            <span class="device-icon__bud"></span>
+                            <span class="device-icon__case"></span>
+                        </div>
+                    </div>
+                    <div class="product-card__body">
+                        <h3 class="product-card__title">Redmi Buds 5 Pro</h3>
+                        <p class="product-card__spec">Активное шумоподавление, LDAC</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">7 990 ₽</span>
+                            <button class="btn btn--small btn--primary">В корзину</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Товар 3 -->
+                <article class="product-card reveal">
+                    <div class="product-card__image">
+                        <div class="device-icon device-icon--band">
+                            <span class="device-icon__strap"></span>
+                            <span class="device-icon__display"></span>
+                        </div>
+                    </div>
+                    <div class="product-card__body">
+                        <h3 class="product-card__title">Mi Band 8 Pro</h3>
+                        <p class="product-card__spec">AMOLED, GPS, SpO2, Always-On</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">6 990 ₽</span>
+                            <button class="btn btn--small btn--primary">В корзину</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Товар 4 -->
+                <article class="product-card reveal">
+                    <div class="product-card__image">
+                        <div class="device-icon device-icon--vacuum">
+                            <span class="device-icon__body"></span>
+                            <span class="device-icon__lidar"></span>
+                        </div>
+                    </div>
+                    <div class="product-card__body">
+                        <h3 class="product-card__title">Xiaomi Robot Vacuum X20+</h3>
+                        <p class="product-card__spec">LiDAR, влажная уборка, 5000 Па</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">49 990 ₽</span>
+                            <button class="btn btn--small btn--primary">В корзину</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ПОЧЕМУ МЫ ==================== -->
+    <section class="section why" id="why">
+        <div class="container">
+            <div class="section__header reveal">
+                <p class="section__tag">Преимущества</p>
+                <h2 class="section__title">Почему выбирают <span class="gradient-text">Mi Техно</span></h2>
+            </div>
+            <div class="why__grid">
+                <div class="why-card reveal">
+                    <div class="why-card__icon">📦</div>
+                    <h3>Официальная гарантия</h3>
+                    <p>Все товары сертифицированы, поддержка 1 год. Обмен и возврат без проблем.</p>
+                </div>
+                <div class="why-card reveal">
+                    <div class="why-card__icon">🚚</div>
+                    <h3>Доставка от 1 дня</h3>
+                    <p>По всей стране. Заказ до двери, более 500 пунктов выдачи.</p>
+                </div>
+                <div class="why-card reveal">
+                    <div class="why-card__icon">💬</div>
+                    <h3>Поддержка 24/7</h3>
+                    <p>Чат, звонок или email — поможем с выбором и настройкой устройства.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== КОНТАКТЫ / ФУТЕР ==================== -->
+    <footer class="footer section" id="contact">
+        <div class="container footer__grid">
+            <div class="footer__brand">
+                <a href="#" class="logo logo--footer">Mi <span class="logo__accent">Техно</span></a>
+                <p>Официальный партнёр Xiaomi в России. Продаём технику, в которую верим сами.</p>
+            </div>
+            <div class="footer__nav">
+                <h4>Каталог</h4>
+                <ul>
+                    <li><a href="#">Смартфоны</a></li>
+                    <li><a href="#">Наушники и аудио</a></li>
+                    <li><a href="#">Носимые устройства</a></li>
+                    <li><a href="#">Умный дом</a></li>
+                </ul>
+            </div>
+            <div class="footer__nav">
+                <h4>Клиентам</h4>
+                <ul>
+                    <li><a href="#">Доставка и оплата</a></li>
+                    <li><a href="#">Гарантия и возврат</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer__contact">
+                <h4>Связаться</h4>
+                <a href="tel:+78000000000" class="footer__phone">8 (800) 000-00-00</a>
+                <a href="mailto:hello@mi-techno.ru" class="footer__email">hello@mi-techno.ru</a>
+                <p class="footer__address">Москва, ул. Техническая, 12</p>
+            </div>
+        </div>
+        <div class="container footer__bottom">
+            <p>© 2026 Mi Техно. Все права защищены. Не является публичной офертой.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
