@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Мой первый сайт</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Техно — Интернет-магазин</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Привет, мир!</h1>
+
+    <!-- Шапка сайта с фирменным логотипом -->
+    <header>
+        <div class="logo-container">
+            <div class="mi-badge">mi</div>
+            <div class="techno-text">Техно</div>
+        </div>
+        <div class="cart">🛒 Корзина: <span id="cart-count">0</span> шт.</div>
+    </header>
+
+    <!-- Витрина товаров -->
+    <main class="products">
+        <div class="product-card">
+            <h3>Смартфон Xiaomi 14</h3>
+            <p>Цена: 75 000 руб.</p>
+            <button onclick="addToCart()">Купить</button>
+        </div>
+
+        <div class="product-card">
+            <h3>Беспроводные наушники</h3>
+            <p>Цена: 3 500 руб.</p>
+            <button onclick="addToCart()">Купить</button>
+        </div>
+
+        <div class="product-card">
+            <h3>Умные часы</h3>
+            <p>Цена: 6 000 руб.</p>
+            <button onclick="addToCart()">Купить</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
-
