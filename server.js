@@ -10,19 +10,26 @@ const SPREADSHEET_ID = '1DZ8GE-1psAyCCpaPwn5ISuCjg6eSL6RHL547GUpolow';
 let doc;
 
 try {
-    // Достаем JSON-ключ, который сохранен на борту Amvera
-    const credentials = JSON.parse(process.env.GOOGLE_JSON_KEY);
+    // 🆕 Читаем переменную с ПРАВИЛЬНЫМ именем, в котором лежит Base64 строка
+    const base64Data = process.env.GOOGLE_JSON_KEY_BASE64;
+    
+    if (!base64Data) {
+        throw new Error('Переменная GOOGLE_JSON_KEY_BASE64 не найдена в Amvera!');
+    }
+
+    // Декодируем Base64 обратно в понятный для Node.js текст JSON
+    const decodedText = Buffer.from(base64Data, 'base64').toString('utf8');
+    const credentials = JSON.parse(decodedText);
 
     const serviceAccountAuth = new JWT({
         email: credentials.client_email,
-        // ЖЕЛЕЗОБЕТОННЫЙ ФИКС: принудительно превращаем текстовые \n в реальные переносы строк для OpenSSL
-        key: credentials.private_key.replace(/\\n/g, '\n'), 
+        key: credentials.private_key.replace(/\\n/g, '\n'), // Железобетонный фикс OpenSSL
         scopes: ['https://googleapis.com'],
     });
     doc = new GoogleSpreadsheet(SPREADSHEET_ID, serviceAccountAuth);
-    console.log('✅ Авторизация в Google успешно настроена!');
+    console.log('✅ Авторизация в Google успешно настроена через Base64!');
 } catch (err) {
-    console.error('❌ Ошибка чтения переменной GOOGLE_JSON_KEY из Amvera:', err.message);
+    console.error('❌ Ошибка инициализации Google Ключа:', err.message);
 }
 
 const MY_CATEGORIES = [
@@ -48,7 +55,6 @@ async function getProductsFromSheet() {
             const sheet = doc.sheetsByTitle[sheetName];
             if (!sheet) continue;
             
-            // Загружаем ячейки: Столбец А (0) и Столбец С (2)
             await sheet.loadCells('A1:D100');
             
             for (let rowIndex = 2; rowIndex < 100; rowIndex++) {
@@ -58,7 +64,7 @@ async function getProductsFromSheet() {
                 const nameValue = nameCell.value;
                 const priceValue = priceCell.value;
                 
-                if (!nameValue) break; // Завершаем лист, если пошли пустые строки
+                if (!nameValue) break; 
                 
                 allProducts.push({
                     name: nameValue.toString().trim(),
@@ -76,7 +82,6 @@ async function getProductsFromSheet() {
 }
 
 const server = http.createServer(async (req, res) => {
-    // Включаем CORS-заголовки, чтобы браузер не блокировал запросы к API
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -102,7 +107,7 @@ const server = http.createServer(async (req, res) => {
                 const data = JSON.parse(body);
                 if (!doc) throw new Error('Google Скрипт не инициализирован');
                 await doc.loadInfo();
-                const orderSheet = doc.sheetsByIndex[0]; // Заказы будут падать на самый первый лист
+                const orderSheet = doc.sheetsByIndex[0]; // Заказы падают на самую первую вкладку
                 await orderSheet.addRow({
                     'ID': Math.floor(Math.random() * 10000),
                     'Товар': data.name,
@@ -119,7 +124,6 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-    // Раздача файлов сайта (индекс, стили, скрипты)
     let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
     let extname = path.extname(filePath);
     let contentType = 'text/html';
