@@ -1,6 +1,0 @@
-runtime: static
-version: 1
-
-deploy:
-  static:
-    root: .
