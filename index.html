@@ -3,36 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Техно — Каталог товаров</title>
+    <title>Mi Техно — Фирменный интернет-магазин</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Шапка сайта с фирменным логотипом и меню -->
+    <!-- Шапка сайта -->
     <header>
-        <div class="header-left">
-            <div class="logo-container">
-                <div class="mi-badge">mi</div>
-                <div class="techno-text">Техно</div>
-            </div>
-            <!-- Навигация (Меню) -->
-            <nav class="nav-menu">
-                <a href="#" class="nav-item active">Каталог</a>
-            </nav>
+        <div class="logo-container">
+            <div class="mi-badge">mi</div>
+            <div class="techno-text">Техно</div>
         </div>
-        <div class="cart">🛒 Корзина: <span id="cart-count">0</span> шт.</div>
+        <button class="cart-btn" onclick="toggleCartModal()">
+            🛒 Корзина <span id="cart-count">0</span>
+        </button>
     </header>
 
-    <!-- Основной контент страницы -->
-    <main class="catalog-container">
-        <h2 class="section-title">📦 Каталог товаров</h2>
-        
-        <!-- Сетка, куда JS будет загружать товары из Google Таблицы -->
-        <div class="products">
-            <!-- Сюда script.js подставит карточки -->
-            <p class="loading-text">Загрузка каталога...</p>
+    <!-- Основной контент -->
+    <div class="main-layout">
+        <!-- Левое меню: Категории -->
+        <aside class="sidebar">
+            <h3>Категории</h3>
+            <ul id="categories-menu">
+                <li class="category-item active" onclick="filterCategory('all')">Все товары</li>
+                <!-- Остальные категории добавятся через JS -->
+            </ul>
+        </aside>
+
+        <!-- Витрина товаров -->
+        <main class="content-area">
+            <h2 id="catalog-title">📦 Все товары</h2>
+            <div class="products" id="products-grid">
+                <p class="loading-text">Синхронизация с Google Таблицами...</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно корзины -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Ваш заказ</h3>
+                <span class="close-btn" onclick="toggleCartModal()">&times;</span>
+            </div>
+            <div class="cart-items" id="cartItemsList">
+                <p class="empty-cart-text">В корзине пока пусто</p>
+            </div>
+            <div class="cart-footer">
+                <div class="total-price">Итого: <span id="total-sum">0</span> руб.</div>
+                <button class="checkout-btn" onclick="sendOrder()">Оформить заказ</button>
+            </div>
         </div>
-    </main>
+    </div>
 
     <script src="script.js"></script>
 </body>
