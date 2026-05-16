@@ -1,11 +1,12 @@
 meta:
-  environment: static
+  environment: nodejs
   toolchain:
-    name: nginx
-    version: "1.25"
+    name: node
+    version: "20"
 
 build:
-  index: index.html
+  installDependencies: false
 
 run:
+  command: node server.js
   persistenceMount: ""
