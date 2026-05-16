@@ -1,32 +1,13 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-
 const PORT = process.env.PORT || 3000;
-
-const mime = {
-  '.html': 'text/html',
-  '.css':  'text/css',
-  '.js':   'application/javascript',
-  '.png':  'image/png',
-  '.jpg':  'image/jpeg',
-  '.ico':  'image/x-icon',
-};
-
+const mime = {'.html':'text/html','.css':'text/css','.js':'application/javascript'};
 http.createServer((req, res) => {
-  let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
-  const ext = path.extname(filePath);
-  const type = mime[ext] || 'text/plain';
-
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      fs.readFile(path.join(__dirname, 'index.html'), (e, d) => {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(d);
-      });
-      return;
-    }
-    res.writeHead(200, {'Content-Type': type});
+  let file = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
+  fs.readFile(file, (err, data) => {
+    if (err) { fs.readFile(path.join(__dirname,'index.html'),(_,d)=>{ res.writeHead(200,{'Content-Type':'text/html'}); res.end(d); }); return; }
+    res.writeHead(200,{'Content-Type': mime[path.extname(file)]||'text/plain'});
     res.end(data);
   });
-}).listen(PORT, () => console.log('Mi Texno running on port ' + PORT));
+}).listen(PORT, ()=>console.log('OK port '+PORT));
