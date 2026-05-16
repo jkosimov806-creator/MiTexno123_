@@ -1,0 +1,97 @@
+/* Общие настройки для всего сайта */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f5f5f5; /* Светло-серый фон сайта */
+}
+
+/* Шапка сайта в стиле Xiaomi */
+header {
+    background-color: #ff6700; /* Фирменный оранжевый цвет MI */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Фирменный логотип в шапке */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Расстояние между оранжевым знаком и текстом */
+}
+
+/* Значок MI (Оранжевый квадрат с белым текстом) */
+.mi-badge {
+    background-color: #ff6700;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 5px 12px;
+    border: 2px solid white;
+    border-radius: 4px;
+    letter-spacing: -1px;
+}
+
+/* Текст "Техно" на белом фоне */
+.techno-text {
+    background-color: white;
+    color: #333; /* Темный цвет текста */
+    padding: 6px 15px;
+    border-radius: 4px;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Блок корзины */
+.cart {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+/* Сетка для карточек товаров */
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px;
+    justify-content: center;
+}
+
+/* Красивая карточка товара */
+.product-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Кнопка купить в стиле MI */
+.product-card button {
+    background-color: #ff6700;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+
+.product-card button:hover {
+    background-color: #e05a00;
+}
