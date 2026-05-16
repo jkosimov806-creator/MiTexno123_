@@ -1,8 +1,11 @@
 meta:
-  environment: node
+  environment: static
   toolchain:
-    name: npm
-    version: 20
+    name: nginx
+    version: "1.25"
+
+build:
+  index: index.html
 
 run:
-  scriptName: server.js
+  persistenceMount: ""
