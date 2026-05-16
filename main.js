@@ -4,29 +4,33 @@
    ============================================= */
 
 // ============================================================
-//  НАСТРОЙКИ — ЗАМЕНИТЕ НА СВОИ ДАННЫЕ
+//  НАСТРОЙКИ — GOOGLE ТАБЛИЦА Mi Texno
 // ============================================================
-const CONFIG = {
-  // 1. Откройте вашу Google Таблицу
-  // 2. Файл → Опубликовать в Интернете → CSV → Скопируйте ссылку
-  // Пример ссылки:
-  // https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pub?output=csv
-  SHEET_URL: 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pub?output=csv',
+const API_URL = 'https://script.google.com/macros/s/AKfycbzbu6V02zkph363958bJx7UPYw5fVQ7Vi7pKWMY6AMokV24a-HHw6AF6N2mjjl57IGJ/exec';
 
-  // Если используете Google Sheets JSON API (gviz):
-  // https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/gviz/tq?tqx=out:csv
-};
+// Листы таблицы и их соответствие категориям сайта
+// gid — номер листа (0 = первый лист, остальные смотри в URL при открытии листа)
+const SHEETS = [
+  { gid: '0',          name: 'Кондиционеры и обогреватели', category: 'climate',   icon: '❄️' },
+  { gid: '1928893186', name: 'Телевизоры',                  category: 'tv',        icon: '📺' },
+  { gid: '889425737',  name: 'Стиральная машина',           category: 'washing',   icon: '🫧' },
+  { gid: '1259960612', name: 'Холодильник',                 category: 'fridge',    icon: '🧊' },
+  { gid: '1654071551', name: 'Очистители, увлажнители',     category: 'air',       icon: '💨' },
+  { gid: '2108699428', name: 'Всё для дома',                category: 'home',      icon: '🏠' },
+  { gid: '547820568',  name: 'Пылесос и фен',               category: 'vacuum',    icon: '🌀' },
+  { gid: '2016948510', name: 'Гаджеты',                     category: 'gadgets',   icon: '📱' },
+  { gid: '1744526773', name: 'Мониторы и дисплеи',          category: 'monitors',  icon: '🖥️' },
+  { gid: '963855809',  name: 'Камеры',                      category: 'cameras',   icon: '📷' },
+];
 
 // ============================================================
-//  СТРУКТУРА ТАБЛИЦЫ (порядок колонок):
-//  A: id        — уникальный номер товара
-//  B: name      — название товара
-//  C: category  — категория (phones, tablets, wearables, audio, smarthome, accessories)
-//  D: price     — цена в рублях (только цифры)
-//  E: old_price — старая цена (если есть скидка, иначе пусто)
-//  F: image     — прямая ссылка на фото товара
-//  G: desc      — краткое описание
-//  H: instock   — наличие (1 = есть, 0 = нет)
+//  СТРУКТУРА ТВОЕЙ ТАБЛИЦЫ:
+//  Строка 1: название категории (заголовок листа)
+//  Строка 2: наименование | количество | цена | старая_цена | фото | описание
+//  Строки 3+: данные товаров
+//
+//  Колонки A и B уже есть (наименование, количество).
+//  Добавь C=цена, D=старая_цена, E=фото, F=описание — опционально.
 // ============================================================
 
 // ============================================================
@@ -42,7 +46,8 @@ let currentCategory = '';
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
-  loadProducts();
+  buildCategoryUI();
+  loadAllSheets();
   updateCartUI();
   animateStats();
 });
@@ -64,7 +69,6 @@ function toggleMenu() {
   burger.classList.toggle('active');
 }
 
-// Закрыть меню при клике на ссылку
 document.querySelectorAll('.nav__link').forEach(link => {
   link.addEventListener('click', () => {
     document.getElementById('nav').classList.remove('open');
@@ -73,83 +77,119 @@ document.querySelectorAll('.nav__link').forEach(link => {
 });
 
 // ============================================================
-//  ЗАГРУЗКА ТОВАРОВ ИЗ GOOGLE SHEETS
+//  СТРОИМ КАТЕГОРИИ ИЗ SHEETS[]
 // ============================================================
-async function loadProducts() {
-  const grid = document.getElementById('productsGrid');
-  const loading = document.getElementById('loadingBar');
-
-  // Если ссылка не настроена — покажем демо-товары
-  if (CONFIG.SHEET_URL.includes('YOUR_SHEET_ID')) {
-    console.warn('⚠️ Google Sheets не подключён. Используются демо-товары.');
-    loading.style.display = 'none';
-    allProducts = getDemoProducts();
-    filteredProducts = [...allProducts];
-    renderProducts(filteredProducts);
-    updateCategoryCounts();
-    return;
-  }
-
-  try {
-    const res = await fetch(CONFIG.SHEET_URL);
-    if (!res.ok) throw new Error('Ошибка загрузки');
-    const csv = await res.text();
-    allProducts = parseCSV(csv);
-    filteredProducts = [...allProducts];
-    loading.style.display = 'none';
-    renderProducts(filteredProducts);
-    updateCategoryCounts();
-  } catch (err) {
-    console.error('Ошибка загрузки таблицы:', err);
-    loading.innerHTML = `<p style="color:#ef4444">⚠️ Не удалось загрузить каталог. Проверьте настройки Google Sheets.</p>`;
-    // Fallback на демо
-    setTimeout(() => {
-      loading.style.display = 'none';
-      allProducts = getDemoProducts();
-      filteredProducts = [...allProducts];
-      renderProducts(filteredProducts);
-      updateCategoryCounts();
-    }, 2000);
-  }
+function buildCategoryUI() {
+  const grid = document.querySelector('.cat-grid');
+  if (!grid) return;
+  grid.innerHTML = SHEETS.map(s => `
+    <div class="cat-card" onclick="filterCatalog('${s.category}')">
+      <div class="cat-card__icon">${s.icon}</div>
+      <h3>${s.name}</h3>
+      <span class="cat-card__count" id="count-${s.category}">—</span>
+    </div>
+  `).join('');
 }
 
 // ============================================================
-//  ПАРСИНГ CSV
+//  ЗАГРУЗКА ДАННЫХ ЧЕРЕЗ APPS SCRIPT API
 // ============================================================
-function parseCSV(csv) {
-  const lines = csv.trim().split('\n');
-  const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim().toLowerCase());
-  const products = [];
+async function loadAllSheets() {
+  const loading = document.getElementById('loadingBar');
+  loading.style.display = 'block';
 
-  for (let i = 1; i < lines.length; i++) {
-    const values = splitCSVLine(lines[i]);
-    if (values.length < 2) continue;
-    const obj = {};
-    headers.forEach((h, idx) => {
-      obj[h] = (values[idx] || '').replace(/"/g, '').trim();
+  try {
+    const res = await fetch(API_URL);
+    if (!res.ok) throw new Error('Ошибка сети');
+    const json = await res.json();
+
+    allProducts = [];
+
+    // json — объект вида { "Название листа": [[строка1], [строка2], ...] }
+    Object.entries(json).forEach(([sheetName, rows]) => {
+      const sheet = SHEETS.find(s => s.name === sheetName);
+      if (!sheet) return; // пропускаем неизвестные листы
+      const products = parseRowsToProducts(rows, sheet.category, sheetName);
+      allProducts.push(...products);
     });
-    // Пропускаем пустые строки
-    if (!obj.name) continue;
-    products.push({
-      id: obj.id || String(i),
-      name: obj.name || 'Товар',
-      category: obj.category || 'accessories',
-      price: parseInt(obj.price) || 0,
-      old_price: parseInt(obj.old_price) || 0,
-      image: obj.image || obj['image'] || '',
-      desc: obj.desc || obj['description'] || '',
-      instock: obj.instock !== '0',
-    });
+
+    if (!allProducts.length) throw new Error('Нет товаров');
+
+  } catch (err) {
+    console.warn('API недоступен, показываем демо:', err);
+    allProducts = getDemoProducts();
+  }
+
+  filteredProducts = [...allProducts];
+  loading.style.display = 'none';
+  renderProducts(filteredProducts);
+  updateCategoryCounts();
+}
+
+// ============================================================
+//  ПАРСИНГ СТРОК ИЗ APPS SCRIPT (массив массивов)
+//  Строка 0: название категории
+//  Строка 1: заголовки колонок
+//  Строки 2+: данные
+// ============================================================
+function parseRowsToProducts(rows, category, catName) {
+  if (!rows || rows.length < 3) return [];
+
+  // Строка 1 — заголовки
+  const headers = rows[1].map(h => String(h).toLowerCase().trim());
+
+  const idx = {
+    name:      findCol(headers, ['наименование','название','name','товар']),
+    qty:       findCol(headers, ['количество','qty','кол']),
+    price:     findCol(headers, ['цена','price','стоимость']),
+    old_price: findCol(headers, ['старая','old','скидка','было']),
+    image:     findCol(headers, ['фото','photo','image','картинка']),
+    desc:      findCol(headers, ['описание','desc','description']),
+    instock:   findCol(headers, ['наличие','instock','stock']),
+  };
+
+  // Fallback: нет заголовков — A=наименование, B=количество, C=цена
+  if (idx.name === -1) { idx.name = 0; idx.qty = 1; idx.price = 2; }
+
+  const products = [];
+  for (let i = 2; i < rows.length; i++) {
+    const row = rows[i];
+    const name = String(row[idx.name] || '').trim();
+    if (!name) continue;
+
+    const qty       = parseInt(row[idx.qty])       || 0;
+    const price     = parsePrice(String(row[idx.price]     || ''));
+    const old_price = parsePrice(String(row[idx.old_price] || ''));
+    const image     = idx.image    !== -1 ? String(row[idx.image]    || '') : '';
+    const desc      = idx.desc     !== -1 ? String(row[idx.desc]     || '') : '';
+    const instock   = idx.instock  !== -1
+      ? (String(row[idx.instock]).trim() !== '0' && String(row[idx.instock]).trim().toLowerCase() !== 'нет')
+      : qty > 0;
+
+    products.push({ id: `${category}_${i}`, name, category, catName, price, old_price, image, desc, qty, instock });
   }
   return products;
 }
 
+function findCol(headers, keywords) {
+  for (const kw of keywords) {
+    const i = headers.findIndex(h => h.includes(kw));
+    if (i !== -1) return i;
+  }
+  return -1;
+}
+
+function get(arr, idx) { return idx !== -1 && idx < arr.length ? arr[idx] : ''; }
+
+function parsePrice(str) {
+  if (!str) return 0;
+  return parseInt(str.replace(/[^\d]/g, '')) || 0;
+}
+
 function splitCSVLine(line) {
   const result = [];
-  let cur = '';
-  let inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
+  let cur = '', inQ = false;
+  for (const c of line) {
     if (c === '"') { inQ = !inQ; continue; }
     if (c === ',' && !inQ) { result.push(cur); cur = ''; continue; }
     cur += c;
@@ -159,24 +199,20 @@ function splitCSVLine(line) {
 }
 
 // ============================================================
-//  ДЕМО-ТОВАРЫ (когда таблица не подключена)
+//  ДЕМО-ТОВАРЫ (fallback)
 // ============================================================
 function getDemoProducts() {
   return [
-    { id:'1', name:'Xiaomi 15 Pro', category:'phones', price:89990, old_price:99990, image:'https://fdn2.gsmarena.com/vv/bigpic/xiaomi-15-pro.jpg', desc:'Snapdragon 8 Elite, 50MP, 6000mAh', instock:true },
-    { id:'2', name:'Redmi Note 14 Pro', category:'phones', price:34990, old_price:0, image:'https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-note-14-pro.jpg', desc:'Dimensity 7300-Ultra, 200MP', instock:true },
-    { id:'3', name:'Xiaomi 14T', category:'phones', price:59990, old_price:64990, image:'https://fdn2.gsmarena.com/vv/bigpic/xiaomi-14t.jpg', desc:'Dimensity 8300-Ultra, Leica камера', instock:true },
-    { id:'4', name:'Redmi Note 13', category:'phones', price:24990, old_price:0, image:'https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-note-13-4g.jpg', desc:'6.67" AMOLED, 108MP камера', instock:true },
-    { id:'5', name:'Xiaomi Pad 7', category:'tablets', price:44990, old_price:49990, image:'https://fdn2.gsmarena.com/vv/bigpic/xiaomi-pad-7.jpg', desc:'11.2" 144Hz, Snapdragon 7+ Gen 3', instock:true },
-    { id:'6', name:'Redmi Pad SE 8.7', category:'tablets', price:18990, old_price:0, image:'https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-pad-se-8-7.jpg', desc:'8.7" 90Hz, 8020mAh батарея', instock:true },
-    { id:'7', name:'Mi Band 9', category:'wearables', price:4990, old_price:5990, image:'https://fdn2.gsmarena.com/vv/bigpic/xiaomi-smart-band-9.jpg', desc:'AMOLED, SpO2, 21 день работы', instock:true },
-    { id:'8', name:'Redmi Watch 5', category:'wearables', price:8990, old_price:0, image:'https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-watch-5.jpg', desc:'1.96" AMOLED, GPS, 20 спортрежимов', instock:true },
-    { id:'9', name:'Redmi Buds 6', category:'audio', price:5990, old_price:7490, image:'https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-buds-6-active.jpg', desc:'ANC, 30ч, BT 5.4', instock:true },
-    { id:'10', name:'Mi True Wireless Earphones 3', category:'audio', price:3490, old_price:0, image:'https://i.imgur.com/placeholder.jpg', desc:'TWS, 24ч, IPX4', instock:true },
-    { id:'11', name:'Mi Smart Hub', category:'smarthome', price:3990, old_price:0, image:'https://i.imgur.com/placeholder.jpg', desc:'Умный центр управления домом', instock:true },
-    { id:'12', name:'Mi Robot Vacuum S20+', category:'smarthome', price:34990, old_price:39990, image:'https://i.imgur.com/placeholder.jpg', desc:'Лазерная навигация, 4000Pa', instock:true },
-    { id:'13', name:'67W GaN Зарядка', category:'accessories', price:2490, old_price:0, image:'https://i.imgur.com/placeholder.jpg', desc:'2×USB-C + USB-A, складная', instock:true },
-    { id:'14', name:'Xiaomi Power Bank 3 20000', category:'accessories', price:3990, old_price:4490, image:'https://i.imgur.com/placeholder.jpg', desc:'20000mAh, 65W быстрая зарядка', instock:true },
+    { id:'d1', name:'Кондиционер Xiaomi Mijia 1.5HP', category:'climate', catName:'Кондиционеры', price:45990, old_price:52000, image:'', desc:'Инвертор, 18000 BTU, Wi-Fi', instock:true },
+    { id:'d2', name:'Кондиционер KFR-72LW/N1A1', category:'climate', catName:'Кондиционеры', price:89990, old_price:0, image:'', desc:'Стоячий, 30 кубовый', instock:true },
+    { id:'d3', name:'Обогреватель Xiaomi Mijia', category:'climate', catName:'Кондиционеры', price:12990, old_price:15000, image:'', desc:'Graphene Baseboard Heater 2', instock:true },
+    { id:'d4', name:'Телевизор Xiaomi TV A 55"', category:'tv', catName:'Телевизоры', price:34990, old_price:39990, image:'', desc:'4K UHD, Android TV, HDR10', instock:true },
+    { id:'d5', name:'Телевизор Redmi Smart TV X 43"', category:'tv', catName:'Телевизоры', price:24990, old_price:0, image:'', desc:'4K, 60Hz, Dolby Audio', instock:true },
+    { id:'d6', name:'Пылесос Xiaomi Robot Vacuum S20+', category:'vacuum', catName:'Пылесос и фен', price:34990, old_price:39990, image:'', desc:'Лазерная навигация, 4000Pa', instock:true },
+    { id:'d7', name:'Mi Smart Air Purifier 4 Pro', category:'air', catName:'Очистители', price:18990, old_price:0, image:'', desc:'HEPA, 500 м³/ч, PM2.5 сенсор', instock:true },
+    { id:'d8', name:'Xiaomi Smart Band 9', category:'gadgets', catName:'Гаджеты', price:4990, old_price:5990, image:'', desc:'AMOLED, SpO2, 21 день работы', instock:true },
+    { id:'d9', name:'Redmi Buds 6 Active', category:'gadgets', catName:'Гаджеты', price:3990, old_price:0, image:'', desc:'ANC, BT 5.4, 30 часов', instock:true },
+    { id:'d10', name:'Холодильник Xiaomi Mijia 500L', category:'fridge', catName:'Холодильник', price:79990, old_price:89990, image:'', desc:'No Frost, 2-камерный, умный', instock:true },
   ];
 }
 
@@ -194,15 +230,6 @@ function renderProducts(products) {
   }
   empty.style.display = 'none';
 
-  const catNames = {
-    phones: 'Смартфоны',
-    tablets: 'Планшеты',
-    wearables: 'Носимые',
-    audio: 'Аудио',
-    smarthome: 'Умный дом',
-    accessories: 'Аксессуары',
-  };
-
   grid.innerHTML = products.map((p, i) => `
     <div class="product-card" style="animation-delay:${i * 0.04}s">
       <img class="product-card__img"
@@ -212,7 +239,7 @@ function renderProducts(products) {
         loading="lazy"
       />
       <div class="product-card__body">
-        <span class="product-card__cat">${catNames[p.category] || p.category}</span>
+        <span class="product-card__cat">${p.catName || p.category}</span>
         <h3 class="product-card__name">${p.name}</h3>
         ${p.desc ? `<p class="product-card__desc">${p.desc}</p>` : ''}
         <div class="product-card__footer">
@@ -239,18 +266,14 @@ function formatPrice(n) {
 // ============================================================
 function filterCatalog(category) {
   currentCategory = category;
-  const catNames = {
-    phones: 'Смартфоны', tablets: 'Планшеты', wearables: 'Носимые',
-    audio: 'Аудио', smarthome: 'Умный дом', accessories: 'Аксессуары', '': 'Все товары'
-  };
-  document.getElementById('productsTitle').textContent = catNames[category] || 'Все товары';
+  const sheet = SHEETS.find(s => s.category === category);
+  document.getElementById('productsTitle').textContent = sheet ? sheet.name : 'Все товары';
   document.getElementById('btnReset').style.display = category ? 'inline-flex' : 'none';
   document.getElementById('searchInput').value = '';
 
   filteredProducts = category ? allProducts.filter(p => p.category === category) : [...allProducts];
   renderProducts(filteredProducts);
 
-  // Прокрутить к каталогу
   setTimeout(() => {
     document.querySelector('.products-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 100);
@@ -272,11 +295,10 @@ function searchProducts(query) {
 //  СЧЁТЧИКИ КАТЕГОРИЙ
 // ============================================================
 function updateCategoryCounts() {
-  const cats = ['phones','tablets','wearables','audio','smarthome','accessories'];
-  cats.forEach(cat => {
-    const count = allProducts.filter(p => p.category === cat).length;
-    const el = document.getElementById('count-' + cat);
-    if (el) el.textContent = count + ' товаров';
+  SHEETS.forEach(sheet => {
+    const count = allProducts.filter(p => p.category === sheet.category).length;
+    const el = document.getElementById('count-' + sheet.category);
+    if (el) el.textContent = count ? count + ' товаров' : 'скоро';
   });
 }
 
