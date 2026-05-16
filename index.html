@@ -3,38 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Техно — Интернет-магазин</title>
+    <title>Mi Техно — Каталог товаров</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Шапка сайта с фирменным логотипом -->
+    <!-- Шапка сайта с фирменным логотипом и меню -->
     <header>
-        <div class="logo-container">
-            <div class="mi-badge">mi</div>
-            <div class="techno-text">Техно</div>
+        <div class="header-left">
+            <div class="logo-container">
+                <div class="mi-badge">mi</div>
+                <div class="techno-text">Техно</div>
+            </div>
+            <!-- Навигация (Меню) -->
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">Каталог</a>
+            </nav>
         </div>
         <div class="cart">🛒 Корзина: <span id="cart-count">0</span> шт.</div>
     </header>
 
-    <!-- Витрина товаров -->
-    <main class="products">
-        <div class="product-card">
-            <h3>Смартфон Xiaomi 14</h3>
-            <p>Цена: 75 000 руб.</p>
-            <button onclick="addToCart()">Купить</button>
-        </div>
-
-        <div class="product-card">
-            <h3>Беспроводные наушники</h3>
-            <p>Цена: 3 500 руб.</p>
-            <button onclick="addToCart()">Купить</button>
-        </div>
-
-        <div class="product-card">
-            <h3>Умные часы</h3>
-            <p>Цена: 6 000 руб.</p>
-            <button onclick="addToCart()">Купить</button>
+    <!-- Основной контент страницы -->
+    <main class="catalog-container">
+        <h2 class="section-title">📦 Каталог товаров</h2>
+        
+        <!-- Сетка, куда JS будет загружать товары из Google Таблицы -->
+        <div class="products">
+            <!-- Сюда script.js подставит карточки -->
+            <p class="loading-text">Загрузка каталога...</p>
         </div>
     </main>
 
