@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<!-- ══════════════════════════ HEADER ══════════════════════════ -->
 <header id="header">
   <a class="logo" href="#">
     <img src="44142.png" alt="Mi Techno" class="logo-img">
@@ -16,13 +17,12 @@
 
   <nav>
     <a href="#catalog">Каталог</a>
-    <a href="#appliances">Техника</a>
+    <a href="#appliances">Кондиционеры</a>
     <a href="#features">О нас</a>
     <a href="#support">Поддержка</a>
   </nav>
 
   <div class="header-actions">
-    <!-- Контакты: Telegram сверху, WhatsApp снизу -->
     <div class="header-contacts">
       <a href="https://t.me/Mi_Techn0" class="contact-link contact-tg" target="_blank">
         <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -46,6 +46,7 @@
   </div>
 </header>
 
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
 <section class="hero">
   <div>
     <div class="hero-label">Официальный дилер Xiaomi</div>
@@ -75,6 +76,7 @@
   </div>
 </section>
 
+<!-- ══════════════════════════ CATALOG ══════════════════════════ -->
 <section class="section" id="catalog">
   <div class="section-header fade-up">
     <div><div class="section-tag">Каталог</div><div class="section-title">Популярные товары</div></div>
@@ -91,31 +93,46 @@
   <div class="products-grid" id="productsGrid"></div>
 </section>
 
+<!-- ══════════════════════════ КОНДИЦИОНЕРЫ ══════════════════════════ -->
 <section class="section section-alt" id="appliances">
   <div class="section-header fade-up">
-    <div><div class="section-tag">Бытовая техника</div><div class="section-title">Техника Xiaomi для дома</div></div>
+    <div>
+      <div class="section-tag">Кондиционеры Xiaomi</div>
+      <div class="section-title">Климат под контролем</div>
+    </div>
+    <a href="#" class="section-link">Все модели →</a>
   </div>
-  <div class="category-tabs fade-up">
-    <button class="tab-btn active" onclick="switchCategory('ac', this)"><span>❄️</span> Кондиционеры</button>
-    <button class="tab-btn" onclick="switchCategory('tv', this)"><span>📺</span> Телевизоры</button>
-    <button class="tab-btn" onclick="switchCategory('fridge', this)"><span>🧊</span> Холодильники</button>
+
+  <!-- Фильтры -->
+  <div class="catalog-filters fade-up" id="acFilters">
+    <button class="filter-btn active" onclick="acFilter('all',this)">Все</button>
+    <button class="filter-btn" onclick="acFilter('9k',this)">до 9 000 BTU</button>
+    <button class="filter-btn" onclick="acFilter('12k',this)">12 000 BTU</button>
+    <button class="filter-btn" onclick="acFilter('18k',this)">18 000 BTU</button>
+    <button class="filter-btn" onclick="acFilter('24k',this)">24 000 BTU</button>
+    <button class="filter-btn" onclick="acFilter('inverter',this)">Инвертор</button>
   </div>
-  <div class="appliance-slider-wrapper" id="appWrapper">
-    <div class="appliance-slider-track" id="applianceTrack"></div>
+
+  <!-- Слайдер -->
+  <div class="ac-slider-wrapper fade-up" id="acWrapper">
+    <div class="ac-slider-track" id="acTrack"></div>
   </div>
-  <div class="appliance-controls">
-    <div class="appliance-dots" id="applianceDots"></div>
+
+  <!-- Управление -->
+  <div class="appliance-controls fade-up">
+    <div class="appliance-dots" id="acDots"></div>
     <div class="slider-arrows">
-      <button class="arrow-btn" id="appPrevBtn" onclick="appSlide(-1)">
+      <button class="arrow-btn" id="acPrev" onclick="acSlide(-1)">
         <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <button class="arrow-btn" id="appNextBtn" onclick="appSlide(1)">
+      <button class="arrow-btn" id="acNext" onclick="acSlide(1)">
         <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
       </button>
     </div>
   </div>
 </section>
 
+<!-- ══════════════════════════ FEATURES ══════════════════════════ -->
 <section class="section" id="features">
   <div class="section-header fade-up">
     <div><div class="section-tag">Почему мы</div><div class="section-title">Работаем с заботой<br>о каждом покупателе</div></div>
@@ -130,6 +147,7 @@
   </div>
 </section>
 
+<!-- ══════════════════════════ SUPPORT ══════════════════════════ -->
 <section class="support-section" id="support">
   <div class="support-content fade-up">
     <div class="section-tag">Поддержка</div>
@@ -172,13 +190,14 @@
       <div class="chat-input-area">
         <input class="chat-input" id="chatInput" placeholder="Написать сообщение..." onkeydown="if(event.key==='Enter') sendChat()">
         <button class="chat-send" onclick="sendChat()">
-          <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
@@ -197,6 +216,7 @@
   </div>
 </footer>
 
+<!-- ══════════════════════════ CART ══════════════════════════ -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-panel" id="cartPanel">
   <div class="cart-panel-header">
@@ -217,6 +237,7 @@
   </div>
 </div>
 
+<!-- ══════════════════════════ TOAST ══════════════════════════ -->
 <div class="toast" id="toast"><span class="toast-dot"></span><span id="toastText">Добавлено в корзину</span></div>
 
 <script src="script.js"></script>
