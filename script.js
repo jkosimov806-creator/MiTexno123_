@@ -36,7 +36,7 @@ const AC_DATA = [
   {
     id:'ac2', name:'Xiaomi Mijia KFR-26GW', model:'KFR-26GW/N1A1',
     cat:'Кондиционер', badge:'new', badgeText:'Новинка', energy:'A++',
-    btu:'9k', type:'inverter', price:34990, oldPrice:null, img:null,
+    btu:'9k', type:'inverter', price:34990, oldPrice:null, img:"53c1adcb19d5f3d100277b9548f0dd8b.webp",
     specs:['9 000 BTU','Инвертор','до 25 м²','Wi-Fi','Тихий режим']
   },
   {
@@ -55,10 +55,7 @@ const AC_DATA = [
     id:'ac5', name:'Xiaomi Mijia KFR-35GW Smart', model:'KFR-35GW/N2A1-NF',
     cat:'Smart Edition', badge:'new', badgeText:'Новинка', energy:'A+++',
     btu:'12k', type:'inverter', price:49990, oldPrice:null, img:null,
-    specs:['12 000 BTU','Инвертор','до 35 м²','Mi Home','Голос. упр.','Auto-clean']
-  },
-  {
-    id:'ac6', name:'Xiaomi Mijia KFRd-26GW', model:'KFRd-26GW/N1A1',
+    specs:['12 000 BTU','Инвертор','до 35 м²','Mi Home','Голос. упр.',img,'ac6', name:'Xiaomi Mijia KFRd-26GW', model:'KFRd-26GW/N1A1',
     cat:'Кондиционер', badge:null, energy:'A+',
     btu:'9k', type:null, price:27990, oldPrice:32990, img:null,
     specs:['9 000 BTU','On/Off','до 25 м²','Таймер','Ночной режим']
