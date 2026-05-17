@@ -1,9 +1,9 @@
 meta:
-  environment: python
+  environment: nginx
   toolchain:
-    name: pip
-    version: 3.11
+    name: nginx
+    version: "1.25"
 
 run:
   persistenceMount: /data
-  command: python main.py
+  exposedPort: 80
