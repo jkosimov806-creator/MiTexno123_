@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<!-- ── HEADER ─────────────────────────────────────────────── -->
 <header id="header">
   <a class="logo" href="#">
     <div class="logo-icon">Mi</div>
@@ -17,65 +16,44 @@
   </a>
   <nav>
     <a href="#catalog">Каталог</a>
+    <a href="#appliances">Техника</a>
     <a href="#features">О нас</a>
     <a href="#support">Поддержка</a>
-    <a href="#">Гарантия</a>
   </nav>
   <div class="header-actions">
     <a href="#support" class="btn-support">
-      <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-      </svg>
+      <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       Написать
     </a>
     <button class="cart-btn" onclick="toggleCart()">
-      <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 01-8 0"/>
-      </svg>
+      <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       Корзина
       <span class="cart-count" id="cartCount">0</span>
     </button>
   </div>
 </header>
 
-<!-- ── HERO ───────────────────────────────────────────────── -->
 <section class="hero">
   <div>
     <div class="hero-label">Официальный дилер Xiaomi</div>
     <h1>Технологии,<br>которым <em>доверяют</em></h1>
     <p class="hero-desc">Официальный магазин Xiaomi. Смартфоны, гаджеты и умные устройства с гарантией и быстрой доставкой по всей стране.</p>
     <div class="hero-actions">
-      <a href="#catalog" class="btn-primary">
-        Перейти в каталог
-        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
+      <a href="#catalog" class="btn-primary">Перейти в каталог
+        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="#support" class="btn-secondary">Связаться с нами</a>
     </div>
     <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-value">5<span>К+</span></div>
-        <div class="stat-label">Довольных клиентов</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">200<span>+</span></div>
-        <div class="stat-label">Товаров в наличии</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">2<span>года</span></div>
-        <div class="stat-label">Официальная гарантия</div>
-      </div>
+      <div class="stat-item"><div class="stat-value">5<span>К+</span></div><div class="stat-label">Довольных клиентов</div></div>
+      <div class="stat-item"><div class="stat-value">200<span>+</span></div><div class="stat-label">Товаров в наличии</div></div>
+      <div class="stat-item"><div class="stat-value">2<span>года</span></div><div class="stat-label">Официальная гарантия</div></div>
     </div>
   </div>
   <div class="hero-visual">
     <div class="hero-phone-card">
       <div class="phone-badge">Хит продаж</div>
-      <div class="phone-img">
-        <div class="phone-screen-icon">Mi</div>
-      </div>
+      <div class="phone-img"><div class="phone-screen-icon">Mi</div></div>
       <div class="phone-name">Xiaomi 14 Pro</div>
       <div class="phone-sub">12 / 256 ГБ · Titanium Black</div>
       <div class="phone-price">89 990 ₽</div>
@@ -84,13 +62,9 @@
   </div>
 </section>
 
-<!-- ── CATALOG ────────────────────────────────────────────── -->
 <section class="section" id="catalog">
   <div class="section-header fade-up">
-    <div>
-      <div class="section-tag">Каталог</div>
-      <div class="section-title">Популярные товары</div>
-    </div>
+    <div><div class="section-tag">Каталог</div><div class="section-title">Популярные товары</div></div>
     <a href="#" class="section-link">Все товары →</a>
   </div>
   <div class="catalog-filters fade-up">
@@ -104,86 +78,61 @@
   <div class="products-grid" id="productsGrid"></div>
 </section>
 
-<!-- ── FEATURES ───────────────────────────────────────────── -->
-<section class="section section-alt" id="features">
+<section class="section section-alt" id="appliances">
   <div class="section-header fade-up">
-    <div>
-      <div class="section-tag">Почему мы</div>
-      <div class="section-title">Работаем с заботой<br>о каждом покупателе</div>
-    </div>
+    <div><div class="section-tag">Бытовая техника</div><div class="section-title">Техника Xiaomi для дома</div></div>
   </div>
-  <div class="features-grid">
-    <div class="feature-card fade-up">
-      <div class="feature-icon">🛡️</div>
-      <div class="feature-title">Официальная гарантия</div>
-      <div class="feature-desc">2 года гарантии на все устройства Xiaomi. Сервисный центр в каждом городе.</div>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">⚡</div>
-      <div class="feature-title">Быстрая доставка</div>
-      <div class="feature-desc">Доставка 1–3 дня по России. Самовывоз из пунктов выдачи и наших магазинов.</div>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">💬</div>
-      <div class="feature-title">Поддержка 24/7</div>
-      <div class="feature-desc">Консультация по выбору, помощь с настройкой и решение любых вопросов.</div>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">🔄</div>
-      <div class="feature-title">Лёгкий возврат</div>
-      <div class="feature-desc">14 дней на возврат без вопросов. Обмен или полный возврат средств.</div>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">💳</div>
-      <div class="feature-title">Рассрочка 0%</div>
-      <div class="feature-desc">Рассрочка на 12 месяцев без переплат. Быстрое одобрение за 5 минут.</div>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">✅</div>
-      <div class="feature-title">100% оригинал</div>
-      <div class="feature-desc">Все товары — официальные поставки. Проверка подлинности по IMEI.</div>
+  <div class="category-tabs fade-up">
+    <button class="tab-btn active" onclick="switchCategory('ac', this)"><span>❄️</span> Кондиционеры</button>
+    <button class="tab-btn" onclick="switchCategory('tv', this)"><span>📺</span> Телевизоры</button>
+    <button class="tab-btn" onclick="switchCategory('fridge', this)"><span>🧊</span> Холодильники</button>
+  </div>
+  <div class="appliance-slider-wrapper" id="appWrapper">
+    <div class="appliance-slider-track" id="applianceTrack"></div>
+  </div>
+  <div class="appliance-controls">
+    <div class="appliance-dots" id="applianceDots"></div>
+    <div class="slider-arrows">
+      <button class="arrow-btn" id="appPrevBtn" onclick="appSlide(-1)">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="arrow-btn" id="appNextBtn" onclick="appSlide(1)">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
   </div>
 </section>
 
-<!-- ── SUPPORT ────────────────────────────────────────────── -->
+<section class="section" id="features">
+  <div class="section-header fade-up">
+    <div><div class="section-tag">Почему мы</div><div class="section-title">Работаем с заботой<br>о каждом покупателе</div></div>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card fade-up"><div class="feature-icon">🛡️</div><div class="feature-title">Официальная гарантия</div><div class="feature-desc">2 года гарантии на все устройства Xiaomi. Сервисный центр в каждом городе.</div></div>
+    <div class="feature-card fade-up"><div class="feature-icon">⚡</div><div class="feature-title">Быстрая доставка</div><div class="feature-desc">Доставка 1–3 дня по России. Самовывоз из пунктов выдачи и наших магазинов.</div></div>
+    <div class="feature-card fade-up"><div class="feature-icon">💬</div><div class="feature-title">Поддержка 24/7</div><div class="feature-desc">Консультация по выбору, помощь с настройкой и решение любых вопросов.</div></div>
+    <div class="feature-card fade-up"><div class="feature-icon">🔄</div><div class="feature-title">Лёгкий возврат</div><div class="feature-desc">14 дней на возврат без вопросов. Обмен или полный возврат средств.</div></div>
+    <div class="feature-card fade-up"><div class="feature-icon">💳</div><div class="feature-title">Рассрочка 0%</div><div class="feature-desc">Рассрочка на 12 месяцев без переплат. Быстрое одобрение за 5 минут.</div></div>
+    <div class="feature-card fade-up"><div class="feature-icon">✅</div><div class="feature-title">100% оригинал</div><div class="feature-desc">Все товары — официальные поставки. Проверка подлинности по IMEI.</div></div>
+  </div>
+</section>
+
 <section class="support-section" id="support">
   <div class="support-content fade-up">
     <div class="section-tag">Поддержка</div>
     <div class="section-title">Мы всегда на связи</div>
     <p class="support-desc">Выберите удобный способ связи. Наши менеджеры помогут подобрать устройство, ответят на вопросы и решат любую проблему.</p>
     <div class="support-options">
-      <a href="https://wa.me/" class="support-option">
-        <div class="support-option-icon">💬</div>
-        <div class="support-option-text">
-          <strong>WhatsApp</strong>
-          <span>Отвечаем в течение 5 минут</span>
-        </div>
-      </a>
-      <a href="https://t.me/" class="support-option">
-        <div class="support-option-icon">✈️</div>
-        <div class="support-option-text">
-          <strong>Telegram</strong>
-          <span>@mitechno_support</span>
-        </div>
-      </a>
-      <a href="tel:+78001234567" class="support-option">
-        <div class="support-option-icon">📞</div>
-        <div class="support-option-text">
-          <strong>8-800-123-45-67</strong>
-          <span>Бесплатно, Пн–Вс 9:00–21:00</span>
-        </div>
-      </a>
+      <a href="https://wa.me/" class="support-option"><div class="support-option-icon">💬</div><div class="support-option-text"><strong>WhatsApp</strong><span>Отвечаем в течение 5 минут</span></div></a>
+      <a href="https://t.me/" class="support-option"><div class="support-option-icon">✈️</div><div class="support-option-text"><strong>Telegram</strong><span>@mitechno_support</span></div></a>
+      <a href="tel:+78001234567" class="support-option"><div class="support-option-icon">📞</div><div class="support-option-text"><strong>8-800-123-45-67</strong><span>Бесплатно, Пн–Вс 9:00–21:00</span></div></a>
     </div>
   </div>
   <div class="fade-up">
     <div class="chat-widget">
       <div class="chat-header">
         <div class="chat-avatar">🤖</div>
-        <div class="chat-header-info">
-          <strong>Менеджер Mi Techno</strong>
-          <span>Онлайн-консультант</span>
-        </div>
+        <div class="chat-header-info"><strong>Менеджер Mi Techno</strong><span>Онлайн-консультант</span></div>
         <div class="chat-online">Онлайн</div>
       </div>
       <div class="chat-messages" id="chatMessages">
@@ -193,48 +142,22 @@
       <div class="chat-input-area">
         <input class="chat-input" id="chatInput" placeholder="Написать сообщение..." onkeydown="if(event.key==='Enter') sendChat()">
         <button class="chat-send" onclick="sendChat()">
-          <svg viewBox="0 0 24 24" stroke-width="2.5">
-            <line x1="22" y1="2" x2="11" y2="13"/>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-          </svg>
+          <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────────────────── -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <div class="logo">
-        <div class="logo-icon">Mi</div>
-        <div class="logo-text" style="color:#fff">Mi <span>Techno</span></div>
-      </div>
+      <div class="logo"><div class="logo-icon">Mi</div><div class="logo-text" style="color:#fff">Mi <span>Techno</span></div></div>
       <p class="footer-desc">Официальный магазин Xiaomi. Гаджеты будущего — уже сегодня.</p>
     </div>
-    <div class="footer-col">
-      <h4>Каталог</h4>
-      <a href="#">Смартфоны</a>
-      <a href="#">Планшеты</a>
-      <a href="#">Аудио</a>
-      <a href="#">Носимые</a>
-      <a href="#">Умный дом</a>
-    </div>
-    <div class="footer-col">
-      <h4>Покупателям</h4>
-      <a href="#">Доставка и оплата</a>
-      <a href="#">Гарантия</a>
-      <a href="#">Возврат</a>
-      <a href="#">Рассрочка</a>
-    </div>
-    <div class="footer-col">
-      <h4>Контакты</h4>
-      <a href="#">8-800-123-45-67</a>
-      <a href="#">info@mitechno.ru</a>
-      <a href="#">Telegram</a>
-      <a href="#">WhatsApp</a>
-    </div>
+    <div class="footer-col"><h4>Каталог</h4><a href="#">Смартфоны</a><a href="#">Планшеты</a><a href="#">Аудио</a><a href="#">Носимые</a><a href="#">Умный дом</a></div>
+    <div class="footer-col"><h4>Покупателям</h4><a href="#">Доставка и оплата</a><a href="#">Гарантия</a><a href="#">Возврат</a><a href="#">Рассрочка</a></div>
+    <div class="footer-col"><h4>Контакты</h4><a href="#">8-800-123-45-67</a><a href="#">info@mitechno.ru</a><a href="#">Telegram</a><a href="#">WhatsApp</a></div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 Mi Techno. Все права защищены.</span>
@@ -242,16 +165,12 @@
   </div>
 </footer>
 
-<!-- ── CART PANEL ─────────────────────────────────────────── -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-panel" id="cartPanel">
   <div class="cart-panel-header">
     <div class="cart-panel-title">Корзина</div>
     <button class="cart-close" onclick="toggleCart()">
-      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5">
-        <line x1="18" y1="6" x2="6" y2="18"/>
-        <line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
   <div class="cart-items" id="cartItems">
@@ -261,24 +180,12 @@
     </div>
   </div>
   <div class="cart-footer" id="cartFooter" style="display:none">
-    <div class="cart-total">
-      <span class="cart-total-label">Итого</span>
-      <span class="cart-total-value" id="cartTotal">0 ₽</span>
-    </div>
-    <button class="btn-checkout">
-      Оформить заказ
-      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-    </button>
+    <div class="cart-total"><span class="cart-total-label">Итого</span><span class="cart-total-value" id="cartTotal">0 ₽</span></div>
+    <button class="btn-checkout">Оформить заказ <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
   </div>
 </div>
 
-<!-- ── TOAST ──────────────────────────────────────────────── -->
-<div class="toast" id="toast">
-  <span class="toast-dot"></span>
-  <span id="toastText">Добавлено в корзину</span>
-</div>
+<div class="toast" id="toast"><span class="toast-dot"></span><span id="toastText">Добавлено в корзину</span></div>
 
 <script src="script.js"></script>
 </body>
