@@ -11,7 +11,6 @@ const PRODUCTS = [
   { id:'p3',  name:'Redmi Note 13 Pro',     cat:'phone',    badge:null,   badgeText:null,      emoji:'📱', desc:'8/256 ГБ · Midnight Black · 200 МП камера',        price:3490,  oldPrice:3990 },
   { id:'p4',  name:'Xiaomi Pad 6',          cat:'tablet',   badge:'sale', badgeText:'−15%',    emoji:'📟', desc:'8/256 ГБ · Snapdragon 870 · 144 Гц',               price:4490,  oldPrice:5290 },
   { id:'p5',  name:'Redmi Pad SE',          cat:'tablet',   badge:null,   badgeText:null,      emoji:'📟', desc:'6/128 ГБ · 90 Гц · 8650 мАч',                      price:1990,  oldPrice:null },
-  { id:'p6',  name:'Mi Band 8',             cat:'wearable', badge:'new',  badgeText:'Новинка', emoji:'⌚', desc:'1.62" AMOLED · 16 дней · 150 режимов',             price:490,   oldPrice:null },
   { id:'p7',  name:'Xiaomi Watch S3',       cat:'wearable', badge:null,   badgeText:null,      emoji:'⌚', desc:'AMOLED · HyperOS · GPS · NFC',                      price:1490,  oldPrice:1790 },
   { id:'p8',  name:'Redmi Buds 5 Pro',      cat:'audio',    badge:'sale', badgeText:'−20%',    emoji:'🎧', desc:'ANC 52 дБ · Hi-Res Audio · 38 ч',                   price:790,   oldPrice:990 },
   { id:'p9',  name:'Mi True Wireless 3',    cat:'audio',    badge:null,   badgeText:null,      emoji:'🎧', desc:'ANC · 32 ч · Bluetooth 5.2',                        price:590,   oldPrice:null },
@@ -178,7 +177,7 @@ function renderProducts(data) {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   ОФОРМЛЕНИЕ ЗАКАЗА — открывает форму с именем + телефоном
+   ОФОРМЛЕНИЕ ЗАКАЗА
    ══════════════════════════════════════════════════════════════ */
 window.checkoutCart = function() {
   if (!cart.length) { showToast('Корзина пуста!'); return; }
@@ -310,14 +309,12 @@ function createSlider({ wrapperId, trackId, dotsId, prevId, nextId, getCards }) 
     requestAnimationFrame(() => goTo(0));
   }
 
-  /* Touch */
   wrapper.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
   wrapper.addEventListener('touchend',   e => {
     const d = startX - e.changedTouches[0].clientX;
     if (Math.abs(d) > 44) goTo(d > 0 ? current + 1 : current - 1);
   }, { passive: true });
 
-  /* Mouse drag */
   wrapper.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX; wrapper.classList.add('dragging'); });
   window.addEventListener('mousemove',  e => { if (isDragging) dragDelta = startX - e.clientX; });
   window.addEventListener('mouseup',    () => {
@@ -445,7 +442,7 @@ const BOT_REPLIES = [
   'Конечно, помогу! Уточните, пожалуйста, модель.',
   'Отличный выбор! Это один из наших хитов.',
   'Есть в наличии. Оформить заказ можно прямо здесь.',
-  'Доставка занимает 1–3 рабочих дня.',
+  'Доставка занимает 1–3 рабочих дня по Худжанду и всему Таджикистану.',
   'Для уточнения деталей напишите нам в WhatsApp или Telegram.',
 ];
 let botIdx = 0;
