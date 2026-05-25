@@ -38,7 +38,7 @@
       </a>
       <a class="burger-item" href="#appliances" onclick="closeBurger()">
         <span class="burger-item-icon">❄️</span>
-        <span class="burger-item-name">Кондиционеры</span>
+        <span class="burger-item-name">Кондиционеры и обогреватели</span>
       </a>
       <a class="burger-item" href="#tvs" onclick="closeBurger()">
         <span class="burger-item-icon">📺</span>
@@ -431,34 +431,256 @@
   </div>
 </section>
 
-<!-- ══════════ КОНДИЦИОНЕРЫ ══════════ -->
+<!-- ══════════ КОНДИЦИОНЕРЫ И ОБОГРЕВАТЕЛИ ══════════ -->
 <section class="section section-white" id="appliances">
   <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Кондиционеры Xiaomi</div><div class="section-title">Климат под контролем</div></div>
+    <div><div class="section-eyebrow">Климатическая техника</div><div class="section-title">Кондиционеры и обогреватели</div></div>
     <a href="#" class="section-link">Все модели →</a>
   </div>
-  <div class="catalog-filters fade-up" id="acFilters">
-    <button class="filter-btn active" onclick="acFilter('all',this)">Все</button>
-    <button class="filter-btn" onclick="acFilter('9k',this)">до 9 000 BTU</button>
-    <button class="filter-btn" onclick="acFilter('12k',this)">12 000 BTU</button>
-    <button class="filter-btn" onclick="acFilter('18k',this)">18 000 BTU</button>
-    <button class="filter-btn" onclick="acFilter('24k',this)">24 000 BTU</button>
-    <button class="filter-btn" onclick="acFilter('inverter',this)">Инвертор</button>
+
+  <!-- Фильтры -->
+  <div class="catalog-filters fade-up">
+    <button class="filter-btn active" onclick="climateFilter('all',this)">Все</button>
+    <button class="filter-btn" onclick="climateFilter('ac-floor',this)">Стоячие кондиционеры</button>
+    <button class="filter-btn" onclick="climateFilter('ac-wall',this)">Настенные кондиционеры</button>
+    <button class="filter-btn" onclick="climateFilter('heater',this)">Обогреватели</button>
   </div>
-  <div class="ac-slider-wrapper fade-up" id="acWrapper">
-    <div class="ac-slider-track" id="acTrack"></div>
-  </div>
-  <div class="slider-controls fade-up">
-    <div class="appliance-dots" id="acDots"></div>
-    <div class="slider-arrows">
-      <button class="arrow-btn" id="acPrev" onclick="acSlide(-1)">
-        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
-      <button class="arrow-btn" id="acNext" onclick="acSlide(1)">
-        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
+
+  <div class="products-grid fade-up" id="climateGrid">
+
+    <!-- Кондиционеры стоячие -->
+    <div class="product-card" data-climate="ac-floor">
+      <div class="product-badge">Стоячий</div>
+      <div class="product-img"><img src="img/ac_floor1.jpg" alt="72LW-NA10/N1A1" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Кондиционер стоячий · 30 м²</div>
+        <div class="product-name">Кондиционер 72LW-NA10/N1A1</div>
+        <div class="product-desc">Стоячий напольный кондиционер, мощность для помещений до 30 м². Тихая работа, быстрое охлаждение.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('ac_f1','Кондиционер 72LW-NA10/N1A1',0,'❄️')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
+
+    <div class="product-card" data-climate="ac-floor">
+      <div class="product-badge">Стоячий</div>
+      <div class="product-img"><img src="img/ac_floor2.jpg" alt="KFR-72LW/N1A1" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Кондиционер стоячий · 30 м²</div>
+        <div class="product-name">Кондиционер KFR-72LW/N1A1</div>
+        <div class="product-desc">Напольный кондиционер Xiaomi Mijia на 30 м². Инверторный компрессор, управление через Mi Home.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('ac_f2','Кондиционер KFR-72LW/N1A1',0,'❄️')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="ac-floor">
+      <div class="product-badge">Стоячий</div>
+      <div class="product-img"><img src="img/ac_floor3.jpg" alt="KFR-51LW/N1A1" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Кондиционер стоячий · 18 м²</div>
+        <div class="product-name">Кондиционер KFR-51LW/N1A1</div>
+        <div class="product-desc">Напольный кондиционер на 18 м². Компактный, экономичный, подходит для спальни и детской.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('ac_f3','Кондиционер KFR-51LW/N1A1',0,'❄️')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Кондиционеры настенные -->
+    <div class="product-card" data-climate="ac-wall">
+      <div class="product-badge new">Настенный</div>
+      <div class="product-img"><img src="img/ac_wall1.jpg" alt="72GW-NA30/N1A1" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Кондиционер настенный · 30 м²</div>
+        <div class="product-name">Кондиционер 72GW-NA30/N1A1</div>
+        <div class="product-desc">Настенный сплит-система на 30 м². Тихий режим 20 дБ, самоочистка фильтра, Wi-Fi управление.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('ac_w1','Кондиционер 72GW-NA30/N1A1',0,'❄️')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="ac-wall">
+      <div class="product-badge">Хит</div>
+      <div class="product-img"><img src="img/ac_wall2.jpg" alt="KFR-50GW/N2A1" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Кондиционер настенный · 18 м²</div>
+        <div class="product-name">Кондиционер KFR-50GW/N2A1</div>
+        <div class="product-desc">Настенный сплит на 18 м². Класс энергоэффективности A++, охлаждение и обогрев.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('ac_w2','Кондиционер KFR-50GW/N2A1',0,'❄️')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="ac-wall">
+      <div class="product-badge">Хит</div>
+      <div class="product-img"><img src="img/ac_wall3.jpg" alt="KFR-35GW/N1A1" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Кондиционер настенный · 12 м²</div>
+        <div class="product-name">Кондиционер KFR-35GW/N1A1</div>
+        <div class="product-desc">Настенный сплит на 12 м². Бюджетная модель для небольших комнат, быстрый монтаж.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('ac_w3','Кондиционер KFR-35GW/N1A1',0,'❄️')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Обогреватели -->
+    <div class="product-card" data-climate="heater">
+      <div class="product-img"><img src="img/heat1.jpg" alt="Xiaomi Mijia KRDNQ04ZM" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Обогреватель конвекторный</div>
+        <div class="product-name">Xiaomi Mijia Appliance Heater KRDNQ04ZM</div>
+        <div class="product-desc">Конвекторный обогреватель, плавная регулировка температуры, управление Mi Home, защита от перегрева.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('heat1','Xiaomi Mijia Heater KRDNQ04ZM',0,'🔥')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="heater">
+      <div class="product-img"><img src="img/heat2.jpg" alt="Haier Smart Home" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Обогреватель</div>
+        <div class="product-name">Обогреватель Haier Smart Home</div>
+        <div class="product-desc">Умный обогреватель Haier с Wi-Fi управлением, таймером и энергосберегающим режимом.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('heat2','Обогреватель Haier Smart Home',0,'🔥')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="heater">
+      <div class="product-img"><img src="img/heat3.jpg" alt="Gree NFTB-X6020" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Обогреватель</div>
+        <div class="product-name">Обогреватель Gree NFTB-X6020</div>
+        <div class="product-desc">Напольный конвектор Gree, мощность 2000 Вт, антиобледенение, тихая работа без вентилятора.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('heat3','Обогреватель Gree NFTB-X6020',0,'🔥')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="heater">
+      <div class="product-img"><img src="img/heat4.jpg" alt="RoyalStar" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Обогреватель</div>
+        <div class="product-name">Обогреватель RoyalStar</div>
+        <div class="product-desc">Надёжный конвекторный обогреватель RoyalStar, регулируемый термостат, защита от опрокидывания.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('heat4','Обогреватель RoyalStar',0,'🔥')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="heater">
+      <div class="product-badge new">Новинка</div>
+      <div class="product-img"><img src="img/heat5.jpg" alt="Xiaomi Mijia Graphene Baseboard Heater 2" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Обогреватель графеновый</div>
+        <div class="product-name">Xiaomi Mijia Graphene Baseboard Heater 2 Humidifier Edition</div>
+        <div class="product-desc">Плинтусный графеновый обогреватель с функцией увлажнения воздуха. Равномерный нагрев всего помещения.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('heat5','Xiaomi Mijia Graphene Baseboard Heater 2',0,'🔥')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="heater">
+      <div class="product-img"><img src="img/heat6.jpg" alt="Xiaomi Mijia LSNFJ04ZM" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Обогреватель вертикальный</div>
+        <div class="product-name">Xiaomi Mijia Vertical Heater Graphene LSNFJ04ZM</div>
+        <div class="product-desc">Вертикальный графеновый обогреватель, быстрый нагрев за 3 секунды, голосовое управление Xiao AI.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('heat6','Xiaomi Mijia Vertical Heater LSNFJ04ZM',0,'🔥')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="heater">
+      <div class="product-img"><img src="img/heat7.jpg" alt="Xiaomi Mijia DC Inverter Tower Fan" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Вентилятор / Обогреватель</div>
+        <div class="product-name">Xiaomi Mijia DC Inverter Tower Fan</div>
+        <div class="product-desc">Башенный вентилятор-обогреватель с инверторным мотором. Работает в 2 режимах: охлаждение и обогрев.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('heat7','Xiaomi Mijia DC Inverter Tower Fan',0,'🔥')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-climate="heater">
+      <div class="product-img"><img src="img/heat8.jpg" alt="Meling MDNQ200-C" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Обогреватель</div>
+        <div class="product-name">Обогреватель Meling MDNQ200-C</div>
+        <div class="product-desc">Конвекторный обогреватель Meling мощностью 2000 Вт, электронный термостат, бесшумная работа.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('heat8','Обогреватель Meling MDNQ200-C',0,'🔥')">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+  <!-- JS фильтрация -->
+  <script>
+    function climateFilter(type, btn) {
+      document.querySelectorAll('#appliances .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#climateGrid .product-card').forEach(card => {
+        card.style.display = (type === 'all' || card.dataset.climate === type) ? '' : 'none';
+      });
+    }
+  </script>
+
 </section>
 
 <!-- ══════════ КАМЕРЫ ══════════ -->
