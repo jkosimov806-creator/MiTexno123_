@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   Mi Техно — script.js
+   Mi Техно — script.js (полная версия с автоотправкой в Telegram)
    ══════════════════════════════════════════════════════════════ */
 
 /* ══════════════════════════════════════════════════════════════
@@ -177,7 +177,7 @@ function renderProducts(data) {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   ОФОРМЛЕНИЕ ЗАКАЗА
+   ОФОРМЛЕНИЕ ЗАКАЗА (с автоотправкой в Telegram)
    ══════════════════════════════════════════════════════════════ */
 window.checkoutCart = function() {
   if (!cart.length) { showToast('Корзина пуста!'); return; }
@@ -214,30 +214,58 @@ window.closeOrderModal = function() {
   document.body.style.overflow = '';
 };
 
+// Новая функция отправки в Telegram (автоматически)
+async function sendOrderToTelegram(name, phone, items, total) {
+    // ВАШИ ДАННЫЕ (уже вставлены)
+    const BOT_TOKEN = '8709726103:AAHgN0t8toax5WUtWKMJtc3wG0Wc45Jz21M';
+    const CHAT_ID   = '6362382479';
+
+    let itemsText = items.map(i => `• ${i.name} ×${i.qty} — ${(i.price * i.qty).toLocaleString('ru-RU')} сом.`).join('\n');
+    const bonus = Math.round(total * 0.05);
+    const message = `🛒 **НОВЫЙ ЗАКАЗ!**\n\n👤 *Имя:* ${name}\n📞 *Телефон:* ${phone}\n\n📦 *Товары:*\n${itemsText}\n\n💰 *Итого:* ${total.toLocaleString('ru-RU')} сом.\n🔁 *Бонусов начислено:* ${bonus} сом.`;
+
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' })
+        });
+        const data = await response.json();
+        if (!data.ok) console.error('Ошибка Telegram:', data);
+    } catch (err) {
+        console.warn('Не удалось отправить уведомление, но заказ сохранён');
+    }
+}
+
 window.submitOrder = function() {
-  const name  = document.getElementById('orderName').value.trim();
-  const phone = document.getElementById('orderPhone').value.trim();
-  if (!name)  { document.getElementById('orderName').focus();  showToast('Введите ваше имя'); return; }
-  if (!phone) { document.getElementById('orderPhone').focus(); showToast('Введите телефон'); return; }
+    const name  = document.getElementById('orderName').value.trim();
+    const phone = document.getElementById('orderPhone').value.trim();
+    if (!name)  { document.getElementById('orderName').focus();  showToast('Введите ваше имя'); return; }
+    if (!phone) { document.getElementById('orderPhone').focus(); showToast('Введите телефон'); return; }
 
-  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  const items = [...cart];
-  if (typeof saveOrder === 'function') saveOrder(items, total);
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const items = [...cart];
 
-  const bonusEarned = Math.round(total * 0.05);
-  const isLoggedIn  = typeof getSession === 'function' && getSession();
-  if (isLoggedIn && typeof awardBonuses === 'function') awardBonuses(bonusEarned);
+    // Сохраняем заказ и начисляем бонусы (функции из auth.js)
+    if (typeof saveOrder === 'function') saveOrder(items, total);
 
-  cart = [];
-  renderCart();
+    const isLoggedIn = typeof getSession === 'function' && getSession();
+    if (isLoggedIn && typeof awardBonuses === 'function') {
+        awardBonuses(Math.round(total * 0.05));
+    }
 
-  document.getElementById('orderFormView').style.display = 'none';
-  document.getElementById('orderSuccess').style.display  = '';
+    // Очищаем корзину
+    cart = [];
+    renderCart();
 
-  const tgText = encodeURIComponent(`🛒 Новый заказ!\nИмя: ${name}\nТел: ${phone}\nСумма: ${total.toLocaleString('ru-RU')} сом.\nТовары:\n${items.map(i => `• ${i.name} ×${i.qty} — ${(i.price*i.qty).toLocaleString('ru-RU')} сом.`).join('\n')}`);
-  window.open(`https://t.me/Mi_Techn0?text=${tgText}`, '_blank');
+    // Показываем окно успеха
+    document.getElementById('orderFormView').style.display = 'none';
+    document.getElementById('orderSuccess').style.display  = '';
 
-  if (isLoggedIn) setTimeout(() => openCabinet('orders'), 1500);
+    // Отправляем заказ в Telegram
+    sendOrderToTelegram(name, phone, items, total);
+
+    if (isLoggedIn) setTimeout(() => openCabinet('orders'), 1500);
 };
 
 function filterProducts(cat, btn) {
