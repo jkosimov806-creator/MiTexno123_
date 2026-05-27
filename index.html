@@ -495,55 +495,113 @@
 
 </section>
 
-<!-- ══════════ КАМЕРЫ ══════════ -->
+<!-- ══════════ КАМЕРЫ ВИДЕОНАБЛЮДЕНИЯ ══════════ -->
 <section class="section section-white" id="cameras">
   <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Камеры Xiaomi</div><div class="section-title">Снимайте каждый момент</div></div>
+    <div><div class="section-eyebrow">Камеры и калонам</div><div class="section-title">Камеры и Колонка</div></div>
     <a href="#" class="section-link">Все модели →</a>
   </div>
   <div class="products-grid fade-up">
 
-    <div class="product-card">
-      <div class="product-badge new">Новинка</div>
-      <div class="product-img"><img src="img/cam1.jpg" alt="Xiaomi Mi Action Camera 4K" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Экшн-камера</div>
-        <div class="product-name">Xiaomi Mi Action Camera 4K</div>
-        <div class="product-desc">4K 30fps, водонепроницаемый корпус, угол обзора 170°. Идеальна для спорта и путешествий.</div>
-        <div class="product-footer">
-          <div><div class="product-price">1 290 сом.</div><div class="product-price-old">1 590 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('cam1','Xiaomi Mi Action Camera 4K',1290,'📷')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <!-- 1. Наружная камера Xiaomi Outdoor Camera CW700S -->
     <div class="product-card">
       <div class="product-badge">Хит</div>
-      <div class="product-img"><img src="img/cam2.jpg" alt="Xiaomi Mi Home Security 360°" onerror="this.style.display='none'"></div>
+      <div class="product-img"><img src="img/cw700s.jpg" alt="Xiaomi Outdoor Camera CW700S" onerror="this.style.display='none'"></div>
       <div class="product-info">
-        <div class="product-cat">IP-камера</div>
-        <div class="product-name">Xiaomi Mi Home Security 360°</div>
-        <div class="product-desc">Поворот 360°, ночное видение, связь с Mi Home. Контролируйте дом с телефона.</div>
+        <div class="product-cat">Уличная PTZ-камера</div>
+        <div class="product-name">Наружная камера Xiaomi Outdoor Camera CW700S</div>
+        <div class="product-desc">Двойная матрица 4 Мп (2.5K), 9-кратный гибридный зум, 4-диодное полноцветное ночное видение, порт RJ45, класс защиты IP66.</div>
+        <div class="product-stock">В наличии: <span class="stock-count" id="stock-cw700s">5</span> шт.</div>
         <div class="product-footer">
-          <div><div class="product-price">590 сом.</div><div class="product-price-old">790 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('cam2','Xiaomi Mi Home Security 360°',590,'📸')">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('cw700s','Xiaomi Outdoor Camera CW700S', 0, '📷', 5)">
             <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
         </div>
       </div>
     </div>
 
+    <!-- 2. Наружная камера Xiaomi BW500 -->
     <div class="product-card">
-      <div class="product-img"><img src="img/cam3.jpg" alt="Xiaomi Mi Camera 2K" onerror="this.style.display='none'"></div>
+      <div class="product-badge new">Новинка</div>
+      <div class="product-img"><img src="img/bw500.jpg" alt="Xiaomi BW500" onerror="this.style.display='none'"></div>
       <div class="product-info">
-        <div class="product-cat">Видеоняня</div>
-        <div class="product-name">Xiaomi Mi Camera 2K Магнитная</div>
-        <div class="product-desc">Разрешение 2K, двусторонний звук, магнитное крепление. Следит за домом днём и ночью.</div>
+        <div class="product-cat">Аккумуляторная камера</div>
+        <div class="product-name">Наружная камера Xiaomi BW500</div>
+        <div class="product-desc">Разрешение 2.5K (2560x1440), встроенный аккумулятор 10 000 мАч (до 6 месяцев работы), угол обзора 136°, хранилище eMMC на 8 ГБ, защита IP67.</div>
+        <div class="product-stock">В наличии: <span class="stock-count" id="stock-bw500">5</span> шт.</div>
         <div class="product-footer">
-          <div><div class="product-price">890 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('cam3','Xiaomi Mi Camera 2K',890,'🎥')">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('bw500','Xiaomi BW500', 0, '📷', 5)">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. IP-камера Xiaomi Smart Camera 2 PTZ Version -->
+    <div class="product-card">
+      <div class="product-img"><img src="img/camera2-ptz.jpg" alt="Xiaomi Smart Camera 2 PTZ" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Поворотная IP-камера</div>
+        <div class="product-name">IP-камера Xiaomi Smart Camera 2 PTZ Version</div>
+        <div class="product-desc">Матрица 4 Мп (2.5K 1440p), светосильная оптика F1.4, ИК-подсветка 940 нм, двухдиапазонный Wi-Fi (2.4/5 ГГц), ИИ-детектор людей.</div>
+        <div class="product-stock">В наличии: <span class="stock-count" id="stock-ptz2">5</span> шт.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('ptz2','Xiaomi Smart Camera 2 PTZ', 0, '📸', 5)">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Наружная камера Xiaomi CW300 -->
+    <div class="product-card">
+      <div class="product-img"><img src="img/cw300.jpg" alt="Xiaomi CW300" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Уличная PTZ-камера</div>
+        <div class="product-name">Наружная камера Xiaomi CW300</div>
+        <div class="product-desc">Разрешение 2.5K (4 Мп), объектив F1.6, комбинированная подсветка (2 ИК, 2 белых диода), автоматическое слежение за человеком, класс защиты IP66.</div>
+        <div class="product-stock">В наличии: <span class="stock-count" id="stock-cw300">5</span> шт.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('cw300','Xiaomi CW300', 0, '📷', 5)">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Уличная камера видеонаблюдения Xiaomi Outdoor Camera CW500 Dual -->
+    <div class="product-card">
+      <div class="product-badge">Топ</div>
+      <div class="product-img"><img src="img/cw500-dual.jpg" alt="Xiaomi Outdoor Camera CW500 Dual" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Двухобъективная камера</div>
+        <div class="product-name">Уличная камера видео­наблюдения Xiaomi Outdoor Camera CW500 Dual</div>
+        <div class="product-desc">Два независимых объектива по 4 Мп каждый (фиксированный + поворотный), одновременный мониторинг двух зон, поддержка Wi-Fi 6 и защита IP66.</div>
+        <div class="product-stock">В наличии: <span class="stock-count" id="stock-cw500d">5</span> шт.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('cw500d','Xiaomi Outdoor Camera CW500 Dual', 0, '🎥', 5)">
+            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Bluetooth-колонка Xiaomi Portable Bluetooth Speaker -->
+    <div class="product-card">
+      <div class="product-img"><img src="img/portable-speaker.jpg" alt="Xiaomi Portable Bluetooth Speaker" onerror="this.style.display='none'"></div>
+      <div class="product-info">
+        <div class="product-cat">Портативная акустика</div>
+        <div class="product-name">Bluetooth-калонка Xiaomi Portable Bluetooth Speaker</div>
+        <div class="product-desc">Выходная мощность 16 Вт (2x8 Вт), частотный диапазон 80 Гц — 20 кГц, аккумулятор 2600 мАч (до 13 часов звука), защита от воды IPX7, режим TWS.</div>
+        <div class="product-stock">В наличии: <span class="stock-count" id="stock-speaker">5</span> шт.</div>
+        <div class="product-footer">
+          <div><div class="product-price">По запросу</div></div>
+          <button class="add-to-cart" onclick="addToCart('speaker','Xiaomi Portable Bluetooth Speaker', 0, '🔊', 5)">
             <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
         </div>
@@ -552,6 +610,7 @@
 
   </div>
 </section>
+
 
 <!-- ══════════ МОНИТОРЫ ══════════ -->
 <section class="section section-bg" id="monitors">
