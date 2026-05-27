@@ -1502,7 +1502,7 @@ footer {
   min-height:220px;
 }
 .promo-card--fire   { background:linear-gradient(135deg,#FF6900 0%,#ff3b00 100%); color:#fff; }
-.promo-card--credit { background:linear-gradient(135deg,#1a1714 0%,#2a2522 100%); color:#fff; }
+.promo-card--credit { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); color: #fff; }
 .promo-card--tradein { background:linear-gradient(135deg,#0f766e 0%,#0d9488 100%); color:#fff; }
 .promo-card--bundle { background:linear-gradient(135deg,#7c3aed 0%,#6d28d9 100%); color:#fff; }
 
