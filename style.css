@@ -433,8 +433,13 @@ nav a:hover { color:var(--ink); background:var(--surface-2); }
 
 .tv-img-wrap {
   width:100%; background:var(--surface-2);
-  display:flex; align-items:center; justify-content:center;
-  overflow:hidden; position:relative; padding:20px 16px 8px;
+  position:relative; padding:0;
+  aspect-ratio:16/9; overflow:hidden;
+}
+.tv-img-wrap img {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover; display:block;
 }
 .tv-svg-wrap { width:100%; max-width:360px; }
 .tv-svg { width:100%; height:auto; display:block; filter:drop-shadow(0 12px 32px rgba(0,0,0,0.14)); }
