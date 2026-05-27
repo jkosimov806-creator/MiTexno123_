@@ -208,23 +208,37 @@
         <div class="hero-chip chip-delivery">
           <span>⚡</span><div><strong>Быстрая доставка</strong><small>1–3 дня</small></div>
         </div>
-        <div class="hero-featured-card">
-          <div class="hero-card-badge">🔥 Товар месяца</div>
-          <div class="hero-phone-visual"><div class="hero-air-icon">Xiaomi</div></div>
-          <div class="hero-card-name">Очиститель Воздуха Xiaomi Purifier 5</div>
-          <div class="hero-card-sub">Способен очистить площадь до 48кв²</div>
-          <div class="hero-card-price">2 100 сом.</div>
-        </div>
-      </div>
+        <!-- ══════════ СЕКЦИЯ С ТОВАРОМ МЕСЯЦА ══════════ -->
+<div class="hero-featured-card">
+  <div class="hero-card-badge">🔥 Товар месяца</div>
+  
+  <div class="hero-purifier-visual">
+    <div class="hero-purifier-display">
+      <span class="purifier-brand">Xiaomi</span>
+      <span class="purifier-wind">🍃</span>
     </div>
   </div>
-</section>
+  
+  <div class="hero-card-name">Очиститель Воздуха Xiaomi Purifier 5</div>
+  <div class="hero-card-sub">Способен очистить площадь до 48кв²</div>
+  <div class="hero-card-price">2 100 сом.</div>
+</div> <!-- Карточка успешно закрыта -->
+
+<!-- В зависимости от твоей верстки, здесь должно остаться ровно столько </div>, 
+     сколько открывало обертку грида и контейнер секции. Обычно это 2 или 3 тега: -->
+  </div> <!-- Закрыли products-grid / featured-grid -->
+</section> <!-- Закрыли родительскую секцию героя/товаров -->
+
 
 <!-- ══════════ АКЦИИ ══════════ -->
 <section class="section section-bg" id="promos">
   <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Акции</div><div class="section-title">Лучшие предложения</div></div>
+    <div>
+      <div class="section-eyebrow">Акции</div>
+      <div class="section-title">Лучшие предложения</div>
+    </div>
   </div>
+  
   <div class="promos-grid fade-up">
     <div class="promo-card promo-card--credit">
       <div class="promo-badge">💳 Рассрочка</div>
@@ -235,6 +249,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ══════════ ТЕЛЕВИЗОРЫ ══════════ -->
 <section class="section section-bg" id="tvs">
