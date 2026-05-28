@@ -421,35 +421,35 @@
   </div>
 
   <script>
-    (function() {
-      const track = document.getElementById('tvATrack');
-      if (!track) return;
-      const cards = track.querySelectorAll('.tv-card');
-      const dotsContainer = document.getElementById('tvADots');
-      let current = 0;
-      const total = cards.length;
-      function updateDots() {
-        if (!dotsContainer) return;
-        dotsContainer.innerHTML = '';
-        for (let i = 0; i < total; i++) {
-          const dot = document.createElement('button');
-          dot.className = i === current ? 'active' : '';
-          dot.onclick = () => goTo(i);
-          dotsContainer.appendChild(dot);
-        }
-      }
-      function goTo(index) {
-        if (index < 0) index = 0;
-        if (index >= total) index = total - 1;
-        current = index;
-        const cardWidth = cards[0]?.offsetWidth || 320;
-        track.style.transform = `translateX(-${current * cardWidth}px)`;
-        updateDots();
-      }
-      window.slideTvA = function(dir) { goTo(current + dir); };
-      window.addEventListener('resize', () => goTo(current));
-      setTimeout(() => { if (cards.length) goTo(0); }, 100);
-    })();
+['tvA','xpro','mini'].forEach(k => {
+  const track = document.getElementById(k+'Track');
+  const dots  = document.getElementById(k+'Dots');
+  if (!track) return;
+  const cards = track.querySelectorAll('.tv-card');
+  let cur = 0, sx = 0, sy = 0;
+
+  const goTo = i => {
+    cur = Math.max(0, Math.min(i, cards.length-1));
+    track.style.transform = `translateX(-${cur * (cards[0]?.offsetWidth||320)}px)`;
+    dots?.querySelectorAll('button').forEach((d,j) => d.className = j===cur?'active':'');
+  };
+
+  dots && (dots.innerHTML = '', cards.forEach((_,i) => {
+    const b = document.createElement('button');
+    b.onclick = () => goTo(i);
+    dots.appendChild(b);
+  }));
+
+  window['slide'+k[0].toUpperCase()+k.slice(1)] = dir => goTo(cur+dir);
+
+  track.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+  track.addEventListener('touchmove',  e => { if(Math.abs(e.touches[0].clientX-sx)>Math.abs(e.touches[0].clientY-sy)) e.preventDefault(); }, {passive:false});
+  track.addEventListener('touchend',   e => { const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy; if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40) goTo(cur+(dx<0?1:-1)); }, {passive:true});
+
+  window.addEventListener('resize', () => goTo(cur));
+  setTimeout(() => goTo(0), 100);
+});
+</script>
 
     (function() {
       const track = document.getElementById('xproTrack');
