@@ -462,13 +462,10 @@
     <button class="section-link close-extra" onclick="hideExtraCategory()">✕ Закрыть</button>
   </div>
   <div class="products-grid fade-up">
-    <!-- Электрощетки -->
     <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/brush1.jpg" alt="Xiaomi Mijia T500" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электрическая зубная щетка</div><div class="product-name">Xiaomi Mijia T500</div><div class="product-desc">Сенсор давления, 31000 движений/мин, приложение Mi Home.</div><div class="product-footer"><div><div class="product-price">380 сом.</div></div><button class="add-to-cart" onclick="addToCart('brush1','Xiaomi Mijia T500',380,'🪥')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
     <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/brush2.jpg" alt="Xiaomi Mijia T700" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электрическая зубная щетка</div><div class="product-name">Xiaomi Mijia T700</div><div class="product-desc">40 000 движений/мин, дисплей, 30 дней без подзарядки.</div><div class="product-footer"><div><div class="product-price">690 сом.</div></div><button class="add-to-cart" onclick="addToCart('brush2','Xiaomi Mijia T700',690,'🪥')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
-    <!-- Ирригаторы -->
     <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/irrigator1.jpg" alt="Xiaomi Mijia Irrigator" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Ирригатор</div><div class="product-name">Xiaomi Mijia Irrigator</div><div class="product-desc">Портативный, 2200 ударов/мин, резервуар 200 мл, насадки для всей семьи.</div><div class="product-footer"><div><div class="product-price">490 сом.</div></div><button class="add-to-cart" onclick="addToCart('irrig1','Xiaomi Mijia Irrigator',490,'💧')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
     <div class="product-card"><div class="product-img"><img src="img/irrigator2.jpg" alt="Xiaomi Mijia Cordless Irrigator" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Ирригатор беспроводной</div><div class="product-name">Xiaomi Mijia Cordless Irrigator</div><div class="product-desc">300 мл воды, 3 режима, до 30 дней без зарядки.</div><div class="product-footer"><div><div class="product-price">590 сом.</div></div><button class="add-to-cart" onclick="addToCart('irrig2','Xiaomi Mijia Cordless Irrigator',590,'💧')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
-    <!-- Электробритвы -->
     <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/shaver1.jpg" alt="Xiaomi Mijia Electric Shaver S500" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электробритва</div><div class="product-name">Xiaomi Mijia Electric Shaver S500</div><div class="product-desc">Плавающая головка, влажная/сухая бритва, быстрая зарядка.</div><div class="product-footer"><div><div class="product-price">720 сом.</div></div><button class="add-to-cart" onclick="addToCart('shaver1','Xiaomi Mijia S500',720,'🪒')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
     <div class="product-card"><div class="product-img"><img src="img/shaver2.jpg" alt="Xiaomi Mijia Shaver S300" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электробритва</div><div class="product-name">Xiaomi Mijia Shaver S300</div><div class="product-desc">3 лезвия, индикатор заряда, компактный дизайн.</div><div class="product-footer"><div><div class="product-price">520 сом.</div></div><button class="add-to-cart" onclick="addToCart('shaver2','Xiaomi Mijia S300',520,'🪒')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
   </div>
@@ -517,13 +514,245 @@
   <div class="footer-bottom"><span>© 2026 Mi Texno. Все права защищены.</span><span class="footer-disclaimer">Независимый магазин электроники Xiaomi.</span></div>
 </footer>
 
-<!-- Остальные модальные окна (заказ, поиск, авторизация, корзина) -->
-<!-- ... (они идут далее, но для краткости я их не копирую, т.к. они не менялись) ... -->
+<!-- ══════════ ORDER FORM MODAL ══════════ -->
+<div class="order-overlay" id="orderModal" onclick="if(event.target===this)closeOrderModal()">
+  <div class="order-dialog">
+    <button class="order-close" onclick="closeOrderModal()">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="order-success-view" id="orderSuccess" style="display:none">
+      <div class="order-success-icon">✅</div>
+      <div class="order-success-title">Заказ принят!</div>
+      <div class="order-success-desc">Менеджер свяжется с вами в течение 15 минут. Ожидайте звонка или сообщения в Telegram.</div>
+      <button class="order-submit-btn" onclick="closeOrderModal()" style="margin-top:20px">Закрыть</button>
+    </div>
+    <div id="orderFormView">
+      <div class="order-modal-title">Оформление заказа</div>
+      <div class="order-summary" id="orderSummary"></div>
+      <div class="order-fields">
+        <div class="order-field">
+          <label class="order-label">Ваше имя</label>
+          <input type="text" id="orderName" class="order-input" placeholder="Ваше имя" autocomplete="name">
+        </div>
+        <div class="order-field">
+          <label class="order-label">Номер телефона</label>
+          <input type="tel" id="orderPhone" class="order-input" placeholder="+992 __ ___ __ __" autocomplete="tel">
+        </div>
+      </div>
+      <p class="order-note">Менеджер свяжется с вами в течение 15 минут</p>
+      <button class="order-submit-btn" onclick="submitOrder()">Отправить заказ</button>
+    </div>
+  </div>
+</div>
 
+<!-- ══════════ SEARCH OVERLAY ══════════ -->
+<div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-dialog">
+    <div class="search-input-wrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.2" class="search-icon-inp"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" id="searchInput" class="search-input" placeholder="Поиск товаров Xiaomi..." oninput="runSearch(this.value)" autocomplete="off">
+      <button class="search-close-btn" onclick="closeSearch()">Закрыть</button>
+    </div>
+    <div class="search-results" id="searchResults">
+      <div class="search-hint">Введите название товара, модель или категорию</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ AUTH MODAL ══════════ -->
+<div class="auth-overlay" id="authModal" onclick="handleAuthOverlayClick(event)">
+  <div class="auth-dialog">
+    <button class="auth-close" onclick="closeAuthModal()">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="auth-logo">
+      <span class="auth-logo-text">Mi <span>Texno</span></span>
+    </div>
+    <div class="auth-tabs" id="authTabs">
+      <button class="auth-tab active" data-tab="login" onclick="switchTab('login')">Войти</button>
+      <button class="auth-tab" data-tab="register" onclick="switchTab('register')">Регистрация</button>
+      <button class="auth-tab" data-tab="profile" onclick="switchTab('profile')" style="display:none" id="profileTab">Профиль</button>
+    </div>
+    <div class="auth-panel active" data-panel="login">
+      <div class="auth-google-wrap">
+        <div id="googleBtnLogin" class="google-btn-container"></div>
+        <div class="auth-google-fallback" id="googleFallbackLogin">
+          <button class="google-btn-manual" onclick="showToast('Добавьте Google Client ID в auth.js')">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Войти через Google
+          </button>
+        </div>
+      </div>
+      <div class="auth-divider"><span>или по email</span></div>
+      <div class="auth-field">
+        <label class="auth-label">Email</label>
+        <input class="auth-input" id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email" onkeydown="if(event.key==='Enter') doLogin()">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Пароль</label>
+        <div class="auth-pass-wrap">
+          <input class="auth-input" id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
+          <button class="auth-eye" type="button" onclick="togglePassVis('loginPass',this)">
+            <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="auth-error" style="display:none"></div>
+      <button class="auth-submit-btn" onclick="doLogin()">Войти</button>
+      <p class="auth-switch">Нет аккаунта? <button onclick="switchTab('register')">Зарегистрироваться</button></p>
+    </div>
+    <div class="auth-panel" data-panel="register">
+      <div class="auth-google-wrap">
+        <div id="googleBtnRegister" class="google-btn-container"></div>
+        <div class="auth-google-fallback" id="googleFallbackRegister">
+          <button class="google-btn-manual" onclick="showToast('Добавьте Google Client ID в auth.js')">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Зарегистрироваться через Google
+          </button>
+        </div>
+      </div>
+      <div class="auth-divider"><span>или по email</span></div>
+      <div class="auth-field">
+        <label class="auth-label">Имя</label>
+        <input class="auth-input" id="regName" type="text" placeholder="Ваше имя" autocomplete="name">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Email</label>
+        <input class="auth-input" id="regEmail" type="email" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Пароль</label>
+        <div class="auth-pass-wrap">
+          <input class="auth-input" id="regPass" type="password" placeholder="Минимум 6 символов" autocomplete="new-password">
+          <button class="auth-eye" type="button" onclick="togglePassVis('regPass',this)">
+            <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Повторите пароль</label>
+        <div class="auth-pass-wrap">
+          <input class="auth-input" id="regPass2" type="password" placeholder="Повторите пароль" autocomplete="new-password" onkeydown="if(event.key==='Enter') doRegister()">
+          <button class="auth-eye" type="button" onclick="togglePassVis('regPass2',this)">
+            <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="auth-error" style="display:none"></div>
+      <button class="auth-submit-btn" onclick="doRegister()">Создать аккаунт</button>
+      <p class="auth-switch">Уже есть аккаунт? <button onclick="switchTab('login')">Войти</button></p>
+    </div>
+    <div class="auth-panel" data-panel="profile"></div>
+  </div>
+</div>
+
+<!-- ══════════ ЛИЧНЫЙ КАБИНЕТ ══════════ -->
+<div class="cabinet-overlay" id="cabinetDrawer" onclick="handleCabinetOverlay(event)">
+  <div class="cabinet-panel">
+    <div class="cabinet-header">
+      <div class="cabinet-title">Личный кабинет</div>
+      <button class="cabinet-close" onclick="closeCabinet()">
+        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="cab-nav">
+      <button class="cab-nav-btn active" data-tab="overview" onclick="switchCabinetTab('overview')">
+        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Профиль
+      </button>
+      <button class="cab-nav-btn" data-tab="bonuses" onclick="switchCabinetTab('bonuses')">
+        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Бонусы
+      </button>
+      <button class="cab-nav-btn" data-tab="orders" onclick="switchCabinetTab('orders')">
+        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Заказы
+      </button>
+      <button class="cab-nav-btn" data-tab="wishlist" onclick="switchCabinetTab('wishlist')">
+        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Избранное
+      </button>
+      <button class="cab-nav-btn" data-tab="referral" onclick="switchCabinetTab('referral')">
+        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Реферал
+      </button>
+    </nav>
+    <div class="cabinet-body">
+      <div class="cab-panel active" data-panel="overview"></div>
+      <div class="cab-panel" data-panel="bonuses"></div>
+      <div class="cab-panel" data-panel="orders"></div>
+      <div class="cab-panel" data-panel="wishlist"></div>
+      <div class="cab-panel" data-panel="referral"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CART ══════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-panel-header">
+    <div class="cart-panel-title">Корзина</div>
+    <button class="cart-close" onclick="toggleCart()">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <div class="cart-empty-icon">📦</div>
+      <p>Корзина пуста<br><small>Добавьте товары из каталога</small></p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total"><span class="cart-total-label">Итого</span><span class="cart-total-value" id="cartTotal">0 сом.</span></div>
+    <button class="btn-checkout" onclick="checkoutCart()">Оформить заказ <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<!-- ══════════ TOAST ══════════ -->
+<div class="toast" id="toast"><span class="toast-dot"></span><span id="toastText">Добавлено в корзину</span></div>
+
+<script src="script.js"></script>
+<script src="auth.js"></script>
 <script>
+  window.handleAuthOverlayClick = function(e) {
+    if (e.target === document.getElementById('authModal')) closeAuthModal();
+  };
+  window.handleCabinetOverlay = function(e) {
+    if (e.target === document.getElementById('cabinetDrawer')) closeCabinet();
+  };
+
+  window.openBurger = function() {
+    document.getElementById('burgerDrawer').classList.add('open');
+    document.getElementById('burgerBtn').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    updateBurgerAuthBtn();
+  };
+  window.closeBurger = function() {
+    document.getElementById('burgerDrawer').classList.remove('open');
+    document.getElementById('burgerBtn').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  window.handleBurgerOverlay = function(e) {
+    if (e.target === document.getElementById('burgerDrawer')) closeBurger();
+  };
+  function updateBurgerAuthBtn() {
+    const session = typeof getSession === 'function' ? getSession() : null;
+    const cab = document.getElementById('burgerCabinetBtn');
+    const log = document.getElementById('burgerLoginBtn');
+    if (!cab || !log) return;
+    if (session) { cab.style.display = ''; log.style.display = 'none'; }
+    else { cab.style.display = 'none'; log.style.display = ''; }
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBurger(); });
+  window.togglePassVis = function(id, btn) {
+    const inp = document.getElementById(id);
+    const isText = inp.type === 'text';
+    inp.type = isText ? 'password' : 'text';
+    btn.style.opacity = isText ? '0.4' : '1';
+  };
+
   // Функции для показа/скрытия дополнительных категорий
   function showExtraCategory(categoryId) {
-    // Скрываем все дополнительные секции
     document.querySelectorAll('.extra-category').forEach(section => {
       section.style.display = 'none';
     });
@@ -538,7 +767,6 @@
       section.style.display = 'none';
     });
   }
-  // При клике на любой пункт бургера, который не является "showExtraCategory", также скрываем доп. секции
   document.querySelectorAll('.burger-item').forEach(item => {
     item.addEventListener('click', function(e) {
       if (!this.getAttribute('onclick') || !this.getAttribute('onclick').includes('showExtraCategory')) {
@@ -547,6 +775,5 @@
     });
   });
 </script>
-
 </body>
 </html>
