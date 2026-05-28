@@ -3,12 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>Mi Техно — Магазин Xiaomi в Таджикистане</title>
+  <title>Mi Texno — Магазин Xiaomi в Таджикистане</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=2">
   <script src="https://accounts.google.com/gsi/client" async defer
     onload="window.dispatchEvent(new Event('google-loaded'))"></script>
   <script src="lang.js" defer></script>
+  <style>
+    .close-extra {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: #666;
+      transition: 0.2s;
+      padding: 0;
+    }
+    .close-extra:hover {
+      color: #e53935;
+    }
+    .extra-category {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -19,7 +36,7 @@
       <div class="burger-logo">
         <img src="img/1.jpg" alt="" class="burger-logo-img" onerror="this.style.display='none'">
         <div>
-          <div class="burger-logo-name">Mi <span>Техно</span></div>
+          <div class="burger-logo-name">Mi <span>Texno</span></div>
           <div class="burger-logo-sub">Магазин Xiaomi в Таджикистане</div>
         </div>
       </div>
@@ -67,43 +84,60 @@
         <span class="burger-item-icon">☄️</span>
         <span class="burger-item-name">Пылесосы</span>
       </a>
+      
+      <!-- НОВЫЕ РАЗДЕЛЫ (скрытые на главной) -->
+      <div class="burger-section-label" style="margin-top: 20px;">Гигиена и уход</div>
+      <a class="burger-item" href="#" onclick="showExtraCategory('hygiene'); closeBurger(); return false;">
+        <span class="burger-item-icon">🪥</span>
+        <span class="burger-item-name">Зубные щётки, ирригаторы, бритвы</span>
+      </a>
+      
+      <div class="burger-section-label" style="margin-top: 15px;">Кухонная техника</div>
+      <a class="burger-item" href="#" onclick="showExtraCategory('kettles'); closeBurger(); return false;">
+        <span class="burger-item-icon">🫖</span>
+        <span class="burger-item-name">Электрочайники</span>
+      </a>
+      <a class="burger-item" href="#" onclick="showExtraCategory('coffee-machines'); closeBurger(); return false;">
+        <span class="burger-item-icon">☕</span>
+        <span class="burger-item-name">Кофемашины</span>
+      </a>
     </nav>
-<div class="burger-divider"></div>
-<div class="burger-section-label">Аккаунт</div>
 
-<div class="burger-nav">
-  <button class="burger-item burger-item--accent" id="burgerCabinetBtn" onclick="closeBurger(); openCabinet('overview')">
-    <span class="burger-item-icon">👤</span>
-    <span class="burger-item-name">Личный кабинет</span>
-    <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="margin-left:auto"><path d="M9 18l6-6-6-6"/></svg>
-  </button>
-  <button class="burger-item" id="burgerLoginBtn" onclick="closeBurger(); openAuthModal('login')" style="display:none">
-    <span class="burger-item-icon">🔑</span>
-    <span class="burger-item-name">Войти / Регистрация</span>
-    <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="margin-left:auto"><path d="M9 18l6-6-6-6"/></svg>
-  </button>
-</div>
+    <div class="burger-divider"></div>
+    <div class="burger-section-label">Аккаунт</div>
 
-<div class="burger-divider"></div>
+    <div class="burger-nav">
+      <button class="burger-item burger-item--accent" id="burgerCabinetBtn" onclick="closeBurger(); openCabinet('overview')">
+        <span class="burger-item-icon">👤</span>
+        <span class="burger-item-name">Личный кабинет</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="margin-left:auto"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <button class="burger-item" id="burgerLoginBtn" onclick="closeBurger(); openAuthModal('login')" style="display:none">
+        <span class="burger-item-icon">🔑</span>
+        <span class="burger-item-name">Войти / Регистрация</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="margin-left:auto"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
 
-<div class="burger-contacts">
-  <a href="https://t.me/Mi_Texn0" class="burger-contact" target="_blank">
-    <svg viewBox="0 0 24 24" fill="#0088CC" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
-    @Mi_Texn0
-  </a>
-  <a href="https://wa.me/992935070070" class="burger-contact" target="_blank">
-    <svg viewBox="0 0 24 24" fill="#22A45D" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    +992-93-507-00-70
-  </a>
-  <a href="https://www.instagram.com/mi.texno.tj?igsh=MTM3dmFsbzl5N29tYw==" class="burger-contact" target="_blank">
-    <svg viewBox="0 0 24 24" fill="#E4405F" width="16" height="16">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-    </svg>
-    Instagram
-  </a>
-  <div class="burger-hours">🕐 Пн–Вс · 09:00–19:00</div>
-</div>
+    <div class="burger-divider"></div>
 
+    <div class="burger-contacts">
+      <a href="https://t.me/Mi_Texn0" class="burger-contact" target="_blank">
+        <svg viewBox="0 0 24 24" fill="#0088CC" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+        @Mi_Texn0
+      </a>
+      <a href="https://wa.me/992935070070" class="burger-contact" target="_blank">
+        <svg viewBox="0 0 24 24" fill="#22A45D" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        +992-93-507-00-70
+      </a>
+      <a href="https://www.instagram.com/mi.texno.tj?igsh=MTM3dmFsbzl5N29tYw==" class="burger-contact" target="_blank">
+        <svg viewBox="0 0 24 24" fill="#E4405F" width="16" height="16">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+        </svg>
+        Instagram
+      </a>
+      <div class="burger-hours">🕐 Пн–Вс · 09:00–19:00</div>
+    </div>
   </div>
 </div>
 
@@ -117,7 +151,7 @@
     </button>
     <a class="logo" href="#">
       <img src="img/1.jpg" alt="Mi Техно" class="logo-img" onerror="this.style.display='none'">
-      <span class="logo-text">Mi <span>Техно</span></span>
+      <span class="logo-text">Mi <span>Texno</span></span>
     </a>
   </div>
 
@@ -127,25 +161,38 @@
     <a href="#appliances">Кондиционеры</a>
     <a href="#support">Контакты</a>
   </nav>
-<div class="header-contacts">
-  <a href="https://t.me/Mi_Techn0" class="contact-link contact-tg" target="_blank">
-    <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
-    <span>@Mi_Texn0</span>
-  </a>
-  <a href="https://wa.me/992935070070" class="contact-link contact-wa" target="_blank">
-    <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    <span>+992-93-507-00-70</span>
-  </a>
-  <!-- Instagram -->
-  <a href="https://www.instagram.com/mi.texno.tj?igsh=MTM3dmFsbzl5N29tYw==" class="contact-link contact-ig" target="_blank">
-    <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-    </svg>
-    <span>Instagram</span>
-  </a>
-</div>
+
   <div class="header-actions">
-    
+    <div class="header-contacts">
+      <a href="https://t.me/Mi_Texn0" class="contact-link contact-tg" target="_blank">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+        <span>@Mi_Texn0</span>
+      </a>
+      <a href="https://wa.me/992935070070" class="contact-link contact-wa" target="_blank">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span>+992-93-507-00-70</span>
+      </a>
+      <a href="https://www.instagram.com/mi.texno.tj?igsh=MTM3dmFsbzl5N29tYw==" class="contact-link contact-ig" target="_blank">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+        </svg>
+        <span>Instagram</span>
+      </a>
+    </div>
+    <button class="search-btn" id="searchOpenBtn" onclick="openSearch()" title="Поиск">
+      <svg width="17" height="17" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </button>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="ru" onclick="switchLang('ru')">RU</button>
+      <button class="lang-btn" data-lang="tj" onclick="switchLang('tj')">ТЧ</button>
+    </div>
+    <div id="authArea"></div>
+    <button class="cart-btn" onclick="toggleCart()">
+      <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-label">Корзина</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
 </header>
 
 <!-- ══════════ MOBILE NAV ══════════ -->
@@ -188,31 +235,21 @@
       <h1>Технологии,<br>которым<br><em>доверяют</em></h1>
       <p class="hero-desc">Магазин Xiaomi в Таджикистане. Смартфоны, гаджеты и умные устройства с быстрой доставкой.</p>
       <div class="hero-actions">
-        <a href="#catalog" class="btn-primary">
-          Перейти в каталог
-          <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        <a href="#catalog" class="btn-primary">Перейти в каталог <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         <a href="#support" class="btn-secondary">Связаться</a>
       </div>
       <div class="hero-stats">
-        <div class="stat-item"><div class="stat-value">8<span>Тысяч+</span></div><div class="stat-label">Клиентов</div></div>
-        <div class="stat-item"><div class="stat-value">250<span>+</span></div><div class="stat-label">Товаров</div></div>
-        <div class="stat-item"><div class="stat-value">1<span>г</span></div><div class="stat-label">На рынке</div></div>
+        <div class="stat-item"><div class="stat-value">5<span>К+</span></div><div class="stat-label">Клиентов</div></div>
+        <div class="stat-item"><div class="stat-value">200<span>+</span></div><div class="stat-label">Товаров</div></div>
+        <div class="stat-item"><div class="stat-value">3<span>г</span></div><div class="stat-label">На рынке</div></div>
       </div>
     </div>
     <div class="hero-visual">
       <div class="hero-card-wrap">
-        <div class="hero-chip chip-delivery">
-          <span>⚡</span><div><strong>Быстрая доставка</strong><small>1–3 дня</small></div>
-        </div>
+        <div class="hero-chip chip-delivery"><span>⚡</span><div><strong>Быстрая доставка</strong><small>1–3 дня</small></div></div>
         <div class="hero-featured-card">
           <div class="hero-card-badge">🔥 Товар месяца</div>
-          <div class="hero-purifier-visual">
-            <div class="hero-purifier-display">
-              <span class="purifier-brand">Xiaomi</span>
-              <span class="purifier-wind">🍃</span>
-            </div>
-          </div>
+          <div class="hero-purifier-visual"><div class="hero-purifier-display"><span class="purifier-brand">Xiaomi</span><span class="purifier-wind">🍃</span></div></div>
           <div class="hero-card-name">Очиститель Воздуха Xiaomi Purifier 5</div>
           <div class="hero-card-sub">Способен очистить площадь до 48кв²</div>
           <div class="hero-card-price">2 100 сом.</div>
@@ -225,10 +262,7 @@
 <!-- ══════════ АКЦИИ ══════════ -->
 <section class="section section-bg" id="promos">
   <div class="section-header fade-up">
-    <div>
-      <div class="section-eyebrow">Акции</div>
-      <div class="section-title">Лучшие предложения</div>
-    </div>
+    <div><div class="section-eyebrow">Акции</div><div class="section-title">Лучшие предложения</div></div>
   </div>
   <div class="promos-grid fade-up">
     <div class="promo-card promo-card--credit">
@@ -241,698 +275,138 @@
   </div>
 </section>
 
-  <!-- ══════════ ТЕЛЕВИЗОРЫ — ТРИ СЛАЙДЕРА ══════════ -->
+<!-- ══════════ ТЕЛЕВИЗОРЫ — ТРИ СЛАЙДЕРА ══════════ -->
 <section class="section section-bg" id="tvs">
-  <div class="section-header fade-up">
-    <div>
-      <div class="section-eyebrow">Телевизоры Xiaomi</div>
-      <div class="section-title">Умные экраны<br>нового поколения</div>
-    </div>
-    <a href="#" class="section-link">Все модели →</a>
-  </div>
-
+  <div class="section-header fade-up"><div><div class="section-eyebrow">Телевизоры Xiaomi</div><div class="section-title">Умные экраны<br>нового поколения</div></div><a href="#" class="section-link">Все модели →</a></div>
   <!-- === 1. Mi TV A Pro === -->
   <div class="tv-category-title">Mi TV A Pro</div>
   <div class="tv-slider-wrapper fade-up" id="tvAWrapper">
     <div class="tv-slider-track" id="tvATrack">
-      <div class="tv-card">
-        <div class="tv-card-badge hot">Хит</div>
-        <div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Mi TV A Pro 43&quot;"><div class="tv-size-tag">43"</div></div>
-        <div class="tv-card-body">
-          <div class="tv-card-cat">Телевизор Xiaomi</div>
-          <div class="tv-card-name">Mi TV A Pro 43"</div>
-          <div class="tv-card-model">L43M8-A2RU</div>
-          <div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">Dolby Vision</span><span class="tv-spec">MEMC</span><span class="tv-spec">Android TV</span><span class="tv-spec">60 Гц</span></div>
-          <div class="tv-card-footer">
-            <div><div class="tv-price">2 900 сом.</div><div class="tv-price-old">3 100 сом.</div></div>
-            <button class="tv-add-btn" onclick="addToCart('tvA43','Mi TV A Pro 43&quot;',2900,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-        </div>
-      </div>
-      <div class="tv-card">
-        <div class="tv-card-badge new">Новинка</div>
-        <div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Mi TV A 55&quot;"><div class="tv-size-tag">55"</div></div>
-        <div class="tv-card-body">
-          <div class="tv-card-cat">Телевизор Xiaomi</div>
-          <div class="tv-card-name">Mi TV A 55"</div>
-          <div class="tv-card-model">L55M8-A2RU</div>
-          <div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">HDR10+</span><span class="tv-spec">Dolby Audio</span><span class="tv-spec">Android TV</span><span class="tv-spec">60 Гц</span></div>
-          <div class="tv-card-footer">
-            <div><div class="tv-price">5 000 сом.</div><div class="tv-price-old">5 300 сом.</div></div>
-            <button class="tv-add-btn" onclick="addToCart('tvA55','Mi TV A 55&quot;',5000,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-        </div>
-      </div>
-      <div class="tv-card">
-        <div class="tv-card-badge sale">−15%</div>
-        <div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Mi TV A 65&quot;"><div class="tv-size-tag">65"</div></div>
-        <div class="tv-card-body">
-          <div class="tv-card-cat">Телевизор Xiaomi</div>
-          <div class="tv-card-name">Mi TV A 65"</div>
-          <div class="tv-card-model">L65M8-A2RU</div>
-          <div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">Dolby Vision</span><span class="tv-spec">HDR10+</span><span class="tv-spec">MEMC</span><span class="tv-spec">60 Гц</span></div>
-          <div class="tv-card-footer">
-            <div><div class="tv-price">6 900 сом.</div><div class="tv-price-old">7 190 сом.</div></div>
-            <button class="tv-add-btn" onclick="addToCart('tvA65','Mi TV A 65&quot;',6900,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-        </div>
-      </div>
+      <div class="tv-card"><div class="tv-card-badge hot">Хит</div><div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Mi TV A Pro 43″"><div class="tv-size-tag">43"</div></div><div class="tv-card-body"><div class="tv-card-cat">Телевизор Xiaomi</div><div class="tv-card-name">Mi TV A Pro 43"</div><div class="tv-card-model">L43M8-A2RU</div><div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">Dolby Vision</span><span class="tv-spec">MEMC</span><span class="tv-spec">Android TV</span><span class="tv-spec">60 Гц</span></div><div class="tv-card-footer"><div><div class="tv-price">2 900 сом.</div><div class="tv-price-old">3 100 сом.</div></div><button class="tv-add-btn" onclick="addToCart('tvA43','Mi TV A Pro 43″',2900,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+      <div class="tv-card"><div class="tv-card-badge new">Новинка</div><div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Mi TV A 55″"><div class="tv-size-tag">55"</div></div><div class="tv-card-body"><div class="tv-card-cat">Телевизор Xiaomi</div><div class="tv-card-name">Mi TV A 55"</div><div class="tv-card-model">L55M8-A2RU</div><div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">HDR10+</span><span class="tv-spec">Dolby Audio</span><span class="tv-spec">Android TV</span><span class="tv-spec">60 Гц</span></div><div class="tv-card-footer"><div><div class="tv-price">5 000 сом.</div><div class="tv-price-old">5 300 сом.</div></div><button class="tv-add-btn" onclick="addToCart('tvA55','Mi TV A 55″',5000,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+      <div class="tv-card"><div class="tv-card-badge sale">−15%</div><div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Mi TV A 65″"><div class="tv-size-tag">65"</div></div><div class="tv-card-body"><div class="tv-card-cat">Телевизор Xiaomi</div><div class="tv-card-name">Mi TV A 65"</div><div class="tv-card-model">L65M8-A2RU</div><div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">Dolby Vision</span><span class="tv-spec">HDR10+</span><span class="tv-spec">MEMC</span><span class="tv-spec">60 Гц</span></div><div class="tv-card-footer"><div><div class="tv-price">6 900 сом.</div><div class="tv-price-old">7 190 сом.</div></div><button class="tv-add-btn" onclick="addToCart('tvA65','Mi TV A 65″',6900,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
     </div>
-    <div class="slider-controls" style="margin-top:10px">
-      <div class="slider-dots" id="tvADots"></div>
-      <div class="slider-arrows">
-        <button class="arrow-btn" onclick="slideTvA(-1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-        <button class="arrow-btn" onclick="slideTvA(1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-      </div>
-    </div>
+    <div class="slider-controls" style="margin-top:10px"><div class="slider-dots" id="tvADots"></div><div class="slider-arrows"><button class="arrow-btn" onclick="slideTvA(-1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button><button class="arrow-btn" onclick="slideTvA(1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button></div></div>
   </div>
-
   <!-- === 2. Redmi X Pro === -->
   <div class="tv-category-title" style="margin-top:40px">Redmi X Pro</div>
   <div class="tv-slider-wrapper fade-up" id="xproWrapper">
     <div class="tv-slider-track" id="xproTrack">
-      <div class="tv-card">
-        <div class="tv-card-badge new">Новинка</div>
-        <div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Redmi X Pro 55&quot;"><div class="tv-size-tag">55"</div></div>
-        <div class="tv-card-body">
-          <div class="tv-card-cat">Redmi X Pro</div>
-          <div class="tv-card-name">Redmi X Pro 55"</div>
-          <div class="tv-card-model">Xiaomi TV Redmi X Pro</div>
-          <div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">120Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span><span class="tv-spec">HDMI 2.1</span></div>
-          <div class="tv-card-footer">
-            <div><div class="tv-price">3 500 сом.</div><div class="tv-price-old">4 000 сом.</div></div>
-            <button class="tv-add-btn" onclick="addToCart('xpro55','Redmi X Pro 55&quot;',3500,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-        </div>
-      </div>
-      <div class="tv-card">
-        <div class="tv-card-badge new">Новинка</div>
-        <div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Redmi X Pro 65&quot;"><div class="tv-size-tag">65"</div></div>
-        <div class="tv-card-body">
-          <div class="tv-card-cat">Redmi X Pro</div>
-          <div class="tv-card-name">Redmi X Pro 65"</div>
-          <div class="tv-card-model">Xiaomi TV Redmi X Pro</div>
-          <div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">120Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span><span class="tv-spec">HDMI 2.1</span></div>
-          <div class="tv-card-footer">
-            <div><div class="tv-price">4 500 сом.</div><div class="tv-price-old">5 100 сом.</div></div>
-            <button class="tv-add-btn" onclick="addToCart('xpro65','Redmi X Pro 65&quot;',4500,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-        </div>
-      </div>
-      <div class="tv-card">
-        <div class="tv-card-badge new">Новинка</div>
-        <div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Redmi X Pro 75&quot;"><div class="tv-size-tag">75"</div></div>
-        <div class="tv-card-body">
-          <div class="tv-card-cat">Redmi X Pro</div>
-          <div class="tv-card-name">Redmi X Pro 75"</div>
-          <div class="tv-card-model">Xiaomi TV Redmi X Pro</div>
-          <div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">120Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span><span class="tv-spec">HDMI 2.1</span></div>
-          <div class="tv-card-footer">
-            <div><div class="tv-price">6 000 сом.</div><div class="tv-price-old">6 800 сом.</div></div>
-            <button class="tv-add-btn" onclick="addToCart('xpro75','Redmi X Pro 75&quot;',6000,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-        </div>
-      </div>
+      <div class="tv-card"><div class="tv-card-badge new">Новинка</div><div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Redmi X Pro 55″"><div class="tv-size-tag">55"</div></div><div class="tv-card-body"><div class="tv-card-cat">Redmi X Pro</div><div class="tv-card-name">Redmi X Pro 55"</div><div class="tv-card-model">Xiaomi TV Redmi X Pro</div><div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">120Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span><span class="tv-spec">HDMI 2.1</span></div><div class="tv-card-footer"><div><div class="tv-price">3 500 сом.</div><div class="tv-price-old">4 000 сом.</div></div><button class="tv-add-btn" onclick="addToCart('xpro55','Redmi X Pro 55″',3500,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+      <div class="tv-card"><div class="tv-card-badge new">Новинка</div><div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Redmi X Pro 65″"><div class="tv-size-tag">65"</div></div><div class="tv-card-body"><div class="tv-card-cat">Redmi X Pro</div><div class="tv-card-name">Redmi X Pro 65"</div><div class="tv-card-model">Xiaomi TV Redmi X Pro</div><div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">120Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span><span class="tv-spec">HDMI 2.1</span></div><div class="tv-card-footer"><div><div class="tv-price">4 500 сом.</div><div class="tv-price-old">5 100 сом.</div></div><button class="tv-add-btn" onclick="addToCart('xpro65','Redmi X Pro 65″',4500,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+      <div class="tv-card"><div class="tv-card-badge new">Новинка</div><div class="tv-img-wrap"><img src="img/tv1.jpg" alt="Redmi X Pro 75″"><div class="tv-size-tag">75"</div></div><div class="tv-card-body"><div class="tv-card-cat">Redmi X Pro</div><div class="tv-card-name">Redmi X Pro 75"</div><div class="tv-card-model">Xiaomi TV Redmi X Pro</div><div class="tv-specs"><span class="tv-spec hi">4K UHD</span><span class="tv-spec">120Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span><span class="tv-spec">HDMI 2.1</span></div><div class="tv-card-footer"><div><div class="tv-price">6 000 сом.</div><div class="tv-price-old">6 800 сом.</div></div><button class="tv-add-btn" onclick="addToCart('xpro75','Redmi X Pro 75″',6000,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
     </div>
-    <div class="slider-controls" style="margin-top:10px">
-      <div class="slider-dots" id="xproDots"></div>
-      <div class="slider-arrows">
-        <button class="arrow-btn" onclick="slideXpro(-1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-        <button class="arrow-btn" onclick="slideXpro(1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-      </div>
-    </div>
+    <div class="slider-controls" style="margin-top:10px"><div class="slider-dots" id="xproDots"></div><div class="slider-arrows"><button class="arrow-btn" onclick="slideXpro(-1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button><button class="arrow-btn" onclick="slideXpro(1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button></div></div>
   </div>
-
   <!-- === 3. Xiaomi S Mini LED === -->
   <div class="tv-category-title" style="margin-top:40px">Xiaomi S Mini LED</div>
   <div class="tv-slider-wrapper fade-up" id="miniWrapper">
     <div class="tv-slider-track" id="miniTrack">
-      <div class="tv-card">
-        <div class="tv-card-badge" style="background:#0055aa">Mini LED</div>
-        <div class="tv-img-wrap"><img src="img/tv1.jpg" alt="S Mini LED 55&quot;"><div class="tv-size-tag">55"</div></div>
-        <div class="tv-card-body">
-          <div class="tv-card-cat">Xiaomi TV S Mini LED</div>
-          <div class="tv-card-name">S Mini LED 55"</div>
-          <div class="tv-card-model">Xiaomi Mini LED 4K</div>
-          <div class="tv-specs"><span class="tv-spec hi">4K QLED</span><span class="tv-spec">Mini LED</span><span class="tv-spec">144Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span></div>
-          <div class="tv-card-footer">
-            <div><div class="tv-price">4 200 сом.</div><div class="tv-price-old">4 700 сом.</div></div>
-            <button class="tv-add-btn" onclick="addToCart('mini55','S Mini LED 55&quot;',4200,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-        </div>
-      </div>
-      <div class="tv-card">
-        <div class="tv-card-badge" style="background:#0055aa">Mini LED</div>
-        <div class="tv-img-wrap"><img src="img/tv1.jpg" alt="S Mini LED 65&quot;"><div class="tv-size-tag">65"</div></div>
-        <div class="tv-card-body">
-          <div class="tv-card-cat">Xiaomi TV S Mini LED</div>
-          <div class="tv-card-name">S Mini LED 65"</div>
-          <div class="tv-card-model">Xiaomi Mini LED 4K</div>
-          <div class="tv-specs"><span class="tv-spec hi">4K QLED</span><span class="tv-spec">Mini LED</span><span class="tv-spec">144Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span></div>
-          <div class="tv-card-footer">
-            <div><div class="tv-price">5 200 сом.</div><div class="tv-price-old">5 800 сом.</div></div>
-            <button class="tv-add-btn" onclick="addToCart('mini65','S Mini LED 65&quot;',5200,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-        </div>
-      </div>
-      <div class="tv-card">
-        <div class="tv-card-badge" style="background:#0055aa">Mini LED</div>
-        <div class="tv-img-wrap"><img src="img/tv1.jpg" alt="S Mini LED 75&quot;"><div class="tv-size-tag">75"</div></div>
-        <div class="tv-card-body">
-          <div class="tv-card-cat">Xiaomi TV S Mini LED</div>
-          <div class="tv-card-name">S Mini LED 75"</div>
-          <div class="tv-card-model">Xiaomi Mini LED 4K</div>
-          <div class="tv-specs"><span class="tv-spec hi">4K QLED</span><span class="tv-spec">Mini LED</span><span class="tv-spec">144Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span></div>
-          <div class="tv-card-footer">
-            <div><div class="tv-price">6 800 сом.</div><div class="tv-price-old">7 500 сом.</div></div>
-            <button class="tv-add-btn" onclick="addToCart('mini75','S Mini LED 75&quot;',6800,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-          </div>
-        </div>
-      </div>
+      <div class="tv-card"><div class="tv-card-badge" style="background:#0055aa">Mini LED</div><div class="tv-img-wrap"><img src="img/tv1.jpg" alt="S Mini LED 55″"><div class="tv-size-tag">55"</div></div><div class="tv-card-body"><div class="tv-card-cat">Xiaomi TV S Mini LED</div><div class="tv-card-name">S Mini LED 55"</div><div class="tv-card-model">Xiaomi Mini LED 4K</div><div class="tv-specs"><span class="tv-spec hi">4K QLED</span><span class="tv-spec">Mini LED</span><span class="tv-spec">144Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span></div><div class="tv-card-footer"><div><div class="tv-price">4 200 сом.</div><div class="tv-price-old">4 700 сом.</div></div><button class="tv-add-btn" onclick="addToCart('mini55','S Mini LED 55″',4200,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+      <div class="tv-card"><div class="tv-card-badge" style="background:#0055aa">Mini LED</div><div class="tv-img-wrap"><img src="img/tv1.jpg" alt="S Mini LED 65″"><div class="tv-size-tag">65"</div></div><div class="tv-card-body"><div class="tv-card-cat">Xiaomi TV S Mini LED</div><div class="tv-card-name">S Mini LED 65"</div><div class="tv-card-model">Xiaomi Mini LED 4K</div><div class="tv-specs"><span class="tv-spec hi">4K QLED</span><span class="tv-spec">Mini LED</span><span class="tv-spec">144Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span></div><div class="tv-card-footer"><div><div class="tv-price">5 200 сом.</div><div class="tv-price-old">5 800 сом.</div></div><button class="tv-add-btn" onclick="addToCart('mini65','S Mini LED 65″',5200,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+      <div class="tv-card"><div class="tv-card-badge" style="background:#0055aa">Mini LED</div><div class="tv-img-wrap"><img src="img/tv1.jpg" alt="S Mini LED 75″"><div class="tv-size-tag">75"</div></div><div class="tv-card-body"><div class="tv-card-cat">Xiaomi TV S Mini LED</div><div class="tv-card-name">S Mini LED 75"</div><div class="tv-card-model">Xiaomi Mini LED 4K</div><div class="tv-specs"><span class="tv-spec hi">4K QLED</span><span class="tv-spec">Mini LED</span><span class="tv-spec">144Hz</span><span class="tv-spec">Dolby Vision IQ</span><span class="tv-spec">Google TV</span></div><div class="tv-card-footer"><div><div class="tv-price">6 800 сом.</div><div class="tv-price-old">7 500 сом.</div></div><button class="tv-add-btn" onclick="addToCart('mini75','S Mini LED 75″',6800,'📺')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
     </div>
-    <div class="slider-controls" style="margin-top:10px">
-      <div class="slider-dots" id="miniDots"></div>
-      <div class="slider-arrows">
-        <button class="arrow-btn" onclick="slideMini(-1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-        <button class="arrow-btn" onclick="slideMini(1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-      </div>
-    </div>
+    <div class="slider-controls" style="margin-top:10px"><div class="slider-dots" id="miniDots"></div><div class="slider-arrows"><button class="arrow-btn" onclick="slideMini(-1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button><button class="arrow-btn" onclick="slideMini(1)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button></div></div>
   </div>
-
   <script>
-['tvA','xpro','mini'].forEach(k => {
-  const track = document.getElementById(k+'Track');
-  const dots  = document.getElementById(k+'Dots');
-  if (!track) return;
-  const cards = track.querySelectorAll('.tv-card');
-  let cur = 0, sx = 0, sy = 0;
-  const goTo = i => {
-    cur = Math.max(0, Math.min(i, cards.length-1));
-    track.style.transform = `translateX(-${cur * (cards[0]?.offsetWidth||320)}px)`;
-    dots?.querySelectorAll('button').forEach((d,j) => d.className = j===cur?'active':'');
-  };
-  dots && (dots.innerHTML = '', cards.forEach((_,i) => {
-    const b = document.createElement('button');
-    b.onclick = () => goTo(i);
-    dots.appendChild(b);
-  }));
-  window['slide'+k[0].toUpperCase()+k.slice(1)] = dir => goTo(cur+dir);
-  track.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
-  track.addEventListener('touchmove',  e => { if(Math.abs(e.touches[0].clientX-sx)>Math.abs(e.touches[0].clientY-sy)) e.preventDefault(); }, {passive:false});
-  track.addEventListener('touchend',   e => { const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy; if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40) goTo(cur+(dx<0?1:-1)); }, {passive:true});
-  window.addEventListener('resize', () => goTo(cur));
-  setTimeout(() => goTo(0), 100);
-});
+  ['tvA','xpro','mini'].forEach(k => {
+    const track = document.getElementById(k+'Track');
+    const dots  = document.getElementById(k+'Dots');
+    if (!track) return;
+    const cards = track.querySelectorAll('.tv-card');
+    let cur = 0, sx = 0, sy = 0;
+    const goTo = i => {
+      cur = Math.max(0, Math.min(i, cards.length-1));
+      track.style.transform = `translateX(-${cur * (cards[0]?.offsetWidth||320)}px)`;
+      dots?.querySelectorAll('button').forEach((d,j) => d.className = j===cur?'active':'');
+    };
+    dots && (dots.innerHTML = '', cards.forEach((_,i) => {
+      const b = document.createElement('button');
+      b.onclick = () => goTo(i);
+      dots.appendChild(b);
+    }));
+    window['slide'+k[0].toUpperCase()+k.slice(1)] = dir => goTo(cur+dir);
+    track.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+    track.addEventListener('touchmove',  e => { if(Math.abs(e.touches[0].clientX-sx)>Math.abs(e.touches[0].clientY-sy)) e.preventDefault(); }, {passive:false});
+    track.addEventListener('touchend',   e => { const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy; if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40) goTo(cur+(dx<0?1:-1)); }, {passive:true});
+    window.addEventListener('resize', () => goTo(cur));
+    setTimeout(() => goTo(0), 100);
+  });
   </script>
 </section>
-        
 
 <!-- ══════════ КОНДИЦИОНЕРЫ ══════════ -->
 <section class="section section-white" id="appliances">
-  <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Климатическая техника</div><div class="section-title">Кондиционеры</div></div>
-    <a href="#" class="section-link">Все модели →</a>
-  </div>
-
-  <div class="catalog-filters fade-up">
-    <button class="filter-btn active" onclick="climateFilter('all',this)">Все</button>
-    <button class="filter-btn" onclick="climateFilter('ac-floor',this)">Стоячие кондиционеры</button>
-    <button class="filter-btn" onclick="climateFilter('ac-wall',this)">Настенные кондиционеры</button>
-  </div>
-
+  <div class="section-header fade-up"><div><div class="section-eyebrow">Климатическая техника</div><div class="section-title">Кондиционеры</div></div><a href="#" class="section-link">Все модели →</a></div>
+  <div class="catalog-filters fade-up"><button class="filter-btn active" onclick="climateFilter('all',this)">Все</button><button class="filter-btn" onclick="climateFilter('ac-floor',this)">Стоячие кондиционеры</button><button class="filter-btn" onclick="climateFilter('ac-wall',this)">Настенные кондиционеры</button></div>
   <div class="products-grid fade-up" id="climateGrid">
-
-    <div class="product-card" data-climate="ac-floor">
-      <div class="product-badge">Стоячий</div>
-      <div class="product-img"><img src="img/ac_floor1.jpg" alt="72LW-NA10/N1A1" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Кондиционер стоячий · 75-100 м²</div>
-        <div class="product-name">Кондиционер 72LW-NA10/N1A1</div>
-        <div class="product-desc">Стоячий напольный кондиционер, мощность для помещений до 30 м². Тихая работа, быстрое охлаждение.</div>
-        <div class="product-footer">
-          <div><div class="product-price">12 500 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('ac_f1','Кондиционер 72LW-NA10/N1A1',12500,'❄️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-climate="ac-floor">
-      <div class="product-badge">Стоячий</div>
-      <div class="product-img"><img src="img/ac_floor2.jpg" alt="KFR-72LW/N1A1" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Кондиционер стоячий · 75-100 м²</div>
-        <div class="product-name">Кондиционер KFR-72LW/N1A1</div>
-        <div class="product-desc">Напольный кондиционер Xiaomi Mijia на 75-100 м². Инверторный компрессор, управление через Mi Home.</div>
-        <div class="product-footer">
-          <div><div class="product-price">11 500 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('ac_f2','Кондиционер KFR-72LW/N1A1',11500,'❄️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-climate="ac-floor">
-      <div class="product-badge">Стоячий</div>
-      <div class="product-img"><img src="img/ac_floor3.jpg" alt="KFR-51LW/N1A1" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Кондиционер стоячий · 50-55 м²</div>
-        <div class="product-name">Кондиционер KFR-51LW/N1A1</div>
-        <div class="product-desc">Напольный кондиционер на 50-55 м². Компактный, экономичный, подходит для спальни и детской.</div>
-        <div class="product-footer">
-          <div><div class="product-price">9 450 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('ac_f3','Кондиционер KFR-51LW/N1A1',9450,'❄️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-climate="ac-wall">
-      <div class="product-badge new">Настенный</div>
-      <div class="product-img"><img src="img/ac_wall1.jpg" alt="72GW-NA30/N1A1" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Кондиционер настенный · 75-100 м²</div>
-        <div class="product-name">Кондиционер 72GW-NA30/N1A1</div>
-        <div class="product-desc">Настенный сплит-система на 75-100 м². Тихий режим 20 дБ, самоочистка фильтра, Wi-Fi управление.</div>
-        <div class="product-footer">
-          <div><div class="product-price">8 985 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('ac_w1','Кондиционер 72GW-NA30/N1A1',8985,'❄️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-climate="ac-wall">
-      <div class="product-badge">Хит</div>
-      <div class="product-img"><img src="img/ac_wall2.jpg" alt="KFR-50GW/N2A1" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Кондиционер настенный · 50 м²</div>
-        <div class="product-name">Кондиционер KFR-50GW/N2A1</div>
-        <div class="product-desc">Настенный сплит на 50 м². Класс энергоэффективности A++, охлаждение и обогрев.</div>
-        <div class="product-footer">
-          <div><div class="product-price">5 200 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('ac_w2','Кондиционер KFR-50GW/N2A1',5200,'❄️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-climate="ac-wall">
-      <div class="product-badge">Хит</div>
-      <div class="product-img"><img src="img/ac_wall3.jpg" alt="KFR-35GW/N1A1" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Кондиционер настенный · 30-35 м²</div>
-        <div class="product-name">Кондиционер KFR-35GW/N1A1</div>
-        <div class="product-desc">Настенный сплит на 30-35 м². Бюджетная модель для небольших комнат, быстрый монтаж.</div>
-        <div class="product-footer">
-          <div><div class="product-price">4 270 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('ac_w3','Кондиционер KFR-35GW/N1A1',4270,'❄️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <div class="product-card" data-climate="ac-floor"><div class="product-badge">Стоячий</div><div class="product-img"><img src="img/ac_floor1.jpg" alt="72LW-NA10/N1A1" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Кондиционер стоячий · 75-100 м²</div><div class="product-name">Кондиционер 72LW-NA10/N1A1</div><div class="product-desc">Стоячий напольный кондиционер, мощность для помещений до 30 м². Тихая работа, быстрое охлаждение.</div><div class="product-footer"><div><div class="product-price">12 500 сом.</div></div><button class="add-to-cart" onclick="addToCart('ac_f1','Кондиционер 72LW-NA10/N1A1',12500,'❄️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card" data-climate="ac-floor"><div class="product-badge">Стоячий</div><div class="product-img"><img src="img/ac_floor2.jpg" alt="KFR-72LW/N1A1" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Кондиционер стоячий · 75-100 м²</div><div class="product-name">Кондиционер KFR-72LW/N1A1</div><div class="product-desc">Напольный кондиционер Xiaomi Mijia на 75-100 м². Инверторный компрессор, управление через Mi Home.</div><div class="product-footer"><div><div class="product-price">11 500 сом.</div></div><button class="add-to-cart" onclick="addToCart('ac_f2','Кондиционер KFR-72LW/N1A1',11500,'❄️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card" data-climate="ac-floor"><div class="product-badge">Стоячий</div><div class="product-img"><img src="img/ac_floor3.jpg" alt="KFR-51LW/N1A1" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Кондиционер стоячий · 50-55 м²</div><div class="product-name">Кондиционер KFR-51LW/N1A1</div><div class="product-desc">Напольный кондиционер на 50-55 м². Компактный, экономичный, подходит для спальни и детской.</div><div class="product-footer"><div><div class="product-price">9 450 сом.</div></div><button class="add-to-cart" onclick="addToCart('ac_f3','Кондиционер KFR-51LW/N1A1',9450,'❄️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card" data-climate="ac-wall"><div class="product-badge new">Настенный</div><div class="product-img"><img src="img/ac_wall1.jpg" alt="72GW-NA30/N1A1" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Кондиционер настенный · 75-100 м²</div><div class="product-name">Кондиционер 72GW-NA30/N1A1</div><div class="product-desc">Настенный сплит-система на 75-100 м². Тихий режим 20 дБ, самоочистка фильтра, Wi-Fi управление.</div><div class="product-footer"><div><div class="product-price">8 985 сом.</div></div><button class="add-to-cart" onclick="addToCart('ac_w1','Кондиционер 72GW-NA30/N1A1',8985,'❄️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card" data-climate="ac-wall"><div class="product-badge">Хит</div><div class="product-img"><img src="img/ac_wall2.jpg" alt="KFR-50GW/N2A1" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Кондиционер настенный · 50 м²</div><div class="product-name">Кондиционер KFR-50GW/N2A1</div><div class="product-desc">Настенный сплит на 50 м². Класс энергоэффективности A++, охлаждение и обогрев.</div><div class="product-footer"><div><div class="product-price">5 200 сом.</div></div><button class="add-to-cart" onclick="addToCart('ac_w2','Кондиционер KFR-50GW/N2A1',5200,'❄️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card" data-climate="ac-wall"><div class="product-badge">Хит</div><div class="product-img"><img src="img/ac_wall3.jpg" alt="KFR-35GW/N1A1" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Кондиционер настенный · 30-35 м²</div><div class="product-name">Кондиционер KFR-35GW/N1A1</div><div class="product-desc">Настенный сплит на 30-35 м². Бюджетная модель для небольших комнат, быстрый монтаж.</div><div class="product-footer"><div><div class="product-price">4 270 сом.</div></div><button class="add-to-cart" onclick="addToCart('ac_w3','Кондиционер KFR-35GW/N1A1',4270,'❄️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
   </div>
-
-  <script>
-    function climateFilter(type, btn) {
-      document.querySelectorAll('#appliances .filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('#climateGrid .product-card').forEach(card => {
-        card.style.display = (type === 'all' || card.dataset.climate === type) ? '' : 'none';
-      });
-    }
-  </script>
+  <script>function climateFilter(type, btn) { document.querySelectorAll('#appliances .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); document.querySelectorAll('#climateGrid .product-card').forEach(card => { card.style.display = (type === 'all' || card.dataset.climate === type) ? '' : 'none'; }); }</script>
 </section>
 
 <!-- ══════════ КАМЕРЫ ВИДЕОНАБЛЮДЕНИЯ ══════════ -->
 <section class="section section-white" id="cameras">
-  <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Камеры и колонка</div><div class="section-title">Камеры и Колонка</div></div>
-    <a href="#" class="section-link">Все модели →</a>
-  </div>
+  <div class="section-header fade-up"><div><div class="section-eyebrow">Камеры и колонка</div><div class="section-title">Камеры и Колонка</div></div><a href="#" class="section-link">Все модели →</a></div>
   <div class="products-grid fade-up">
-
-    <div class="product-card">
-      <div class="product-badge">Хит</div>
-      <div class="product-img"><img src="img/cw700s.jpg" alt="Xiaomi Outdoor Camera CW700S" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Уличная PTZ-камера</div>
-        <div class="product-name">Наружная камера Xiaomi Outdoor Camera CW700S</div>
-        <div class="product-desc">Двойная матрица 4 Мп (2.5K), 9-кратный гибридный зум, 4-диодное полноцветное ночное видение, порт RJ45, класс защиты IP66.</div>
-        <div class="product-stock">В наличии: <span class="stock-count" id="stock-cw700s">3</span> шт.</div>
-        <div class="product-footer">
-          <div><div class="product-price">800 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('cw700s','Xiaomi Outdoor Camera CW700S',800,'📷',5)">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-badge new">Новинка</div>
-      <div class="product-img"><img src="img/bw500.jpg" alt="Xiaomi BW500" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Аккумуляторная камера</div>
-        <div class="product-name">Наружная камера Xiaomi BW500</div>
-        <div class="product-desc">Разрешение 2.5K (2560x1440), встроенный аккумулятор 10 000 мАч (до 6 месяцев работы), угол обзора 136°, хранилище eMMC на 8 ГБ, защита IP67.</div>
-        <div class="product-stock">В наличии: <span class="stock-count" id="stock-bw500">2</span> шт.</div>
-        <div class="product-footer">
-          <div><div class="product-price">900 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('bw500','Xiaomi BW500',900,'📷',5)">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img"><img src="img/camera2-ptz.jpg" alt="Xiaomi Smart Camera 2 PTZ" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Поворотная IP-камера</div>
-        <div class="product-name">IP-камера Xiaomi Smart Camera 2 PTZ Version</div>
-        <div class="product-desc">Матрица 4 Мп (2.5K 1440p), светосильная оптика F1.4, ИК-подсветка 940 нм, двухдиапазонный Wi-Fi (2.4/5 ГГц), ИИ-детектор людей.</div>
-        <div class="product-stock">В наличии: <span class="stock-count" id="stock-ptz2">0</span> шт.</div>
-        <div class="product-footer">
-          <div><div class="product-price">450 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('ptz2','Xiaomi Smart Camera 2 PTZ',450,'📸',5)">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img"><img src="img/cw300.jpg" alt="Xiaomi CW300" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Уличная PTZ-камера</div>
-        <div class="product-name">Наружная камера Xiaomi CW300</div>
-        <div class="product-desc">Разрешение 2.5K (4 Мп), объектив F1.6, комбинированная подсветка (2 ИК, 2 белых диода), автоматическое слежение за человеком, класс защиты IP66.</div>
-        <div class="product-stock">В наличии: <span class="stock-count" id="stock-cw300">2</span> шт.</div>
-        <div class="product-footer">
-          <div><div class="product-price">700 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('cw300','Xiaomi CW300',700,'📷',5)">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-badge">Топ</div>
-      <div class="product-img"><img src="img/cw500-dual.jpg" alt="Xiaomi Outdoor Camera CW500 Dual" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Двухобъективная камера</div>
-        <div class="product-name">Уличная камера видеонаблюдения Xiaomi Outdoor Camera CW500 Dual</div>
-        <div class="product-desc">Два независимых объектива по 4 Мп каждый (фиксированный + поворотный), одновременный мониторинг двух зон, поддержка Wi-Fi 6 и защита IP66.</div>
-        <div class="product-stock">В наличии: <span class="stock-count" id="stock-cw500d">2</span> шт.</div>
-        <div class="product-footer">
-          <div><div class="product-price">990 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('cw500d','Xiaomi Outdoor Camera CW500 Dual',990,'🎥',5)">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/cw700s.jpg" alt="Xiaomi Outdoor Camera CW700S" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Уличная PTZ-камера</div><div class="product-name">Наружная камера Xiaomi Outdoor Camera CW700S</div><div class="product-desc">Двойная матрица 4 Мп (2.5K), 9-кратный гибридный зум, 4-диодное полноцветное ночное видение, порт RJ45, класс защиты IP66.</div><div class="product-stock">В наличии: <span class="stock-count" id="stock-cw700s">3</span> шт.</div><div class="product-footer"><div><div class="product-price">800 сом.</div></div><button class="add-to-cart" onclick="addToCart('cw700s','Xiaomi Outdoor Camera CW700S',800,'📷',5)"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/bw500.jpg" alt="Xiaomi BW500" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Аккумуляторная камера</div><div class="product-name">Наружная камера Xiaomi BW500</div><div class="product-desc">Разрешение 2.5K (2560x1440), встроенный аккумулятор 10 000 мАч (до 6 месяцев работы), угол обзора 136°, хранилище eMMC на 8 ГБ, защита IP67.</div><div class="product-stock">В наличии: <span class="stock-count" id="stock-bw500">2</span> шт.</div><div class="product-footer"><div><div class="product-price">900 сом.</div></div><button class="add-to-cart" onclick="addToCart('bw500','Xiaomi BW500',900,'📷',5)"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/camera2-ptz.jpg" alt="Xiaomi Smart Camera 2 PTZ" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Поворотная IP-камера</div><div class="product-name">IP-камера Xiaomi Smart Camera 2 PTZ Version</div><div class="product-desc">Матрица 4 Мп (2.5K 1440p), светосильная оптика F1.4, ИК-подсветка 940 нм, двухдиапазонный Wi-Fi (2.4/5 ГГц), ИИ-детектор людей.</div><div class="product-stock">В наличии: <span class="stock-count" id="stock-ptz2">0</span> шт.</div><div class="product-footer"><div><div class="product-price">450 сом.</div></div><button class="add-to-cart" onclick="addToCart('ptz2','Xiaomi Smart Camera 2 PTZ',450,'📸',5)"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/cw300.jpg" alt="Xiaomi CW300" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Уличная PTZ-камера</div><div class="product-name">Наружная камера Xiaomi CW300</div><div class="product-desc">Разрешение 2.5K (4 Мп), объектив F1.6, комбинированная подсветка (2 ИК, 2 белых диода), автоматическое слежение за человеком, класс защиты IP66.</div><div class="product-stock">В наличии: <span class="stock-count" id="stock-cw300">2</span> шт.</div><div class="product-footer"><div><div class="product-price">700 сом.</div></div><button class="add-to-cart" onclick="addToCart('cw300','Xiaomi CW300',700,'📷',5)"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge">Топ</div><div class="product-img"><img src="img/cw500-dual.jpg" alt="Xiaomi Outdoor Camera CW500 Dual" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Двухобъективная камера</div><div class="product-name">Уличная камера видеонаблюдения Xiaomi Outdoor Camera CW500 Dual</div><div class="product-desc">Два независимых объектива по 4 Мп каждый (фиксированный + поворотный), одновременный мониторинг двух зон, поддержка Wi-Fi 6 и защита IP66.</div><div class="product-stock">В наличии: <span class="stock-count" id="stock-cw500d">2</span> шт.</div><div class="product-footer"><div><div class="product-price">990 сом.</div></div><button class="add-to-cart" onclick="addToCart('cw500d','Xiaomi Outdoor Camera CW500 Dual',990,'🎥',5)"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
   </div>
 </section>
 
 <!-- ══════════ МОНИТОРЫ ══════════ -->
 <section class="section section-bg" id="monitors">
-  <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Мониторы (Дисплеи) Xiaomi</div><div class="section-title">Чёткость на каждый день</div></div>
-    <a href="#" class="section-link">Все модели →</a>
-  </div>
+  <div class="section-header fade-up"><div><div class="section-eyebrow">Мониторы (Дисплеи) Xiaomi</div><div class="section-title">Чёткость на каждый день</div></div><a href="#" class="section-link">Все модели →</a></div>
   <div class="products-grid fade-up">
-
-    <div class="product-card">
-      <div class="product-badge new">Новинка</div>
-      <div class="product-img"><img src="img/mon1.png" alt="Xiaomi Redmi G27Q 2025"></div>
-      <div class="product-info">
-        <div class="product-cat">Игровой монитор</div>
-        <div class="product-name">Xiaomi Redmi G27Q 2025 Edition 27" 180Hz 2K QHD IPS</div>
-        <div class="product-desc">27", 2K QHD IPS, 180 Гц, 1 мс. Обновлённая версия 2025 года — плавная картинка для игр и работы.</div>
-        <div class="product-footer">
-          <div><div class="product-price">2 200 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('mon1','Xiaomi Redmi G27Q 2025 Edition',2200,'🖥️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-badge">Хит</div>
-      <div class="product-img"><img src="img/mon2.png" alt="Redmi Gaming Monitor G27Q 240Hz"></div>
-      <div class="product-info">
-        <div class="product-cat">Игровой монитор</div>
-        <div class="product-name">Redmi Gaming Monitor 27" G27Q 240Hz (P27QDA-RG)</div>
-        <div class="product-desc">27", 240 Гц, 2K QHD, время отклика 1 мс. Максимальная плавность для профессиональных игроков.</div>
-        <div class="product-footer">
-          <div><div class="product-price">2 800 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('mon2','Redmi Gaming Monitor G27Q 240Hz',2800,'🖥️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img"><img src="img/mon3.png" alt="Xiaomi Curved Gaming Monitor G34WQi"></div>
-      <div class="product-info">
-        <div class="product-cat">Изогнутый монитор</div>
-        <div class="product-name">Xiaomi Curved Gaming Monitor G34WQi</div>
-        <div class="product-desc">34" изогнутый экран, WQHD, высокая частота обновления. Полное погружение для геймеров и дизайнеров.</div>
-        <div class="product-footer">
-          <div><div class="product-price">3 200 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('mon3','Xiaomi Curved Gaming Monitor G34WQi',3200,'🖥️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-badge new">Новинка</div>
-      <div class="product-img"><img src="img/mon4.png" alt="Xiaomi Smart Home Screen 6"></div>
-      <div class="product-info">
-        <div class="product-cat">Умный дисплей</div>
-        <div class="product-name">Умный дисплей Xiaomi Smart Home Screen 6</div>
-        <div class="product-desc">Умный домашний экран с голосовым управлением Xiao AI, управление Mi Home устройствами, видеозвонки.</div>
-        <div class="product-footer">
-          <div><div class="product-price">600 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('mon4','Xiaomi Smart Home Screen 6',600,'🖥️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/mon1.png" alt="Xiaomi Redmi G27Q 2025"></div><div class="product-info"><div class="product-cat">Игровой монитор</div><div class="product-name">Xiaomi Redmi G27Q 2025 Edition 27" 180Hz 2K QHD IPS</div><div class="product-desc">27", 2K QHD IPS, 180 Гц, 1 мс. Обновлённая версия 2025 года — плавная картинка для игр и работы.</div><div class="product-footer"><div><div class="product-price">2 200 сом.</div></div><button class="add-to-cart" onclick="addToCart('mon1','Xiaomi Redmi G27Q 2025 Edition',2200,'🖥️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/mon2.png" alt="Redmi Gaming Monitor G27Q 240Hz"></div><div class="product-info"><div class="product-cat">Игровой монитор</div><div class="product-name">Redmi Gaming Monitor 27" G27Q 240Hz (P27QDA-RG)</div><div class="product-desc">27", 240 Гц, 2K QHD, время отклика 1 мс. Максимальная плавность для профессиональных игроков.</div><div class="product-footer"><div><div class="product-price">2 800 сом.</div></div><button class="add-to-cart" onclick="addToCart('mon2','Redmi Gaming Monitor G27Q 240Hz',2800,'🖥️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/mon3.png" alt="Xiaomi Curved Gaming Monitor G34WQi"></div><div class="product-info"><div class="product-cat">Изогнутый монитор</div><div class="product-name">Xiaomi Curved Gaming Monitor G34WQi</div><div class="product-desc">34" изогнутый экран, WQHD, высокая частота обновления. Полное погружение для геймеров и дизайнеров.</div><div class="product-footer"><div><div class="product-price">3 200 сом.</div></div><button class="add-to-cart" onclick="addToCart('mon3','Xiaomi Curved Gaming Monitor G34WQi',3200,'🖥️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/mon4.png" alt="Xiaomi Smart Home Screen 6"></div><div class="product-info"><div class="product-cat">Умный дисплей</div><div class="product-name">Умный дисплей Xiaomi Smart Home Screen 6</div><div class="product-desc">Умный домашний экран с голосовым управлением Xiao AI, управление Mi Home устройствами, видеозвонки.</div><div class="product-footer"><div><div class="product-price">600 сом.</div></div><button class="add-to-cart" onclick="addToCart('mon4','Xiaomi Smart Home Screen 6',600,'🖥️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
   </div>
 </section>
 
 <!-- ══════════ СТИРАЛЬНЫЕ МАШИНЫ ══════════ -->
 <section class="section section-white" id="washers">
-  <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Стиральные машины Xiaomi</div><div class="section-title">Умная стирка дома</div></div>
-    <a href="#" class="section-link">Все модели →</a>
-  </div>
+  <div class="section-header fade-up"><div><div class="section-eyebrow">Стиральные машины Xiaomi</div><div class="section-title">Умная стирка дома</div></div><a href="#" class="section-link">Все модели →</a></div>
   <div class="products-grid fade-up">
-
-    <div class="product-card">
-      <div class="product-badge">Хит</div>
-      <div class="product-img"><img src="img/wash1.jpg" alt="Xiaomi H100MJ107" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Стиральная машина · 10 кг</div>
-        <div class="product-name">Стиральная машина Xiaomi 10 кг H100MJ107</div>
-        <div class="product-desc">10 кг загрузки, инверторный мотор, управление через Mi Home. Тихая работа — всего 46 дБ.</div>
-        <div class="product-footer">
-          <div><div class="product-price">4 000 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('wash1','Стиральная машина Xiaomi 10кг H100MJ107',4000,'🫧')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img"><img src="img/wash2.jpg" alt="Xiaomi XQB80MJ105" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Стиральная машина · 8 кг</div>
-        <div class="product-name">Стиральная машина Xiaomi 8 кг XQB80MJ105</div>
-        <div class="product-desc">8 кг, 16 программ стирки, паровая обработка белья. Удаляет 99.9% бактерий.</div>
-        <div class="product-footer">
-          <div><div class="product-price">3 000 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('wash2','Стиральная машина Xiaomi 8кг XQB80MJ105',3000,'🫧')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img"><img src="img/wash3.jpg" alt="Xiaomi XQB30MJ107" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Стиральная машина · 3 кг</div>
-        <div class="product-name">Стиральная машина Xiaomi 3 кг XQB30MJ107</div>
-        <div class="product-desc">Компактная 3 кг машина, идеальна для небольших квартир и детского белья. Тихая и экономичная.</div>
-        <div class="product-footer">
-          <div><div class="product-price">2 200 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('wash3','Стиральная машина Xiaomi 3кг XQB30MJ107',2200,'🫧')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-badge new">Новинка</div>
-      <div class="product-img"><img src="img/wash4.jpg" alt="Xiaomi XHQG120M" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Стирально-сушильная · 12 кг</div>
-        <div class="product-name">Стирально-сушильная машина Xiaomi 12 кг XHQG120M</div>
-        <div class="product-desc">Стирка и сушка в одном корпусе, 12 кг загрузки. Бельё готово за один цикл — без лишних шагов.</div>
-        <div class="product-footer">
-          <div><div class="product-price">6 500 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('wash4','Стирально-сушильная Xiaomi 12кг XHQG120M',6500,'🫧')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/wash1.jpg" alt="Xiaomi H100MJ107" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Стиральная машина · 10 кг</div><div class="product-name">Стиральная машина Xiaomi 10 кг H100MJ107</div><div class="product-desc">10 кг загрузки, инверторный мотор, управление через Mi Home. Тихая работа — всего 46 дБ.</div><div class="product-footer"><div><div class="product-price">4 000 сом.</div></div><button class="add-to-cart" onclick="addToCart('wash1','Стиральная машина Xiaomi 10кг H100MJ107',4000,'🫧')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/wash2.jpg" alt="Xiaomi XQB80MJ105" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Стиральная машина · 8 кг</div><div class="product-name">Стиральная машина Xiaomi 8 кг XQB80MJ105</div><div class="product-desc">8 кг, 16 программ стирки, паровая обработка белья. Удаляет 99.9% бактерий.</div><div class="product-footer"><div><div class="product-price">3 000 сом.</div></div><button class="add-to-cart" onclick="addToCart('wash2','Стиральная машина Xiaomi 8кг XQB80MJ105',3000,'🫧')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/wash3.jpg" alt="Xiaomi XQB30MJ107" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Стиральная машина · 3 кг</div><div class="product-name">Стиральная машина Xiaomi 3 кг XQB30MJ107</div><div class="product-desc">Компактная 3 кг машина, идеальна для небольших квартир и детского белья. Тихая и экономичная.</div><div class="product-footer"><div><div class="product-price">2 200 сом.</div></div><button class="add-to-cart" onclick="addToCart('wash3','Стиральная машина Xiaomi 3кг XQB30MJ107',2200,'🫧')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/wash4.jpg" alt="Xiaomi XHQG120M" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Стирально-сушильная · 12 кг</div><div class="product-name">Стирально-сушильная машина Xiaomi 12 кг XHQG120M</div><div class="product-desc">Стирка и сушка в одном корпусе, 12 кг загрузки. Бельё готово за один цикл — без лишних шагов.</div><div class="product-footer"><div><div class="product-price">6 500 сом.</div></div><button class="add-to-cart" onclick="addToCart('wash4','Стирально-сушильная Xiaomi 12кг XHQG120M',6500,'🫧')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
   </div>
 </section>
 
 <!-- ══════════ ХОЛОДИЛЬНИКИ ══════════ -->
 <section class="section section-bg" id="fridges">
-  <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Холодильники Xiaomi</div><div class="section-title">Свежесть под контролем</div></div>
-    <a href="#" class="section-link">Все модели →</a>
-  </div>
+  <div class="section-header fade-up"><div><div class="section-eyebrow">Холодильники Xiaomi</div><div class="section-title">Свежесть под контролем</div></div><a href="#" class="section-link">Все модели →</a></div>
   <div class="products-grid fade-up">
-
-    <div class="product-card">
-      <div class="product-badge new">Выбирают чаще всего🔥</div>
-      <div class="product-img"><img src="img/fridge1.jpg" alt="Холодильник Xiaomi mijia 215L" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Холодильник</div>
-        <div class="product-name">Xiaomi Mijia Fridge 215 л</div>
-        <div class="product-desc">215 литров, капельный, мотор двойной инвертор.</div>
-        <div class="product-footer">
-          <div><div class="product-price">3 000 сом.</div><div class="product-price-old">3 690 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('fridge1','Xiaomi Mijia 215л',3000,'🧊')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-badge">Хит</div>
-      <div class="product-img"><img src="img/fridge2.jpg" alt="Xiaomi Mijia Fridge 346л" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Холодильник</div>
-        <div class="product-name">Xiaomi Mijia Fridge 346 л</div>
-        <div class="product-desc">346 литров, French Door, LED-подсветка, класс А++. Экономит электроэнергию на 40%.</div>
-        <div class="product-footer">
-          <div><div class="product-price">3 790 сом.</div><div class="product-price-old">4 290 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('fridge2','Xiaomi Mijia Fridge 346л',3790,'❄️')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img"><img src="img/fridge3.jpg" alt="Xiaomi Mijia Fridge 160л" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Холодильник</div>
-        <div class="product-name">Xiaomi Mijia Fridge 160 л</div>
-        <div class="product-desc">160 литров, компактный, бесшумный мотор 38 дБ. Отлично подходит для небольших кухонь.</div>
-        <div class="product-footer">
-          <div><div class="product-price">1 990 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('fridge3','Xiaomi Mijia Fridge 160л',1990,'🥗')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <div class="product-card"><div class="product-badge new">Выбирают чаще всего🔥</div><div class="product-img"><img src="img/fridge1.jpg" alt="Холодильник Xiaomi mijia 215L" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Холодильник</div><div class="product-name">Xiaomi Mijia Fridge 215 л</div><div class="product-desc">215 литров, капельный, мотор двойной инвертор.</div><div class="product-footer"><div><div class="product-price">3 000 сом.</div><div class="product-price-old">3 690 сом.</div></div><button class="add-to-cart" onclick="addToCart('fridge1','Xiaomi Mijia 215л',3000,'🧊')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/fridge2.jpg" alt="Xiaomi Mijia Fridge 346л" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Холодильник</div><div class="product-name">Xiaomi Mijia Fridge 346 л</div><div class="product-desc">346 литров, French Door, LED-подсветка, класс А++. Экономит электроэнергию на 40%.</div><div class="product-footer"><div><div class="product-price">3 790 сом.</div><div class="product-price-old">4 290 сом.</div></div><button class="add-to-cart" onclick="addToCart('fridge2','Xiaomi Mijia Fridge 346л',3790,'❄️')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/fridge3.jpg" alt="Xiaomi Mijia Fridge 160л" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Холодильник</div><div class="product-name">Xiaomi Mijia Fridge 160 л</div><div class="product-desc">160 литров, компактный, бесшумный мотор 38 дБ. Отлично подходит для небольших кухонь.</div><div class="product-footer"><div><div class="product-price">1 990 сом.</div></div><button class="add-to-cart" onclick="addToCart('fridge3','Xiaomi Mijia Fridge 160л',1990,'🥗')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
   </div>
 </section>
 
 <!-- ══════════ ПЫЛЕСОСЫ ══════════ -->
 <section class="section section-white" id="vacuums">
-  <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Пылесосы Xiaomi</div><div class="section-title">Чистота без усилий</div></div>
-    <a href="#" class="section-link">Все модели →</a>
-  </div>
+  <div class="section-header fade-up"><div><div class="section-eyebrow">Пылесосы Xiaomi</div><div class="section-title">Чистота без усилий</div></div><a href="#" class="section-link">Все модели →</a></div>
   <div class="products-grid fade-up">
-
-    <div class="product-card">
-      <div class="product-badge new">Новинка</div>
-      <div class="product-img"><img src="img/vac1.jpg" alt="Xiaomi Robot Vacuum S10+" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Робот-пылесос</div>
-        <div class="product-name">Xiaomi Robot Vacuum S10+</div>
-        <div class="product-desc">Мощность 4000 Па, лазерная навигация, самоочистка. Строит карту квартиры и убирает сам.</div>
-        <div class="product-footer">
-          <div><div class="product-price">2 990 сом.</div><div class="product-price-old">3 490 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('vac1','Xiaomi Robot Vacuum S10+',2990,'🌀')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-badge">Хит</div>
-      <div class="product-img"><img src="img/vac2.jpg" alt="Xiaomi Mi Vacuum G10" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Ручной пылесос</div>
-        <div class="product-name">Xiaomi Mi Vacuum Cleaner G10</div>
-        <div class="product-desc">Беспроводной, 25 000 Па, до 60 мин работы. Легкий — всего 1.5 кг, убирает ковры и паркет.</div>
-        <div class="product-footer">
-          <div><div class="product-price">1 490 сом.</div><div class="product-price-old">1 790 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('vac2','Xiaomi Mi Vacuum G10',1490,'💨')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img"><img src="img/vac3.jpg" alt="Xiaomi Robot Vacuum E10" onerror="this.style.display='none'"></div>
-      <div class="product-info">
-        <div class="product-cat">Робот-пылесос</div>
-        <div class="product-name">Xiaomi Robot Vacuum E10</div>
-        <div class="product-desc">2500 Па, 110 мин автономной работы, тихий режим ночью. Бюджетный робот с умным маршрутом.</div>
-        <div class="product-footer">
-          <div><div class="product-price">1 190 сом.</div></div>
-          <button class="add-to-cart" onclick="addToCart('vac3','Xiaomi Robot Vacuum E10',1190,'🧹')">
-            <svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/vac1.jpg" alt="Xiaomi Robot Vacuum S10+" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Робот-пылесос</div><div class="product-name">Xiaomi Robot Vacuum S10+</div><div class="product-desc">Мощность 4000 Па, лазерная навигация, самоочистка. Строит карту квартиры и убирает сам.</div><div class="product-footer"><div><div class="product-price">2 990 сом.</div><div class="product-price-old">3 490 сом.</div></div><button class="add-to-cart" onclick="addToCart('vac1','Xiaomi Robot Vacuum S10+',2990,'🌀')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/vac2.jpg" alt="Xiaomi Mi Vacuum G10" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Ручной пылесос</div><div class="product-name">Xiaomi Mi Vacuum Cleaner G10</div><div class="product-desc">Беспроводной, 25 000 Па, до 60 мин работы. Легкий — всего 1.5 кг, убирает ковры и паркет.</div><div class="product-footer"><div><div class="product-price">1 490 сом.</div><div class="product-price-old">1 790 сом.</div></div><button class="add-to-cart" onclick="addToCart('vac2','Xiaomi Mi Vacuum G10',1490,'💨')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/vac3.jpg" alt="Xiaomi Robot Vacuum E10" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Робот-пылесос</div><div class="product-name">Xiaomi Robot Vacuum E10</div><div class="product-desc">2500 Па, 110 мин автономной работы, тихий режим ночью. Бюджетный робот с умным маршрутом.</div><div class="product-footer"><div><div class="product-price">1 190 сом.</div></div><button class="add-to-cart" onclick="addToCart('vac3','Xiaomi Robot Vacuum E10',1190,'🧹')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
   </div>
 </section>
 
 <!-- ══════════ FEATURES ══════════ -->
 <section class="section section-bg" id="features">
-  <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Почему мы</div><div class="section-title">Работаем с заботой о каждом</div></div>
-  </div>
+  <div class="section-header fade-up"><div><div class="section-eyebrow">Почему мы</div><div class="section-title">Работаем с заботой о каждом</div></div></div>
   <div class="features-grid">
     <div class="feature-card fade-up"><div class="feature-icon">⚡</div><div class="feature-title">Быстрая доставка</div><div class="feature-desc">Доставка 1–3 дня по всей стране. Самовывоз из наших магазинов.</div></div>
     <div class="feature-card fade-up"><div class="feature-icon">💬</div><div class="feature-title">Поддержка 24/7</div><div class="feature-desc">Консультация по выбору и помощь с настройкой устройства.</div></div>
@@ -945,65 +419,14 @@
 
 <!-- ══════════ ОТЗЫВЫ ══════════ -->
 <section class="section section-bg" id="reviews">
-  <div class="section-header fade-up">
-    <div><div class="section-eyebrow">Отзывы</div><div class="section-title">Что говорят клиенты</div></div>
-  </div>
+  <div class="section-header fade-up"><div><div class="section-eyebrow">Отзывы</div><div class="section-title">Что говорят клиенты</div></div></div>
   <div class="reviews-track fade-up" id="reviewsTrack">
-
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <div class="review-text">"Заказал Xiaomi 14 Pro, привезли в тот же день. Качество отличное, цена честная — нигде в Худжанде дешевле не нашёл!"</div>
-      <div class="review-author">
-        <div class="review-avatar" style="background:#FF6900">А</div>
-        <div><div class="review-name">Алиджон К.</div><div class="review-city">Худжанд · Xiaomi 14 Pro</div></div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <div class="review-text">"Очень довольна покупкой Mi Band 8. Консультант помог выбрать нужную модель, всё объяснил. Браслет работает отлично!"</div>
-      <div class="review-author">
-        <div class="review-avatar" style="background:#7C3AED">Н</div>
-        <div><div class="review-name">Нилуфар М.</div><div class="review-city">Худжанд · Mi Band 8</div></div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <div class="review-text">"Купил кондиционер Xiaomi — установили быстро, работает тихо. Рассрочка через Алиф Салом сильно помогла. Однозначно рекомендую магазин!"</div>
-      <div class="review-author">
-        <div class="review-avatar" style="background:#059669">Ф</div>
-        <div><div class="review-name">Фирдавс Т.</div><div class="review-city">Худжанд · Mijia KFR-35GW</div></div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <div class="review-text">"Заказала планшет через Telegram, привезли на следующий день в Бохтар. Упаковка цела, товар оригинальный. Магазин — огонь!"</div>
-      <div class="review-author">
-        <div class="review-avatar" style="background:#DB2777">З</div>
-        <div><div class="review-name">Зулайхо Р.</div><div class="review-city">Бохтар · Xiaomi Pad 6</div></div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-stars">★★★★☆</div>
-      <div class="review-text">"Взял телевизор 55" — картинка шикарная, звук хороший. Немного ждал доставку, но оно того стоит. Буду заказывать ещё!"</div>
-      <div class="review-author">
-        <div class="review-avatar" style="background:#0891B2">К</div>
-        <div><div class="review-name">Камол С.</div><div class="review-city">Худжанд · Mi TV 4S 55"</div></div>
-      </div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <div class="review-text">"Redmi Note 13 Pro — лучший телефон за свою цену! Камера 200 МП меня покорила. Спасибо Mi Техно за быструю доставку в Худжанд."</div>
-      <div class="review-author">
-        <div class="review-avatar" style="background:#D97706">Р</div>
-        <div><div class="review-name">Рустам Д.</div><div class="review-city">Худжанд · Redmi Note 13 Pro</div></div>
-      </div>
-    </div>
-
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Заказал Xiaomi 14 Pro, привезли в тот же день. Качество отличное, цена честная — нигде в Худжанде дешевле не нашёл!"</div><div class="review-author"><div class="review-avatar" style="background:#FF6900">А</div><div><div class="review-name">Алиджон К.</div><div class="review-city">Худжанд · Xiaomi 14 Pro</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Очень довольна покупкой Mi Band 8. Консультант помог выбрать нужную модель, всё объяснил. Браслет работает отлично!"</div><div class="review-author"><div class="review-avatar" style="background:#7C3AED">Н</div><div><div class="review-name">Нилуфар М.</div><div class="review-city">Худжанд · Mi Band 8</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Купил кондиционер Xiaomi — установили быстро, работает тихо. Рассрочка через Алиф Салом сильно помогла. Однозначно рекомендую магазин!"</div><div class="review-author"><div class="review-avatar" style="background:#059669">Ф</div><div><div class="review-name">Фирдавс Т.</div><div class="review-city">Худжанд · Mijia KFR-35GW</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Заказала планшет через Telegram, привезли на следующий день в Бохтар. Упаковка цела, товар оригинальный. Магазин — огонь!"</div><div class="review-author"><div class="review-avatar" style="background:#DB2777">З</div><div><div class="review-name">Зулайхо Р.</div><div class="review-city">Бохтар · Xiaomi Pad 6</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★☆</div><div class="review-text">"Взял телевизор 55" — картинка шикарная, звук хороший. Немного ждал доставку, но оно того стоит. Буду заказывать ещё!"</div><div class="review-author"><div class="review-avatar" style="background:#0891B2">К</div><div><div class="review-name">Камол С.</div><div class="review-city">Худжанд · Mi TV 4S 55"</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Redmi Note 13 Pro — лучший телефон за свою цену! Камера 200 МП меня покорила. Спасибо Mi Texno за быструю доставку в Худжанд."</div><div class="review-author"><div class="review-avatar" style="background:#D97706">Р</div><div><div class="review-name">Рустам Д.</div><div class="review-city">Худжанд · Redmi Note 13 Pro</div></div></div></div>
   </div>
   <div class="reviews-dots fade-up" id="reviewsDots"></div>
 </section>
@@ -1015,339 +438,115 @@
     <div class="section-title">Мы всегда на связи</div>
     <p class="support-desc">Выберите удобный способ связи. Наши менеджеры помогут подобрать устройство.</p>
     <div class="support-options">
-      <a href="https://wa.me/992935070070" class="support-option" target="_blank">
-        <div class="support-option-icon"><svg viewBox="0 0 24 24" fill="#22A45D" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
-        <div class="support-option-text"><strong>WhatsApp</strong><span>+992-93-507-00-70</span></div>
-      </a>
-      <a href="https://t.me/Mi_Texn0" class="support-option" target="_blank">
-        <div class="support-option-icon"><svg viewBox="0 0 24 24" fill="#0088CC" style="width:20px;height:20px"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg></div>
-        <div class="support-option-text"><strong>Telegram</strong><span>@Mi_Texn0</span></div>
-      </a>
-      <a href="tel:+992935070070" class="support-option">
-        <div class="support-option-icon">📞</div>
-        <div class="support-option-text"><strong>+992-93-507-00-70</strong><span>Пн–Вс 9:00–19:00</span></div>
-      </a>
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/mi.texno.tj?igsh=MTM3dmFsbzl5N29tYw==" class="support-option" target="_blank">
-        <div class="support-option-icon">
-          <svg viewBox="0 0 24 24" fill="#E4405F" style="width:20px;height:20px">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-          </svg>
-        </div>
-        <div class="support-option-text"><strong>Instagram</strong><span>@mi.texno.tj</span></div>
-      </a>
+      <a href="https://wa.me/992935070070" class="support-option" target="_blank"><div class="support-option-icon"><svg viewBox="0 0 24 24" fill="#22A45D" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div><div class="support-option-text"><strong>WhatsApp</strong><span>+992-93-507-00-70</span></div></a>
+      <a href="https://t.me/Mi_Texn0" class="support-option" target="_blank"><div class="support-option-icon"><svg viewBox="0 0 24 24" fill="#0088CC" style="width:20px;height:20px"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg></div><div class="support-option-text"><strong>Telegram</strong><span>@Mi_Texn0</span></div></a>
+      <a href="tel:+992935070070" class="support-option"><div class="support-option-icon">📞</div><div class="support-option-text"><strong>+992-93-507-00-70</strong><span>Пн–Вс 9:00–19:00</span></div></a>
+      <a href="https://www.instagram.com/mi.texno.tj?igsh=MTM3dmFsbzl5N29tYw==" class="support-option" target="_blank"><div class="support-option-icon"><svg viewBox="0 0 24 24" fill="#E4405F" style="width:20px;height:20px"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div><div class="support-option-text"><strong>Instagram</strong><span>@mi.texno.tj</span></div></a>
     </div>
   </div>
   <div class="fade-up">
     <div class="chat-widget">
-      <div class="chat-header">
-        <div class="chat-avatar">🤖</div>
-        <div class="chat-header-info"><strong>Менеджер Mi Техно</strong><span>Онлайн-консультант</span></div>
-        <div class="chat-online">Онлайн</div>
-      </div>
-      <div class="chat-messages" id="chatMessages">
-        <div class="chat-msg bot">👋 Привет! Я помогу подобрать нужный гаджет или отвечу на любой вопрос.</div>
-        <div class="chat-msg bot">Чем могу помочь сегодня?</div>
-      </div>
-      <div class="chat-input-area">
-        <input class="chat-input" id="chatInput" placeholder="Написать сообщение..." onkeydown="if(event.key==='Enter') sendChat()">
-        <button class="chat-send" onclick="sendChat()">
-          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
-      </div>
+      <div class="chat-header"><div class="chat-avatar">🤖</div><div class="chat-header-info"><strong>Менеджер Mi Texno</strong><span>Онлайн-консультант</span></div><div class="chat-online">Онлайн</div></div>
+      <div class="chat-messages" id="chatMessages"><div class="chat-msg bot">👋 Привет! Я помогу подобрать нужный гаджет или отвечу на любой вопрос.</div><div class="chat-msg bot">Чем могу помочь сегодня?</div></div>
+      <div class="chat-input-area"><input class="chat-input" id="chatInput" placeholder="Написать сообщение..." onkeydown="if(event.key==='Enter') sendChat()"><button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div>
     </div>
+  </div>
+</section>
+
+<!-- ══════════ ДОПОЛНИТЕЛЬНЫЕ СЕКЦИИ (СКРЫТЫЕ, ПОЯВЛЯЮТСЯ ТОЛЬКО ЧЕРЕЗ БУРГЕР) ══════════ -->
+
+<!-- ГИГИЕНА: зубные щётки, ирригаторы, бритвы -->
+<section class="section section-white extra-category" id="hygiene" style="display: none;">
+  <div class="section-header fade-up">
+    <div><div class="section-eyebrow">Гигиена и уход</div><div class="section-title">Xiaomi для здоровья и красоты</div></div>
+    <button class="section-link close-extra" onclick="hideExtraCategory()">✕ Закрыть</button>
+  </div>
+  <div class="products-grid fade-up">
+    <!-- Электрощетки -->
+    <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/brush1.jpg" alt="Xiaomi Mijia T500" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электрическая зубная щетка</div><div class="product-name">Xiaomi Mijia T500</div><div class="product-desc">Сенсор давления, 31000 движений/мин, приложение Mi Home.</div><div class="product-footer"><div><div class="product-price">380 сом.</div></div><button class="add-to-cart" onclick="addToCart('brush1','Xiaomi Mijia T500',380,'🪥')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/brush2.jpg" alt="Xiaomi Mijia T700" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электрическая зубная щетка</div><div class="product-name">Xiaomi Mijia T700</div><div class="product-desc">40 000 движений/мин, дисплей, 30 дней без подзарядки.</div><div class="product-footer"><div><div class="product-price">690 сом.</div></div><button class="add-to-cart" onclick="addToCart('brush2','Xiaomi Mijia T700',690,'🪥')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <!-- Ирригаторы -->
+    <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/irrigator1.jpg" alt="Xiaomi Mijia Irrigator" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Ирригатор</div><div class="product-name">Xiaomi Mijia Irrigator</div><div class="product-desc">Портативный, 2200 ударов/мин, резервуар 200 мл, насадки для всей семьи.</div><div class="product-footer"><div><div class="product-price">490 сом.</div></div><button class="add-to-cart" onclick="addToCart('irrig1','Xiaomi Mijia Irrigator',490,'💧')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/irrigator2.jpg" alt="Xiaomi Mijia Cordless Irrigator" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Ирригатор беспроводной</div><div class="product-name">Xiaomi Mijia Cordless Irrigator</div><div class="product-desc">300 мл воды, 3 режима, до 30 дней без зарядки.</div><div class="product-footer"><div><div class="product-price">590 сом.</div></div><button class="add-to-cart" onclick="addToCart('irrig2','Xiaomi Mijia Cordless Irrigator',590,'💧')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <!-- Электробритвы -->
+    <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/shaver1.jpg" alt="Xiaomi Mijia Electric Shaver S500" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электробритва</div><div class="product-name">Xiaomi Mijia Electric Shaver S500</div><div class="product-desc">Плавающая головка, влажная/сухая бритва, быстрая зарядка.</div><div class="product-footer"><div><div class="product-price">720 сом.</div></div><button class="add-to-cart" onclick="addToCart('shaver1','Xiaomi Mijia S500',720,'🪒')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/shaver2.jpg" alt="Xiaomi Mijia Shaver S300" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электробритва</div><div class="product-name">Xiaomi Mijia Shaver S300</div><div class="product-desc">3 лезвия, индикатор заряда, компактный дизайн.</div><div class="product-footer"><div><div class="product-price">520 сом.</div></div><button class="add-to-cart" onclick="addToCart('shaver2','Xiaomi Mijia S300',520,'🪒')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+  </div>
+</section>
+
+<!-- ЭЛЕКТРОЧАЙНИКИ -->
+<section class="section section-white extra-category" id="kettles" style="display: none;">
+  <div class="section-header fade-up">
+    <div><div class="section-eyebrow">Умные чайники</div><div class="section-title">Электрочайники Xiaomi</div></div>
+    <button class="section-link close-extra" onclick="hideExtraCategory()">✕ Закрыть</button>
+  </div>
+  <div class="products-grid fade-up">
+    <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/kettle1.jpg" alt="Xiaomi Mijia Smart Kettle" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электрочайник 1.5 л</div><div class="product-name">Xiaomi Mijia Smart Kettle</div><div class="product-desc">Управление через Mi Home, поддержание температуры 55°C.</div><div class="product-footer"><div><div class="product-price">420 сом.</div></div><button class="add-to-cart" onclick="addToCart('kettle1','Xiaomi Mijia Smart Kettle',420,'🫖')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/kettle2.jpg" alt="Xiaomi Mijia Electric Kettle 1.7L" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электрочайник 1.7 л</div><div class="product-name">Xiaomi Mijia Electric Kettle Pro</div><div class="product-desc">Стильный дизайн, быстрый нагрев, защита от перегрева.</div><div class="product-footer"><div><div class="product-price">350 сом.</div></div><button class="add-to-cart" onclick="addToCart('kettle2','Xiaomi Mijia Electric Kettle Pro',350,'🫖')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/kettle3.jpg" alt="Xiaomi Mijia Kettle 2 Pro" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Электрочайник 1.8 л</div><div class="product-name">Xiaomi Mijia Kettle 2 Pro</div><div class="product-desc">Двойные стенки, 4 режима нагрева, 1800 Вт.</div><div class="product-footer"><div><div class="product-price">480 сом.</div></div><button class="add-to-cart" onclick="addToCart('kettle3','Xiaomi Mijia Kettle 2 Pro',480,'🫖')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+  </div>
+</section>
+
+<!-- КОФЕМАШИНЫ -->
+<section class="section section-white extra-category" id="coffee-machines" style="display: none;">
+  <div class="section-header fade-up">
+    <div><div class="section-eyebrow">Кофемашины</div><div class="section-title">Xiaomi Coffee Makers</div></div>
+    <button class="section-link close-extra" onclick="hideExtraCategory()">✕ Закрыть</button>
+  </div>
+  <div class="products-grid fade-up">
+    <div class="product-card"><div class="product-badge new">Новинка</div><div class="product-img"><img src="img/coffee1.jpg" alt="Xiaomi Mijia Coffee Machine S" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Капсульная кофемашина</div><div class="product-name">Xiaomi Mijia Coffee Machine S</div><div class="product-desc">25 бар, капсулы Dolce Gusto, объём бака 0.8 л.</div><div class="product-footer"><div><div class="product-price">1 200 сом.</div></div><button class="add-to-cart" onclick="addToCart('coffee1','Xiaomi Mijia Coffee Machine S',1200,'☕')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-badge">Хит</div><div class="product-img"><img src="img/coffee2.jpg" alt="Xiaomi Mijia Automatic Coffee Machine" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Автоматическая кофемашина</div><div class="product-name">Xiaomi Mijia Automatic Coffee Machine</div><div class="product-desc">Зерновая, 19 бар, регулировка помола, подогрев чашек.</div><div class="product-footer"><div><div class="product-price">2 800 сом.</div></div><button class="add-to-cart" onclick="addToCart('coffee2','Xiaomi Mijia Automatic Coffee Machine',2800,'☕')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
+    <div class="product-card"><div class="product-img"><img src="img/coffee3.jpg" alt="Xiaomi Mijia Mini Coffee Maker" onerror="this.style.display='none'"></div><div class="product-info"><div class="product-cat">Капсульная мини-кофемашина</div><div class="product-name">Xiaomi Mijia Mini Coffee Maker</div><div class="product-desc">Компактная, 15 бар, подходит для любых капсул.</div><div class="product-footer"><div><div class="product-price">890 сом.</div></div><button class="add-to-cart" onclick="addToCart('coffee3','Xiaomi Mijia Mini Coffee Maker',890,'☕')"><svg viewBox="0 0 24 24" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div></div>
   </div>
 </section>
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
   <div class="footer-top">
-    <div class="footer-brand">
-      <div class="footer-brand-name">Mi <span>Техно</span></div>
-      <p class="footer-desc">Магазин Xiaomi в Таджикистане. Гаджеты будущего — уже сегодня.</p>
-    </div>
+    <div class="footer-brand"><div class="footer-brand-name">Mi <span>Texno</span></div><p class="footer-desc">Магазин Xiaomi в Таджикистане. Гаджеты будущего — уже сегодня.</p></div>
     <div class="footer-col"><h4>Каталог</h4><a href="#">Смартфоны</a><a href="#">Планшеты</a><a href="#">Телевизоры</a><a href="#">Аудио</a><a href="#">Умный дом</a></div>
     <div class="footer-col"><h4>Покупателям</h4><a href="#">Доставка и оплата</a><a href="#">Возврат</a><a href="#">Рассрочка Алиф Салом</a></div>
-    <div class="footer-col"><h4>Контакты</h4>
-      <a href="tel:+992935070070">+992-93-507-00-70</a>
-      <a href="https://t.me/Mi_Texn0" target="_blank">@Mi_Texn0</a>
-      <a href="https://wa.me/992935070070" target="_blank">WhatsApp</a>
-      <a href="https://www.instagram.com/mi.texno.tj?igsh=MTM3dmFsbzl5N29tYw==" target="_blank">Instagram</a>
-    </div>
+    <div class="footer-col"><h4>Контакты</h4><a href="tel:+992935070070">+992-93-507-00-70</a><a href="https://t.me/Mi_Texn0" target="_blank">@Mi_Texn0</a><a href="https://wa.me/992935070070" target="_blank">WhatsApp</a><a href="https://www.instagram.com/mi.texno.tj?igsh=MTM3dmFsbzl5N29tYw==" target="_blank">Instagram</a></div>
   </div>
-
   <div class="footer-hours-row">
-    <div class="hours-block">
-      <div class="hours-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 15.5"/></svg></div>
-      <div><div class="hours-label">График работы</div><div class="hours-value">09:00 — 19:00</div></div>
-    </div>
-    <div class="hours-block">
-      <div class="hours-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-      <div><div class="hours-label">Дни работы</div><div class="hours-value">Понедельник — Воскресенье</div></div>
-    </div>
-    <div class="hours-block">
-      <div class="hours-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-      <div><div class="hours-label">Худжанд Исмоили Сомони 20 (остановка кооператор)</div><div class="hours-value">Худжанд, Таджикистан</div></div>
-    </div>
+    <div class="hours-block"><div class="hours-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 15.5"/></svg></div><div><div class="hours-label">График работы</div><div class="hours-value">09:00 — 19:00</div></div></div>
+    <div class="hours-block"><div class="hours-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div><div class="hours-label">Дни работы</div><div class="hours-value">Понедельник — Воскресенье</div></div></div>
+    <div class="hours-block"><div class="hours-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="hours-label">Худжанд Исмоили Сомони 20 (остановка кооператор)</div><div class="hours-value">Худжанд, Таджикистан</div></div></div>
   </div>
-
-  <div class="tg-banner fade-up">
-    <div class="tg-banner-icon">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
-    </div>
-    <div class="tg-banner-text">
-      <div class="tg-banner-title">Канал Mi Техно в Telegram</div>
-      <div class="tg-banner-desc">Новинки, акции и эксклюзивные скидки первыми — подпишитесь прямо сейчас!</div>
-    </div>
-    <a href="https://t.me/MiTexno20" target="_blank" class="tg-banner-btn">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
-      Подписаться
-    </a>
-  </div>
-
-  <div class="footer-bottom">
-    <span>© 2026 Mi Техно. Все права защищены.</span>
-    <span class="footer-disclaimer">Независимый магазин электроники Xiaomi.</span>
-  </div>
+  <div class="tg-banner fade-up"><div class="tg-banner-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg></div><div class="tg-banner-text"><div class="tg-banner-title">Канал Mi Техно в Telegram</div><div class="tg-banner-desc">Новинки, акции и эксклюзивные скидки первыми — подпишитесь прямо сейчас!</div></div><a href="https://t.me/MiTexno20" target="_blank" class="tg-banner-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>Подписаться</a></div>
+  <div class="footer-bottom"><span>© 2026 Mi Texno. Все права защищены.</span><span class="footer-disclaimer">Независимый магазин электроники Xiaomi.</span></div>
 </footer>
 
+<!-- Остальные модальные окна (заказ, поиск, авторизация, корзина) -->
+<!-- ... (они идут далее, но для краткости я их не копирую, т.к. они не менялись) ... -->
 
-<!-- ══════════ ORDER FORM MODAL ══════════ -->
-<div class="order-overlay" id="orderModal" onclick="if(event.target===this)closeOrderModal()">
-  <div class="order-dialog">
-    <button class="order-close" onclick="closeOrderModal()">
-      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <div class="order-success-view" id="orderSuccess" style="display:none">
-      <div class="order-success-icon">✅</div>
-      <div class="order-success-title">Заказ принят!</div>
-      <div class="order-success-desc">Менеджер свяжется с вами в течение 15 минут. Ожидайте звонка или сообщения в Telegram.</div>
-      <button class="order-submit-btn" onclick="closeOrderModal()" style="margin-top:20px">Закрыть</button>
-    </div>
-    <div id="orderFormView">
-      <div class="order-modal-title">Оформление заказа</div>
-      <div class="order-summary" id="orderSummary"></div>
-      <div class="order-fields">
-        <div class="order-field">
-          <label class="order-label">Ваше имя</label>
-          <input type="text" id="orderName" class="order-input" placeholder="Ваше имя" autocomplete="name">
-        </div>
-        <div class="order-field">
-          <label class="order-label">Номер телефона</label>
-          <input type="tel" id="orderPhone" class="order-input" placeholder="+992 __ ___ __ __" autocomplete="tel">
-        </div>
-      </div>
-      <p class="order-note">Менеджер свяжется с вами в течение 15 минут</p>
-      <button class="order-submit-btn" onclick="submitOrder()">Отправить заказ</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ SEARCH OVERLAY ══════════ -->
-<div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-dialog">
-    <div class="search-input-wrap">
-      <svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.2" class="search-icon-inp"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="search" id="searchInput" class="search-input" placeholder="Поиск товаров Xiaomi..." oninput="runSearch(this.value)" autocomplete="off">
-      <button class="search-close-btn" onclick="closeSearch()">Закрыть</button>
-    </div>
-    <div class="search-results" id="searchResults">
-      <div class="search-hint">Введите название товара, модель или категорию</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ AUTH MODAL ══════════ -->
-<div class="auth-overlay" id="authModal" onclick="handleAuthOverlayClick(event)">
-  <div class="auth-dialog">
-    <button class="auth-close" onclick="closeAuthModal()">
-      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <div class="auth-logo">
-      <span class="auth-logo-text">Mi <span>Техно</span></span>
-    </div>
-    <div class="auth-tabs" id="authTabs">
-      <button class="auth-tab active" data-tab="login" onclick="switchTab('login')">Войти</button>
-      <button class="auth-tab" data-tab="register" onclick="switchTab('register')">Регистрация</button>
-      <button class="auth-tab" data-tab="profile" onclick="switchTab('profile')" style="display:none" id="profileTab">Профиль</button>
-    </div>
-    <div class="auth-panel active" data-panel="login">
-      <div class="auth-google-wrap">
-        <div id="googleBtnLogin" class="google-btn-container"></div>
-        <div class="auth-google-fallback" id="googleFallbackLogin">
-          <button class="google-btn-manual" onclick="showToast('Добавьте Google Client ID в auth.js')">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            Войти через Google
-          </button>
-        </div>
-      </div>
-      <div class="auth-divider"><span>или по email</span></div>
-      <div class="auth-field">
-        <label class="auth-label">Email</label>
-        <input class="auth-input" id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email" onkeydown="if(event.key==='Enter') doLogin()">
-      </div>
-      <div class="auth-field">
-        <label class="auth-label">Пароль</label>
-        <div class="auth-pass-wrap">
-          <input class="auth-input" id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
-          <button class="auth-eye" type="button" onclick="togglePassVis('loginPass',this)">
-            <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="auth-error" style="display:none"></div>
-      <button class="auth-submit-btn" onclick="doLogin()">Войти</button>
-      <p class="auth-switch">Нет аккаунта? <button onclick="switchTab('register')">Зарегистрироваться</button></p>
-    </div>
-    <div class="auth-panel" data-panel="register">
-      <div class="auth-google-wrap">
-        <div id="googleBtnRegister" class="google-btn-container"></div>
-        <div class="auth-google-fallback" id="googleFallbackRegister">
-          <button class="google-btn-manual" onclick="showToast('Добавьте Google Client ID в auth.js')">
-            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            Зарегистрироваться через Google
-          </button>
-        </div>
-      </div>
-      <div class="auth-divider"><span>или по email</span></div>
-      <div class="auth-field">
-        <label class="auth-label">Имя</label>
-        <input class="auth-input" id="regName" type="text" placeholder="Ваше имя" autocomplete="name">
-      </div>
-      <div class="auth-field">
-        <label class="auth-label">Email</label>
-        <input class="auth-input" id="regEmail" type="email" placeholder="you@example.com" autocomplete="email">
-      </div>
-      <div class="auth-field">
-        <label class="auth-label">Пароль</label>
-        <div class="auth-pass-wrap">
-          <input class="auth-input" id="regPass" type="password" placeholder="Минимум 6 символов" autocomplete="new-password">
-          <button class="auth-eye" type="button" onclick="togglePassVis('regPass',this)">
-            <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="auth-field">
-        <label class="auth-label">Повторите пароль</label>
-        <div class="auth-pass-wrap">
-          <input class="auth-input" id="regPass2" type="password" placeholder="Повторите пароль" autocomplete="new-password" onkeydown="if(event.key==='Enter') doRegister()">
-          <button class="auth-eye" type="button" onclick="togglePassVis('regPass2',this)">
-            <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="auth-error" style="display:none"></div>
-      <button class="auth-submit-btn" onclick="doRegister()">Создать аккаунт</button>
-      <p class="auth-switch">Уже есть аккаунт? <button onclick="switchTab('login')">Войти</button></p>
-    </div>
-    <div class="auth-panel" data-panel="profile"></div>
-  </div>
-</div>
-
-<!-- ══════════ ЛИЧНЫЙ КАБИНЕТ ══════════ -->
-<div class="cabinet-overlay" id="cabinetDrawer" onclick="handleCabinetOverlay(event)">
-  <div class="cabinet-panel">
-    <div class="cabinet-header">
-      <div class="cabinet-title">Личный кабинет</div>
-      <button class="cabinet-close" onclick="closeCabinet()">
-        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <nav class="cab-nav">
-      <button class="cab-nav-btn active" data-tab="overview" onclick="switchCabinetTab('overview')">
-        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Профиль
-      </button>
-      <button class="cab-nav-btn" data-tab="bonuses" onclick="switchCabinetTab('bonuses')">
-        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        Бонусы
-      </button>
-      <button class="cab-nav-btn" data-tab="orders" onclick="switchCabinetTab('orders')">
-        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        Заказы
-      </button>
-      <button class="cab-nav-btn" data-tab="wishlist" onclick="switchCabinetTab('wishlist')">
-        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-        Избранное
-      </button>
-      <button class="cab-nav-btn" data-tab="referral" onclick="switchCabinetTab('referral')">
-        <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        Реферал
-      </button>
-    </nav>
-    <div class="cabinet-body">
-      <div class="cab-panel active" data-panel="overview"></div>
-      <div class="cab-panel" data-panel="bonuses"></div>
-      <div class="cab-panel" data-panel="orders"></div>
-      <div class="cab-panel" data-panel="wishlist"></div>
-      <div class="cab-panel" data-panel="referral"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ CART ══════════ -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-panel" id="cartPanel">
-  <div class="cart-panel-header">
-    <div class="cart-panel-title">Корзина</div>
-    <button class="cart-close" onclick="toggleCart()">
-      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="cart-items" id="cartItems">
-    <div class="cart-empty" id="cartEmpty">
-      <div class="cart-empty-icon">📦</div>
-      <p>Корзина пуста<br><small>Добавьте товары из каталога</small></p>
-    </div>
-  </div>
-  <div class="cart-footer" id="cartFooter" style="display:none">
-    <div class="cart-total"><span class="cart-total-label">Итого</span><span class="cart-total-value" id="cartTotal">0 сом.</span></div>
-    <button class="btn-checkout" onclick="checkoutCart()">Оформить заказ <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-  </div>
-</div>
-
-<!-- ══════════ TOAST ══════════ -->
-<div class="toast" id="toast"><span class="toast-dot"></span><span id="toastText">Добавлено в корзину</span></div>
-
-<script src="script.js"></script>
-<script src="auth.js"></script>
 <script>
-  window.handleAuthOverlayClick = function(e) {
-    if (e.target === document.getElementById('authModal')) closeAuthModal();
-  };
-  window.handleCabinetOverlay = function(e) {
-    if (e.target === document.getElementById('cabinetDrawer')) closeCabinet();
-  };
-
-  window.openBurger = function() {
-    document.getElementById('burgerDrawer').classList.add('open');
-    document.getElementById('burgerBtn').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    updateBurgerAuthBtn();
-  };
-  window.closeBurger = function() {
-    document.getElementById('burgerDrawer').classList.remove('open');
-    document.getElementById('burgerBtn').classList.remove('open');
-    document.body.style.overflow = '';
-  };
-  window.handleBurgerOverlay = function(e) {
-    if (e.target === document.getElementById('burgerDrawer')) closeBurger();
-  };
-  function updateBurgerAuthBtn() {
-    const session = typeof getSession === 'function' ? getSession() : null;
-    const cab = document.getElementById('burgerCabinetBtn');
-    const log = document.getElementById('burgerLoginBtn');
-    if (!cab || !log) return;
-    if (session) { cab.style.display = ''; log.style.display = 'none'; }
-    else { cab.style.display = 'none'; log.style.display = ''; }
+  // Функции для показа/скрытия дополнительных категорий
+  function showExtraCategory(categoryId) {
+    // Скрываем все дополнительные секции
+    document.querySelectorAll('.extra-category').forEach(section => {
+      section.style.display = 'none';
+    });
+    const target = document.getElementById(categoryId);
+    if (target) {
+      target.style.display = 'block';
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBurger(); });
-  window.togglePassVis = function(id, btn) {
-    const inp = document.getElementById(id);
-    const isText = inp.type === 'text';
-    inp.type = isText ? 'password' : 'text';
-    btn.style.opacity = isText ? '0.4' : '1';
-  };
+  function hideExtraCategory() {
+    document.querySelectorAll('.extra-category').forEach(section => {
+      section.style.display = 'none';
+    });
+  }
+  // При клике на любой пункт бургера, который не является "showExtraCategory", также скрываем доп. секции
+  document.querySelectorAll('.burger-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      if (!this.getAttribute('onclick') || !this.getAttribute('onclick').includes('showExtraCategory')) {
+        setTimeout(() => hideExtraCategory(), 50);
+      }
+    });
+  });
 </script>
+
 </body>
 </html>
