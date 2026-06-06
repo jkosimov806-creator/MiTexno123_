@@ -1,740 +1,588 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Техно — Админ Панель</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0c0f;
-    --surface: #111318;
-    --surface2: #181c24;
-    --border: #1e2330;
-    --accent: #ff6b00;
-    --accent2: #ff9a40;
-    --text: #e8eaf0;
-    --muted: #6b7280;
-    --success: #22c55e;
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    --info: #3b82f6;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Texno — Админ-панель</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0b0f;
+      --surface: #12141a;
+      --surface2: #1a1d26;
+      --surface3: #22263a;
+      --border: #2a2f45;
+      --accent: #FF6600;
+      --accent2: #ff8533;
+      --accent-glow: rgba(255,102,0,0.18);
+      --text: #e8eaf0;
+      --text2: #8a90a8;
+      --text3: #545870;
+      --green: #22c55e;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --yellow: #f59e0b;
+      --purple: #a855f7;
+      --cyan: #06b6d4;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* ── LOGIN SCREEN ── */
+    #loginScreen {
+      position: fixed; inset: 0; z-index: 999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .login-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 380px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-box::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 200px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .login-logo { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+    .login-logo span { color: var(--accent); }
+    .login-sub { color: var(--text2); font-size: 13px; margin-bottom: 32px; }
+    .login-field { text-align: left; margin-bottom: 16px; }
+    .login-field label { font-size: 12px; color: var(--text2); font-weight: 600; display: block; margin-bottom: 6px; letter-spacing: .05em; text-transform: uppercase; }
+    .login-field input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .login-field input:focus { border-color: var(--accent); }
+    .login-btn {
+      width: 100%; margin-top: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700; font-size: 15px;
+      border: none; border-radius: var(--radius-sm);
+      padding: 13px;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    .login-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+    .login-error { color: var(--red); font-size: 12px; margin-top: 10px; display: none; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 240px; flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      position: fixed; top: 0; left: 0; bottom: 0;
+      z-index: 100;
+    }
+    .sidebar-logo {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 20px; font-weight: 800;
+    }
+    .sidebar-logo span { color: var(--accent); }
+    .sidebar-logo small { display: block; font-size: 10px; color: var(--text3); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; margin-top: 2px; }
+    .sidebar-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
+    .nav-section-label { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); padding: 14px 8px 6px; font-weight: 700; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: var(--radius-sm);
+      cursor: pointer; font-size: 13.5px; font-weight: 500;
+      color: var(--text2); transition: all .18s;
+      margin-bottom: 2px; border: none; background: none; width: 100%; text-align: left;
+      position: relative;
+    }
+    .nav-item:hover { background: var(--surface2); color: var(--text); }
+    .nav-item.active { background: var(--accent-glow); color: var(--accent); font-weight: 700; }
+    .nav-item.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 60%; background: var(--accent); border-radius: 0 3px 3px 0; }
+    .nav-badge { margin-left: auto; background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+    .nav-badge.green { background: var(--green); }
+    .sidebar-footer { padding: 16px 12px; border-top: 1px solid var(--border); }
+    .admin-info { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
+    .admin-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .admin-name { font-size: 13px; font-weight: 600; }
+    .admin-role { font-size: 11px; color: var(--text3); }
+    .logout-btn { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; color: var(--red); border: none; background: none; width: 100%; margin-top: 4px; transition: background .18s; font-family: 'Manrope', sans-serif; }
+    .logout-btn:hover { background: rgba(239,68,68,.1); }
 
-  /* SIDEBAR */
-  .sidebar {
-    position: fixed;
-    left: 0; top: 0; bottom: 0;
-    width: 220px;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-    transition: transform .3s;
-  }
+    /* ── MAIN ── */
+    .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 28px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .topbar-title { font-size: 17px; font-weight: 700; }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .topbar-badge { background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+    .search-bar { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px; color: var(--text); font-family: 'Manrope', sans-serif; outline: none; width: 220px; transition: border-color .2s; }
+    .search-bar:focus { border-color: var(--accent); }
+    .search-bar::placeholder { color: var(--text3); }
+    .content { padding: 28px; flex: 1; }
 
-  .logo {
-    padding: 24px 20px 20px;
-    border-bottom: 1px solid var(--border);
-  }
-  .logo-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px;
-    letter-spacing: 2px;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .logo-sub { font-size: 10px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-top: 2px; }
+    /* ── PAGES ── */
+    .page { display: none; }
+    .page.active { display: block; }
 
-  .nav { flex: 1; padding: 12px 0; overflow-y: auto; }
+    /* ── STAT CARDS ── */
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 22px;
+      position: relative; overflow: hidden; transition: border-color .2s, transform .2s;
+    }
+    .stat-card:hover { border-color: var(--border); transform: translateY(-2px); }
+    .stat-card::after { content: ''; position: absolute; right: -20px; bottom: -20px; width: 80px; height: 80px; border-radius: 50%; opacity: .08; }
+    .stat-card.orange::after { background: var(--accent); }
+    .stat-card.green::after { background: var(--green); }
+    .stat-card.blue::after { background: var(--blue); }
+    .stat-card.purple::after { background: var(--purple); }
+    .stat-label { font-size: 11px; color: var(--text2); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+    .stat-value { font-size: 28px; font-weight: 800; font-family: 'Space Mono', monospace; }
+    .stat-card.orange .stat-value { color: var(--accent); }
+    .stat-card.green .stat-value { color: var(--green); }
+    .stat-card.blue .stat-value { color: var(--blue); }
+    .stat-card.purple .stat-value { color: var(--purple); }
+    .stat-change { font-size: 11px; margin-top: 6px; }
+    .stat-change.up { color: var(--green); }
+    .stat-change.down { color: var(--red); }
+    .stat-icon { position: absolute; top: 18px; right: 18px; font-size: 22px; opacity: .6; }
 
-  .nav-section { padding: 16px 20px 6px; font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+    /* ── TABLES ── */
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; }
+    .panel-header { padding: 18px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .panel-title { font-size: 14px; font-weight: 700; }
+    .panel-actions { display: flex; gap: 8px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { padding: 11px 16px; text-align: left; font-size: 11px; color: var(--text2); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border-bottom: 1px solid var(--border); background: var(--surface2); }
+    td { padding: 12px 16px; font-size: 13.5px; border-bottom: 1px solid #1c1f2e; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--surface2); }
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; text-transform: uppercase; letter-spacing: .04em;
+    }
+    .badge.green { background: rgba(34,197,94,.12); color: var(--green); }
+    .badge.yellow { background: rgba(245,158,11,.12); color: var(--yellow); }
+    .badge.red { background: rgba(239,68,68,.12); color: var(--red); }
+    .badge.blue { background: rgba(59,130,246,.12); color: var(--blue); }
+    .badge.orange { background: rgba(255,102,0,.12); color: var(--accent); }
+    .badge.gray { background: rgba(138,144,168,.12); color: var(--text2); }
 
-  .nav-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--muted);
-    transition: all .2s;
-    border-left: 3px solid transparent;
-    position: relative;
-  }
-  .nav-item:hover { color: var(--text); background: var(--surface2); }
-  .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(255,107,0,.08); }
-  .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
-  .nav-badge {
-    margin-left: auto;
-    background: var(--accent);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 6px;
-    border-radius: 10px;
-    min-width: 18px;
-    text-align: center;
-  }
+    /* ── BUTTONS ── */
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius-sm); font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all .18s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-ghost { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+    .btn-ghost:hover { color: var(--text); border-color: var(--text3); }
+    .btn-danger { background: rgba(239,68,68,.12); color: var(--red); border: 1px solid rgba(239,68,68,.2); }
+    .btn-danger:hover { background: rgba(239,68,68,.2); }
+    .btn-sm { padding: 5px 11px; font-size: 12px; }
+    .btn-icon { padding: 7px; border-radius: var(--radius-sm); background: var(--surface2); border: 1px solid var(--border); color: var(--text2); cursor: pointer; transition: all .18s; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-icon:hover { color: var(--text); border-color: var(--text3); }
 
-  .sidebar-footer {
-    padding: 16px 20px;
-    border-top: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .admin-info { display: flex; align-items: center; gap: 8px; }
-  .admin-avatar {
-    width: 28px; height: 28px;
-    background: var(--accent);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700; color: #fff;
-  }
+    /* ── GRID ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
 
-  /* MAIN */
-  .main {
-    margin-left: 220px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+    /* ── CHART BARS ── */
+    .chart-bars { display: flex; align-items: flex-end; gap: 10px; height: 120px; padding: 0 4px; }
+    .chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .chart-bar { width: 100%; border-radius: 6px 6px 0 0; background: var(--accent); opacity: .7; transition: opacity .2s; min-height: 4px; }
+    .chart-bar:hover { opacity: 1; }
+    .chart-bar-label { font-size: 10px; color: var(--text3); font-weight: 600; }
 
-  .topbar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    position: sticky; top: 0; z-index: 50;
-  }
-  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; }
-  .topbar-right { display: flex; align-items: center; gap: 12px; }
+    /* ── PRODUCTS GRID ── */
+    .products-admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 16px; }
+    .product-admin-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      transition: border-color .2s, transform .2s;
+    }
+    .product-admin-card:hover { border-color: var(--text3); transform: translateY(-2px); }
+    .prod-img-placeholder { background: var(--surface2); border-radius: var(--radius-sm); height: 100px; display: flex; align-items: center; justify-content: center; font-size: 36px; margin-bottom: 12px; }
+    .prod-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; line-height: 1.3; }
+    .prod-cat { font-size: 11px; color: var(--text2); margin-bottom: 8px; }
+    .prod-footer { display: flex; align-items: center; justify-content: space-between; }
+    .prod-price { font-size: 15px; font-weight: 800; color: var(--accent); font-family: 'Space Mono', monospace; }
+    .prod-actions { display: flex; gap: 4px; }
 
-  .search-box {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 13px;
-    color: var(--text);
-    width: 220px;
-  }
-  .search-box input {
-    background: none; border: none; outline: none;
-    color: var(--text); font-family: inherit; font-size: 13px; flex: 1;
-  }
-  .search-box input::placeholder { color: var(--muted); }
+    /* ── FORM ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-field { margin-bottom: 16px; }
+    .form-field.full { grid-column: 1/-1; }
+    .form-label { font-size: 12px; color: var(--text2); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: 'Manrope', sans-serif; font-size: 13.5px;
+      padding: 10px 14px; outline: none; transition: border-color .2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { resize: vertical; min-height: 90px; }
+    .form-select { appearance: none; cursor: pointer; }
 
-  .btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 9px 16px;
-    border-radius: 8px;
-    border: none;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all .2s;
-  }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent2); }
-  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-  .btn-danger { background: rgba(239,68,68,.15); color: var(--danger); border: 1px solid rgba(239,68,68,.3); }
-  .btn-danger:hover { background: rgba(239,68,68,.25); }
-  .btn-success { background: rgba(34,197,94,.15); color: var(--success); border: 1px solid rgba(34,197,94,.3); }
-  .btn-success:hover { background: rgba(34,197,94,.25); }
-  .btn-sm { padding: 5px 10px; font-size: 12px; }
+    /* ── MODAL ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; width: 560px; max-width: 100%; max-height: 90vh; overflow-y: auto; }
+    .modal-header { padding: 22px 24px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .modal-title { font-size: 16px; font-weight: 700; }
+    .modal-close { background: none; border: none; color: var(--text2); cursor: pointer; padding: 4px; border-radius: 6px; transition: color .18s; }
+    .modal-close:hover { color: var(--red); }
+    .modal-body { padding: 22px 24px; }
+    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
 
-  .content { padding: 28px; flex: 1; }
+    /* ── REVIEWS ── */
+    .review-admin-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 12px; }
+    .review-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .review-author-wrap { display: flex; align-items: center; gap: 10px; }
+    .rev-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: #fff; }
+    .rev-name { font-size: 13px; font-weight: 700; }
+    .rev-city { font-size: 11px; color: var(--text2); }
+    .rev-stars { color: var(--yellow); font-size: 14px; }
+    .rev-text { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+    .rev-actions { display: flex; gap: 8px; }
 
-  /* PAGES */
-  .page { display: none; }
-  .page.active { display: block; }
+    /* ── ORDERS ── */
+    .order-detail { background: var(--surface2); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 10px; }
 
-  /* DASHBOARD */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
+    /* ── MESSAGES ── */
+    .msg-list { display: flex; flex-direction: column; gap: 10px; }
+    .msg-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; gap: 14px; align-items: flex-start; transition: border-color .2s; }
+    .msg-card:hover { border-color: var(--text3); }
+    .msg-card.unread { border-color: var(--accent); }
+    .msg-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .msg-content { flex: 1; }
+    .msg-from { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+    .msg-text { font-size: 12.5px; color: var(--text2); }
+    .msg-time { font-size: 11px; color: var(--text3); margin-top: 4px; }
+    .unread-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
 
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color .2s;
-  }
-  .stat-card:hover { border-color: var(--accent); }
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 60px; height: 60px;
-    border-radius: 0 12px 0 60px;
-    opacity: .08;
-  }
-  .stat-card.orange::before { background: var(--accent); }
-  .stat-card.green::before { background: var(--success); }
-  .stat-card.blue::before { background: var(--info); }
-  .stat-card.yellow::before { background: var(--warning); }
+    /* ── SETTINGS ── */
+    .settings-section { margin-bottom: 28px; }
+    .settings-section h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text2); margin-bottom: 14px; }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; }
+    .toggle-info strong { font-size: 13.5px; display: block; margin-bottom: 2px; }
+    .toggle-info span { font-size: 12px; color: var(--text2); }
+    .toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; inset: 0; background: var(--surface3); border-radius: 24px; cursor: pointer; transition: .3s; }
+    .toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; background: #fff; border-radius: 50%; left: 3px; top: 3px; transition: .3s; }
+    .toggle input:checked + .toggle-slider { background: var(--accent); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
 
-  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-  .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 1px; line-height: 1; }
-  .stat-value.orange { color: var(--accent); }
-  .stat-value.green { color: var(--success); }
-  .stat-value.blue { color: var(--info); }
-  .stat-value.yellow { color: var(--warning); }
-  .stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    /* ── SCROLL ── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
 
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-  .grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+    /* ── TOAST ── */
+    .admin-toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 18px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; z-index: 999; transform: translateY(80px); opacity: 0; transition: all .3s; }
+    .admin-toast.show { transform: translateY(0); opacity: 1; }
+    .admin-toast.success { border-color: var(--green); }
+    .admin-toast.error { border-color: var(--red); }
+    .admin-toast .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .admin-toast.success .dot { background: var(--green); }
+    .admin-toast.error .dot { background: var(--red); }
 
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .card-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .card-title { font-size: 13px; font-weight: 600; }
-  .card-body { padding: 20px; }
-
-  /* TABLE */
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th {
-    text-align: left;
-    padding: 10px 16px;
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px solid var(--border);
-    font-weight: 500;
-  }
-  td {
-    padding: 12px 16px;
-    border-bottom: 1px solid rgba(30,35,48,.6);
-    vertical-align: middle;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: rgba(255,107,0,.03); }
-
-  /* BADGES */
-  .badge {
-    display: inline-flex; align-items: center;
-    padding: 3px 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    gap: 4px;
-  }
-  .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-  .badge-new { background: rgba(59,130,246,.15); color: var(--info); }
-  .badge-processing { background: rgba(245,158,11,.15); color: var(--warning); }
-  .badge-done { background: rgba(34,197,94,.15); color: var(--success); }
-  .badge-cancelled { background: rgba(239,68,68,.15); color: var(--danger); }
-  .badge-bonus { background: rgba(255,107,0,.15); color: var(--accent); }
-
-  /* FORMS */
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-  .form-group.full { grid-column: 1 / -1; }
-  label { font-size: 12px; color: var(--muted); font-weight: 500; }
-  input, select, textarea {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 12px;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    outline: none;
-    transition: border-color .2s;
-  }
-  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
-  select option { background: var(--surface2); }
-  textarea { resize: vertical; min-height: 80px; }
-
-  /* MODAL */
-  .modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,.7);
-    z-index: 200;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-    animation: slideUp .25s ease;
-  }
-  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-  .modal-header {
-    padding: 20px 24px 16px;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; }
-  .modal-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 20px; padding: 4px; }
-  .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
-  .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
-
-  /* BONUS HISTORY */
-  .bonus-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .bonus-item:last-child { border-bottom: none; }
-  .bonus-plus { color: var(--success); font-weight: 600; font-size: 14px; }
-  .bonus-minus { color: var(--danger); font-weight: 600; font-size: 14px; }
-
-  /* EMPTY STATE */
-  .empty {
-    text-align: center;
-    padding: 48px 20px;
-    color: var(--muted);
-  }
-  .empty-icon { font-size: 40px; margin-bottom: 12px; }
-  .empty-text { font-size: 14px; }
-
-  /* QUICK ACTIONS */
-  .quick-actions {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  .quick-btn {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    cursor: pointer;
-    transition: all .2s;
-    text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-  }
-  .quick-btn:hover { border-color: var(--accent); background: rgba(255,107,0,.05); }
-  .quick-btn .q-icon { font-size: 22px; }
-  .quick-btn .q-label { font-size: 12px; font-weight: 500; }
-
-  /* TABS */
-  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
-  .tab {
-    padding: 10px 20px;
-    font-size: 13px;
-    cursor: pointer;
-    color: var(--muted);
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: all .2s;
-    font-weight: 500;
-  }
-  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  /* NOTIFICATION */
-  .toast {
-    position: fixed;
-    bottom: 24px; right: 24px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--success);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 13px;
-    z-index: 999;
-    animation: fadeIn .3s ease;
-    max-width: 280px;
-    display: none;
-  }
-  .toast.show { display: block; }
-  .toast.error { border-left-color: var(--danger); }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* AVATAR */
-  .client-avatar {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  /* MOBILE HAMBURGER */
-  .hamburger {
-    display: none;
-    background: none; border: none; color: var(--text);
-    font-size: 20px; cursor: pointer; padding: 4px;
-  }
-
-  @media (max-width: 900px) {
-    .sidebar { transform: translateX(-100%); }
-    .sidebar.open { transform: translateX(0); }
-    .main { margin-left: 0; }
-    .hamburger { display: block; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    .quick-actions { grid-template-columns: repeat(3, 1fr); }
-    .form-grid { grid-template-columns: 1fr; }
-    .search-box { width: 150px; }
-  }
-  @media (max-width: 500px) {
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-    .quick-actions { grid-template-columns: repeat(3, 1fr); }
-    .content { padding: 16px; }
-  }
-
-  .overlay-bg {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,.5);
-    z-index: 99;
-  }
-  .overlay-bg.open { display: block; }
-
-  /* order detail tags */
-  .detail-row { display: flex; gap: 8px; margin-bottom: 8px; font-size: 13px; }
-  .detail-row .dl { color: var(--muted); width: 100px; flex-shrink: 0; }
-  .detail-row .dv { color: var(--text); }
-
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 16px; }
-</style>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) { .stats-row { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); transition: transform .3s; }
+      .sidebar.mob-open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="overlay-bg" id="overlayBg" onclick="closeSidebar()"></div>
-
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-  <div class="logo">
-    <div class="logo-title">Mi Техно</div>
-    <div class="logo-sub">Admin Panel</div>
+<!-- ── LOGIN ── -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Mi <span>Texno</span></div>
+    <div class="login-sub">Панель управления магазином</div>
+    <div class="login-field">
+      <label>Логин</label>
+      <input type="text" id="loginUser" placeholder="admin" value="">
+    </div>
+    <div class="login-field">
+      <label>Пароль</label>
+      <input type="password" id="loginPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    </div>
+    <button class="login-btn" onclick="doAdminLogin()">Войти в панель</button>
+    <div class="login-error" id="loginErr">Неверный логин или пароль</div>
   </div>
-  <nav class="nav">
-    <div class="nav-section">Главное</div>
-    <div class="nav-item active" onclick="goPage('dashboard', this)">
-      <span class="icon">📊</span> Дашборд
-    </div>
-    <div class="nav-section">Магазин</div>
-    <div class="nav-item" onclick="goPage('orders', this)" id="nav-orders">
-      <span class="icon">📦</span> Заказы
-      <span class="nav-badge" id="badge-orders">0</span>
-    </div>
-    <div class="nav-item" onclick="goPage('clients', this)">
-      <span class="icon">👥</span> Клиенты
-    </div>
-    <div class="nav-item" onclick="goPage('bonuses', this)">
-      <span class="icon">🎁</span> Бонусы
-    </div>
-    <div class="nav-item" onclick="goPage('products', this)">
-      <span class="icon">🛍️</span> Товары
-    </div>
-    <div class="nav-section">Настройки</div>
-    <div class="nav-item" onclick="goPage('settings', this)">
-      <span class="icon">⚙️</span> Настройки
-    </div>
+</div>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">Mi <span>Texno</span><small>Admin Dashboard</small></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Главное</div>
+    <button class="nav-item active" onclick="goPage('dashboard',this)">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Дашборд
+    </button>
+    <button class="nav-item" onclick="goPage('orders',this)">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Заказы <span class="nav-badge">12</span>
+    </button>
+    <button class="nav-item" onclick="goPage('messages',this)">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Сообщения <span class="nav-badge" style="background:var(--blue)">5</span>
+    </button>
+    <div class="nav-section-label">Каталог</div>
+    <button class="nav-item" onclick="goPage('products',this)">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      Товары
+    </button>
+    <button class="nav-item" onclick="goPage('reviews',this)">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Отзывы
+    </button>
+    <div class="nav-section-label">Аналитика</div>
+    <button class="nav-item" onclick="goPage('analytics',this)">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Статистика
+    </button>
+    <div class="nav-section-label">Система</div>
+    <button class="nav-item" onclick="goPage('settings',this)">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Настройки
+    </button>
+    <a href="index.html" class="nav-item" style="text-decoration:none">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      На сайт
+    </a>
   </nav>
   <div class="sidebar-footer">
     <div class="admin-info">
       <div class="admin-avatar">A</div>
-      <div>
-        <div style="font-size:12px;color:var(--text);font-weight:500">Администратор</div>
-        <div style="font-size:10px">Mi Техно Худжанд</div>
-      </div>
+      <div><div class="admin-name">Администратор</div><div class="admin-role">Суперадмин</div></div>
     </div>
+    <button class="logout-btn" onclick="doLogout()">
+      <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Выйти
+    </button>
   </div>
 </aside>
 
-<!-- MAIN -->
+<!-- ── MAIN ── -->
 <div class="main">
   <div class="topbar">
-    <div style="display:flex;align-items:center;gap:12px">
-      <button class="hamburger" onclick="toggleSidebar()">☰</button>
-      <div class="page-title" id="pageTitle">Дашборд</div>
-    </div>
+    <div class="topbar-title" id="topbarTitle">Дашборд</div>
     <div class="topbar-right">
-      <div class="search-box">
-        <span>🔍</span>
-        <input type="text" placeholder="Поиск..." id="globalSearch" oninput="handleSearch()">
-      </div>
-      <button class="btn btn-primary" onclick="openQuickOrder()">+ Заказ</button>
+      <span class="topbar-badge">● Онлайн</span>
+      <input class="search-bar" placeholder="🔍  Поиск..." id="globalSearch" oninput="globalSearchFn(this.value)">
     </div>
   </div>
-
   <div class="content">
 
-    <!-- DASHBOARD -->
+    <!-- ════ DASHBOARD ════ -->
     <div class="page active" id="page-dashboard">
-      <div class="stats-grid">
+      <div class="stats-row">
         <div class="stat-card orange">
-          <div class="stat-label">Заказов сегодня</div>
-          <div class="stat-value orange" id="stat-today">0</div>
-          <div class="stat-sub">новых</div>
+          <div class="stat-icon">💰</div>
+          <div class="stat-label">Продажи (месяц)</div>
+          <div class="stat-value" id="stat-revenue">247 800</div>
+          <div class="stat-change up">↑ +18% к прошлому месяцу</div>
         </div>
         <div class="stat-card green">
-          <div class="stat-label">Выручка (сом)</div>
-          <div class="stat-value green" id="stat-revenue">0</div>
-          <div class="stat-sub">всего</div>
+          <div class="stat-icon">📦</div>
+          <div class="stat-label">Заказов</div>
+          <div class="stat-value" id="stat-orders">84</div>
+          <div class="stat-change up">↑ +12 за неделю</div>
         </div>
         <div class="stat-card blue">
-          <div class="stat-label">Клиентов</div>
-          <div class="stat-value blue" id="stat-clients">0</div>
-          <div class="stat-sub">зарегистрировано</div>
+          <div class="stat-icon">👥</div>
+          <div class="stat-label">Пользователей</div>
+          <div class="stat-value">312</div>
+          <div class="stat-change up">↑ +24 новых</div>
         </div>
-        <div class="stat-card yellow">
-          <div class="stat-label">Бонусов выдано</div>
-          <div class="stat-value yellow" id="stat-bonuses">0</div>
-          <div class="stat-sub">баллов</div>
-        </div>
-      </div>
-
-      <div class="quick-actions">
-        <div class="quick-btn" onclick="openModal('modalBonus')">
-          <div class="q-icon">🎁</div>
-          <div class="q-label">Начислить бонус</div>
-        </div>
-        <div class="quick-btn" onclick="openModal('modalAddClient')">
-          <div class="q-icon">👤</div>
-          <div class="q-label">Новый клиент</div>
-        </div>
-        <div class="quick-btn" onclick="openModal('modalAddOrder')">
-          <div class="q-icon">📦</div>
-          <div class="q-label">Новый заказ</div>
+        <div class="stat-card purple">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-label">Отзывов</div>
+          <div class="stat-value">6</div>
+          <div class="stat-change up">↑ все 5★</div>
         </div>
       </div>
 
-      <div class="grid-3">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Последние заказы</span>
-            <span style="font-size:12px;color:var(--muted);cursor:pointer" onclick="goPage('orders', null)">Все →</span>
+      <div class="two-col">
+        <!-- Chart -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">📊 Продажи за 7 дней (сом.)</div>
           </div>
-          <div class="card-body" style="padding:0">
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Клиент</th>
-                  <th>Сумма</th>
-                  <th>Статус</th>
-                </tr>
-              </thead>
-              <tbody id="dashOrdersTable"></tbody>
-            </table>
+          <div style="padding:20px">
+            <div class="chart-bars" id="chartBars"></div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header"><span class="card-title">Топ клиенты</span></div>
-          <div class="card-body" id="topClients" style="padding:12px"></div>
+
+        <!-- Top products -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">🔥 Топ товары</div></div>
+          <table>
+            <thead><tr><th>Товар</th><th>Шт.</th><th>Сумма</th></tr></thead>
+            <tbody id="topProductsTbl"></tbody>
+          </table>
         </div>
+      </div>
+
+      <!-- Recent orders -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🛒 Последние заказы</div>
+          <button class="btn btn-ghost btn-sm" onclick="goPage('orders', document.querySelector('[onclick*=\"orders\"]'))">Все →</button>
+        </div>
+        <table>
+          <thead><tr><th>#</th><th>Клиент</th><th>Товар</th><th>Сумма</th><th>Статус</th><th>Действия</th></tr></thead>
+          <tbody id="recentOrdersTbl"></tbody>
+        </table>
       </div>
     </div>
 
-    <!-- ORDERS -->
+    <!-- ════ ORDERS ════ -->
     <div class="page" id="page-orders">
-      <div class="tabs">
-        <div class="tab active" onclick="filterOrders('all', this)">Все</div>
-        <div class="tab" onclick="filterOrders('new', this)">Новые</div>
-        <div class="tab" onclick="filterOrders('processing', this)">В обработке</div>
-        <div class="tab" onclick="filterOrders('done', this)">Завершены</div>
-        <div class="tab" onclick="filterOrders('cancelled', this)">Отменены</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div style="font-size:22px;font-weight:800">Заказы</div>
+          <div style="color:var(--text2);font-size:13px;margin-top:2px">Управление всеми заказами магазина</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <select class="form-select" id="orderFilter" onchange="renderOrders()" style="width:160px">
+            <option value="all">Все статусы</option>
+            <option value="new">Новые</option>
+            <option value="processing">В обработке</option>
+            <option value="done">Выполнен</option>
+            <option value="cancelled">Отменён</option>
+          </select>
+          <button class="btn btn-primary" onclick="openNewOrderModal()">+ Новый заказ</button>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Заказы</span>
-          <button class="btn btn-primary btn-sm" onclick="openModal('modalAddOrder')">+ Новый заказ</button>
-        </div>
-        <div class="card-body" style="padding:0">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Клиент</th>
-                  <th>Товар</th>
-                  <th>Сумма (сом)</th>
-                  <th>Дата</th>
-                  <th>Статус</th>
-                  <th>Действия</th>
-                </tr>
-              </thead>
-              <tbody id="ordersTable"></tbody>
-            </table>
-          </div>
-        </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>#</th><th>Клиент</th><th>Телефон</th><th>Товар</th><th>Сумма</th><th>Дата</th><th>Статус</th><th>Действия</th></tr></thead>
+          <tbody id="ordersTbl"></tbody>
+        </table>
       </div>
     </div>
 
-    <!-- CLIENTS -->
-    <div class="page" id="page-clients">
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Клиенты</span>
-          <button class="btn btn-primary btn-sm" onclick="openModal('modalAddClient')">+ Добавить</button>
-        </div>
-        <div class="card-body" style="padding:0">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Клиент</th>
-                  <th>Телефон</th>
-                  <th>Заказов</th>
-                  <th>Бонусы</th>
-                  <th>Потрачено (сом)</th>
-                  <th>Действия</th>
-                </tr>
-              </thead>
-              <tbody id="clientsTable"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+    <!-- ════ MESSAGES ════ -->
+    <div class="page" id="page-messages">
+      <div style="font-size:22px;font-weight:800;margin-bottom:6px">Сообщения с сайта</div>
+      <div style="color:var(--text2);font-size:13px;margin-bottom:20px">Обращения из чата и форм обратной связи</div>
+      <div class="msg-list" id="msgList"></div>
     </div>
 
-    <!-- BONUSES -->
-    <div class="page" id="page-bonuses">
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Начислить / Списать бонусы</span>
-          </div>
-          <div class="card-body">
-            <div style="display:flex;flex-direction:column;gap:14px">
-              <div class="form-group">
-                <label>Клиент</label>
-                <select id="bonusClientSelect" onchange="updateBonusBalance()">
-                  <option value="">— Выберите клиента —</option>
-                </select>
-              </div>
-              <div style="background:var(--surface2);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center" id="bonusBalanceBox">
-                <div style="font-size:12px;color:var(--muted)">Текущий баланс</div>
-                <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent)" id="bonusBalanceVal">—</div>
-              </div>
-              <div class="form-group">
-                <label>Тип операции</label>
-                <select id="bonusType">
-                  <option value="add">➕ Начислить</option>
-                  <option value="remove">➖ Списать</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Количество баллов</label>
-                <input type="number" id="bonusAmount" placeholder="Например: 100" min="1">
-              </div>
-              <div class="form-group">
-                <label>Комментарий</label>
-                <input type="text" id="bonusComment" placeholder="Причина начисления...">
-              </div>
-              <button class="btn btn-primary" onclick="applyBonus()">Применить</button>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header"><span class="card-title">История бонусов</span></div>
-          <div class="card-body" id="bonusHistory" style="max-height:420px;overflow-y:auto"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PRODUCTS -->
+    <!-- ════ PRODUCTS ════ -->
     <div class="page" id="page-products">
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Товары</span>
-          <button class="btn btn-primary btn-sm" onclick="openModal('modalAddProduct')">+ Добавить</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div style="font-size:22px;font-weight:800">Товары</div>
+          <div style="color:var(--text2);font-size:13px;margin-top:2px">Управление каталогом</div>
         </div>
-        <div class="card-body" style="padding:0">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Товар</th>
-                  <th>Категория</th>
-                  <th>Цена (сом)</th>
-                  <th>В рассрочку</th>
-                  <th>Остаток</th>
-                  <th>Действия</th>
-                </tr>
-              </thead>
-              <tbody id="productsTable"></tbody>
-            </table>
-          </div>
+        <button class="btn btn-primary" onclick="openProductModal()">+ Добавить товар</button>
+      </div>
+      <div class="products-admin-grid" id="productsAdminGrid"></div>
+    </div>
+
+    <!-- ════ REVIEWS ════ -->
+    <div class="page" id="page-reviews">
+      <div style="font-size:22px;font-weight:800;margin-bottom:6px">Отзывы</div>
+      <div style="color:var(--text2);font-size:13px;margin-bottom:20px">Модерация отзывов покупателей</div>
+      <div id="reviewsAdmin"></div>
+    </div>
+
+    <!-- ════ ANALYTICS ════ -->
+    <div class="page" id="page-analytics">
+      <div style="font-size:22px;font-weight:800;margin-bottom:20px">Аналитика</div>
+      <div class="stats-row">
+        <div class="stat-card orange"><div class="stat-icon">💰</div><div class="stat-label">Выручка всего</div><div class="stat-value">1.24M</div><div class="stat-change up">↑ +31% к году</div></div>
+        <div class="stat-card green"><div class="stat-icon">📦</div><div class="stat-label">Заказов всего</div><div class="stat-value">618</div><div class="stat-change up">↑ Стабильный рост</div></div>
+        <div class="stat-card blue"><div class="stat-icon">📍</div><div class="stat-label">Ср. чек</div><div class="stat-value">2 008</div><div class="stat-change up">↑ +5%</div></div>
+        <div class="stat-card purple"><div class="stat-icon">🔄</div><div class="stat-label">Повторные</div><div class="stat-value">34%</div><div class="stat-change up">↑ Лояльность</div></div>
+      </div>
+      <div class="two-col">
+        <div class="panel"><div class="panel-header"><div class="panel-title">📈 Продажи по категориям</div></div><div style="padding:20px" id="catChart"></div></div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">🌍 Источники трафика</div></div>
+          <table><thead><tr><th>Канал</th><th>Визитов</th><th>Заказов</th><th>Конверсия</th></tr></thead>
+          <tbody>
+            <tr><td>📸 Instagram</td><td>1 842</td><td>63</td><td><span class="badge green">3.4%</span></td></tr>
+            <tr><td>✈️ Telegram</td><td>1 204</td><td>48</td><td><span class="badge green">3.9%</span></td></tr>
+            <tr><td>💬 WhatsApp</td><td>610</td><td>31</td><td><span class="badge green">5.1%</span></td></tr>
+            <tr><td>🔍 Поиск</td><td>440</td><td>12</td><td><span class="badge yellow">2.7%</span></td></tr>
+            <tr><td>🔗 Прямой</td><td>280</td><td>9</td><td><span class="badge yellow">3.2%</span></td></tr>
+          </tbody></table>
         </div>
       </div>
     </div>
 
-    <!-- SETTINGS -->
+    <!-- ════ SETTINGS ════ -->
     <div class="page" id="page-settings">
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-header"><span class="card-title">Настройки магазина</span></div>
-          <div class="card-body">
-            <div style="display:flex;flex-direction:column;gap:14px">
-              <div class="form-group">
-                <label>Название магазина</label>
-                <input type="text" id="setStoreName" value="Mi Техно">
-              </div>
-              <div class="form-group">
-                <label>Город</label>
-                <input type="text" id="setCity" value="Худжанд">
-              </div>
-              <div class="form-group">
-                <label>Телефон</label>
-                <input type="text" id="setPhone" value="+992 92-866-35-10">
-              </div>
-              <div class="form-group">
-                <label>% бонусов с покупки</label>
-                <input type="number" id="setBonusPct" value="3" min="0" max="20">
-              </div>
-              <button class="btn btn-primary" onclick="saveSettings()">Сохранить</button>
-            </div>
+      <div style="font-size:22px;font-weight:800;margin-bottom:20px">Настройки</div>
+      <div class="two-col">
+        <div>
+          <div class="settings-section">
+            <h3>Магазин</h3>
+            <div class="form-field"><label class="form-label">Название магазина</label><input class="form-input" value="Mi Texno"></div>
+            <div class="form-field"><label class="form-label">Телефон</label><input class="form-input" value="+992-93-507-00-70"></div>
+            <div class="form-field"><label class="form-label">Telegram</label><input class="form-input" value="@Mi_Texn0"></div>
+            <div class="form-field"><label class="form-label">Адрес</label><input class="form-input" value="Худжанд, Исмоили Сомони 20"></div>
+            <div class="form-field"><label class="form-label">График работы</label><input class="form-input" value="09:00 — 19:00, Пн–Вс"></div>
+            <button class="btn btn-primary" onclick="showToastAdmin('Настройки сохранены ✓','success')">Сохранить</button>
+          </div>
+          <div class="settings-section">
+            <h3>Безопасность</h3>
+            <div class="form-field"><label class="form-label">Текущий пароль</label><input class="form-input" type="password" placeholder="••••••••"></div>
+            <div class="form-field"><label class="form-label">Новый пароль</label><input class="form-input" type="password" placeholder="Мин. 6 символов"></div>
+            <div class="form-field"><label class="form-label">Повторить пароль</label><input class="form-input" type="password" placeholder="Повторите пароль"></div>
+            <button class="btn btn-ghost" onclick="showToastAdmin('Пароль изменён ✓','success')">Изменить пароль</button>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header"><span class="card-title">Данные</span></div>
-          <div class="card-body">
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <button class="btn btn-ghost" onclick="exportData()">📤 Экспорт данных (JSON)</button>
-              <button class="btn btn-ghost" onclick="importDataClick()">📥 Импорт данных</button>
-              <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
-              <hr style="border-color:var(--border)">
-              <button class="btn btn-danger" onclick="clearAllData()">🗑️ Очистить все данные</button>
-            </div>
+        <div>
+          <div class="settings-section">
+            <h3>Уведомления</h3>
+            <div class="toggle-row"><div class="toggle-info"><strong>Новые заказы</strong><span>Push-уведомления при новом заказе</span></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><strong>Telegram-бот</strong><span>Уведомления в Telegram</span></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><strong>Новые отзывы</strong><span>Уведомление при новом отзыве</span></div><label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><strong>Сообщения из чата</strong><span>Оповещение из онлайн-чата</span></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          </div>
+          <div class="settings-section">
+            <h3>Акции</h3>
+            <div class="form-field"><label class="form-label">Текст акции</label><textarea class="form-textarea">20% рассрочка на 12 месяцев через Алиф Салом</textarea></div>
+            <div class="form-field"><label class="form-label">Товар месяца</label><input class="form-input" value="Очиститель Воздуха Xiaomi Purifier 5"></div>
+            <div class="toggle-row"><div class="toggle-info"><strong>Показать баннер акций</strong><span>Секция «Лучшие предложения»</span></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+            <button class="btn btn-primary" style="margin-top:10px" onclick="showToastAdmin('Акции обновлены ✓','success')">Сохранить</button>
           </div>
         </div>
       </div>
@@ -743,757 +591,444 @@
   </div><!-- /content -->
 </div><!-- /main -->
 
-<!-- MODAL: ADD ORDER -->
-<div class="modal-overlay" id="modalAddOrder">
+<!-- ── MODAL: ORDER ── -->
+<div class="modal-overlay" id="orderModal">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">Новый заказ</div>
-      <button class="modal-close" onclick="closeModal('modalAddOrder')">✕</button>
+      <div class="modal-title" id="orderModalTitle">Новый заказ</div>
+      <button class="modal-close" onclick="closeModal('orderModal')">✕</button>
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group">
-          <label>Клиент</label>
-          <select id="orderClient">
-            <option value="">— Выберите —</option>
+        <div class="form-field"><label class="form-label">Имя клиента</label><input class="form-input" id="oName" placeholder="Имя"></div>
+        <div class="form-field"><label class="form-label">Телефон</label><input class="form-input" id="oPhone" placeholder="+992"></div>
+        <div class="form-field full"><label class="form-label">Товар</label><input class="form-input" id="oProduct" placeholder="Название товара"></div>
+        <div class="form-field"><label class="form-label">Сумма (сом.)</label><input class="form-input" id="oSum" type="number" placeholder="0"></div>
+        <div class="form-field"><label class="form-label">Статус</label>
+          <select class="form-select" id="oStatus">
+            <option value="new">Новый</option>
+            <option value="processing">В обработке</option>
+            <option value="done">Выполнен</option>
+            <option value="cancelled">Отменён</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Или новый (имя)</label>
-          <input type="text" id="orderNewClient" placeholder="Имя клиента">
-        </div>
-        <div class="form-group">
-          <label>Телефон (нового)</label>
-          <input type="text" id="orderNewPhone" placeholder="+992...">
-        </div>
-        <div class="form-group">
-          <label>Товар</label>
-          <input type="text" id="orderProduct" placeholder="Xiaomi TV 55...">
-        </div>
-        <div class="form-group">
-          <label>Сумма (сом)</label>
-          <input type="number" id="orderAmount" placeholder="0" min="0">
-        </div>
-        <div class="form-group">
-          <label>Способ оплаты</label>
-          <select id="orderPayment">
-            <option>Наличные</option>
-            <option>Карта</option>
-            <option>Рассрочка Alif Salom</option>
-            <option>Рассрочка Eskhata</option>
-            <option>Перевод</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <label>Комментарий</label>
-          <textarea id="orderNote" placeholder="Дополнительная информация..."></textarea>
-        </div>
+        <div class="form-field full"><label class="form-label">Комментарий</label><textarea class="form-textarea" id="oNote" placeholder="Необязательно"></textarea></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modalAddOrder')">Отмена</button>
-      <button class="btn btn-primary" onclick="addOrder()">Создать заказ</button>
+      <button class="btn btn-ghost" onclick="closeModal('orderModal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveOrder()">Сохранить</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: BONUS -->
-<div class="modal-overlay" id="modalBonus">
+<!-- ── MODAL: PRODUCT ── -->
+<div class="modal-overlay" id="productModal">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">Бонусы</div>
-      <button class="modal-close" onclick="closeModal('modalBonus')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label>Клиент</label>
-        <select id="mBonusClient" onchange="mUpdateBonus()">
-          <option value="">— Выберите —</option>
-        </select>
-      </div>
-      <div style="background:var(--surface2);border-radius:10px;padding:12px;text-align:center">
-        <div style="font-size:11px;color:var(--muted)">Баланс</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--accent)" id="mBonusBalance">—</div>
-      </div>
-      <div class="form-group">
-        <label>Операция</label>
-        <select id="mBonusType">
-          <option value="add">➕ Начислить</option>
-          <option value="remove">➖ Списать</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Баллы</label>
-        <input type="number" id="mBonusAmount" placeholder="100" min="1">
-      </div>
-      <div class="form-group">
-        <label>Причина</label>
-        <input type="text" id="mBonusComment" placeholder="Покупка / Подарок / Акция...">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modalBonus')">Отмена</button>
-      <button class="btn btn-primary" onclick="applyBonusModal()">Применить</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: ADD CLIENT -->
-<div class="modal-overlay" id="modalAddClient">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">Новый клиент</div>
-      <button class="modal-close" onclick="closeModal('modalAddClient')">✕</button>
+      <div class="modal-title" id="productModalTitle">Добавить товар</div>
+      <button class="modal-close" onclick="closeModal('productModal')">✕</button>
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group">
-          <label>Имя</label>
-          <input type="text" id="cName" placeholder="Имя Фамилия">
-        </div>
-        <div class="form-group">
-          <label>Телефон</label>
-          <input type="text" id="cPhone" placeholder="+992...">
-        </div>
-        <div class="form-group full">
-          <label>Адрес (необязательно)</label>
-          <input type="text" id="cAddress" placeholder="Улица, дом...">
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modalAddClient')">Отмена</button>
-      <button class="btn btn-primary" onclick="addClient()">Добавить</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: ADD PRODUCT -->
-<div class="modal-overlay" id="modalAddProduct">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">Новый товар</div>
-      <button class="modal-close" onclick="closeModal('modalAddProduct')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-grid">
-        <div class="form-group full">
-          <label>Название</label>
-          <input type="text" id="pName" placeholder="Xiaomi TV 55...">
-        </div>
-        <div class="form-group">
-          <label>Категория</label>
-          <select id="pCategory">
-            <option>Телевизоры</option>
-            <option>Кондиционеры</option>
-            <option>Мониторы</option>
-            <option>Стиральные машины</option>
-            <option>Холодильники</option>
-            <option>Пылесосы</option>
-            <option>Камеры</option>
-            <option>Другое</option>
+        <div class="form-field full"><label class="form-label">Название</label><input class="form-input" id="pName" placeholder="Название товара"></div>
+        <div class="form-field"><label class="form-label">Категория</label>
+          <select class="form-select" id="pCat">
+            <option>Телевизоры</option><option>Кондиционеры</option><option>Мониторы</option><option>Камеры</option><option>Стиральные машины</option><option>Холодильники</option><option>Пылесосы</option><option>Гигиена</option><option>Чайники</option><option>Кофемашины</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Цена (сом)</label>
-          <input type="number" id="pPrice" placeholder="0" min="0">
+        <div class="form-field"><label class="form-label">Цена (сом.)</label><input class="form-input" id="pPrice" type="number" placeholder="0"></div>
+        <div class="form-field"><label class="form-label">Старая цена</label><input class="form-input" id="pOldPrice" type="number" placeholder="Необязательно"></div>
+        <div class="form-field"><label class="form-label">Бейдж</label>
+          <select class="form-select" id="pBadge"><option value="">Нет</option><option>Хит</option><option>Новинка</option><option>−15%</option><option>Топ</option></select>
         </div>
-        <div class="form-group">
-          <label>Рассрочка (сом/мес)</label>
-          <input type="text" id="pInstallment" placeholder="от 500/мес">
-        </div>
-        <div class="form-group">
-          <label>Остаток (шт)</label>
-          <input type="number" id="pStock" placeholder="1" min="0">
-        </div>
+        <div class="form-field full"><label class="form-label">Описание</label><textarea class="form-textarea" id="pDesc" placeholder="Краткое описание товара"></textarea></div>
+        <div class="form-field full"><label class="form-label">Эмодзи (иконка)</label><input class="form-input" id="pEmoji" placeholder="📺" maxlength="4"></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modalAddProduct')">Отмена</button>
-      <button class="btn btn-primary" onclick="addProduct()">Добавить</button>
+      <button class="btn btn-ghost" onclick="closeModal('productModal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveProduct()">Сохранить</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: ORDER DETAIL -->
-<div class="modal-overlay" id="modalOrderDetail">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="detailTitle">Заказ #</div>
-      <button class="modal-close" onclick="closeModal('modalOrderDetail')">✕</button>
-    </div>
-    <div class="modal-body" id="detailBody"></div>
-    <div class="modal-footer" id="detailFooter"></div>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
+<!-- ── TOAST ── -->
+<div class="admin-toast" id="adminToast"><div class="dot"></div><span id="adminToastText"></span></div>
 
 <script>
-// ============ DATA ============
-let DB = {
-  orders: [],
-  clients: [],
-  products: [],
-  bonusLog: [],
-  settings: { storeName: 'Mi Техно', city: 'Худжанд', phone: '+992 92-866-35-10', bonusPct: 3 }
-};
+/* ════ AUTH ════ */
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'mitexno2026';
 
-let orderFilter = 'all';
-let idCounter = { order: 1000, client: 100, product: 200 };
-
-function loadDB() {
-  const saved = localStorage.getItem('miTechnoAdmin');
-  if (saved) {
-    DB = JSON.parse(saved);
-    // restore counters
-    if (DB.orders.length) idCounter.order = Math.max(...DB.orders.map(o => o.id)) + 1;
-    if (DB.clients.length) idCounter.client = Math.max(...DB.clients.map(c => c.id)) + 1;
-    if (DB.products.length) idCounter.product = Math.max(...DB.products.map(p => p.id)) + 1;
+function doAdminLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPwd').value;
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    sessionStorage.setItem('adminAuth','1');
+    document.getElementById('loginScreen').style.display = 'none';
+    init();
   } else {
-    seedData();
+    const err = document.getElementById('loginErr');
+    err.style.display = 'block';
+    setTimeout(()=>err.style.display='none', 3000);
   }
 }
-
-function saveDB() {
-  localStorage.setItem('miTechnoAdmin', JSON.stringify(DB));
-}
-
-function seedData() {
-  // Sample clients
-  const clients = [
-    { id: 101, name: 'Алишер Мамадов', phone: '+992 90-123-45-67', address: 'Худжанд, ул. Ленина 10', bonus: 450, totalSpent: 15000, orders: 3, joinDate: '2024-11-01' },
-    { id: 102, name: 'Зарина Рахимова', phone: '+992 93-987-65-43', address: 'Худжанд', bonus: 200, totalSpent: 6700, orders: 1, joinDate: '2025-01-15' },
-    { id: 103, name: 'Бобур Юсупов', phone: '+992 98-555-12-34', address: 'Худжанд, пр. Исмоили Сомони', bonus: 0, totalSpent: 3200, orders: 1, joinDate: '2025-03-10' },
-  ];
-  DB.clients = clients;
-  idCounter.client = 104;
-
-  const orders = [
-    { id: 1001, clientId: 101, clientName: 'Алишер Мамадов', product: 'Xiaomi TV A55 2025', amount: 5000, payment: 'Рассрочка Alif Salom', status: 'done', date: '2025-05-20', note: '' },
-    { id: 1002, clientId: 102, clientName: 'Зарина Рахимова', product: 'Xiaomi Mijia AC 1.5HP', amount: 6700, payment: 'Карта', status: 'processing', date: '2025-06-01', note: 'Доставка на дом' },
-    { id: 1003, clientId: 103, clientName: 'Бобур Юсупов', product: 'Xiaomi Monitor 27"', amount: 3200, payment: 'Наличные', status: 'new', date: today(), note: '' },
-  ];
-  DB.orders = orders;
-  idCounter.order = 1004;
-
-  const products = [
-    { id: 201, name: 'Xiaomi TV A55 2025', category: 'Телевизоры', price: 5000, installment: 'от 420/мес', stock: 5 },
-    { id: 202, name: 'Xiaomi Mijia AC 1.5HP', category: 'Кондиционеры', price: 6700, installment: 'от 560/мес', stock: 8 },
-    { id: 203, name: 'Xiaomi Monitor 27"', category: 'Мониторы', price: 3200, installment: 'от 267/мес', stock: 3 },
-    { id: 204, name: 'Haier Washing Machine 7kg', category: 'Стиральные машины', price: 4100, installment: 'от 342/мес', stock: 4 },
-  ];
-  DB.products = products;
-  idCounter.product = 205;
-
-  DB.bonusLog = [
-    { clientId: 101, clientName: 'Алишер Мамадов', type: 'add', amount: 150, comment: 'Покупка TV', date: '2025-05-20' },
-    { clientId: 101, clientName: 'Алишер Мамадов', type: 'add', amount: 300, comment: 'Акция ноябрь', date: '2024-11-10' },
-    { clientId: 102, clientName: 'Зарина Рахимова', type: 'add', amount: 200, comment: 'Покупка AC', date: '2025-06-01' },
-  ];
-
-  saveDB();
-}
-
-function today() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-// ============ NAV ============
-function goPage(name, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  if (el) el.classList.add('active');
-  else {
-    document.querySelectorAll('.nav-item').forEach(n => {
-      if (n.textContent.trim().toLowerCase().includes(name.substring(0, 3))) n.classList.add('active');
-    });
-  }
-  const titles = { dashboard: 'Дашборд', orders: 'Заказы', clients: 'Клиенты', bonuses: 'Бонусы', products: 'Товары', settings: 'Настройки' };
-  document.getElementById('pageTitle').textContent = titles[name] || name;
-  renderPage(name);
-  closeSidebar();
-}
-
-function renderPage(name) {
-  if (name === 'dashboard') renderDashboard();
-  if (name === 'orders') renderOrders();
-  if (name === 'clients') renderClients();
-  if (name === 'bonuses') renderBonuses();
-  if (name === 'products') renderProducts();
-  if (name === 'settings') renderSettings();
-}
-
-// ============ DASHBOARD ============
-function renderDashboard() {
-  const todayStr = today();
-  const todayOrders = DB.orders.filter(o => o.date === todayStr).length;
-  const totalRevenue = DB.orders.filter(o => o.status === 'done').reduce((s, o) => s + o.amount, 0);
-  const totalBonus = DB.bonusLog.filter(b => b.type === 'add').reduce((s, b) => s + b.amount, 0);
-
-  document.getElementById('stat-today').textContent = todayOrders;
-  document.getElementById('stat-revenue').textContent = totalRevenue.toLocaleString();
-  document.getElementById('stat-clients').textContent = DB.clients.length;
-  document.getElementById('stat-bonuses').textContent = totalBonus;
-
-  // Last 5 orders
-  const tbody = document.getElementById('dashOrdersTable');
-  const recent = [...DB.orders].reverse().slice(0, 5);
-  tbody.innerHTML = recent.length ? recent.map(o => `
-    <tr>
-      <td style="color:var(--muted)">#${o.id}</td>
-      <td>${o.clientName}</td>
-      <td style="color:var(--accent)">${o.amount.toLocaleString()}</td>
-      <td>${statusBadge(o.status)}</td>
-    </tr>`).join('') : `<tr><td colspan="4"><div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Нет заказов</div></div></td></tr>`;
-
-  // Top clients
-  const top = [...DB.clients].sort((a, b) => b.totalSpent - a.totalSpent).slice(0, 5);
-  document.getElementById('topClients').innerHTML = top.length ? top.map((c, i) => `
-    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--muted);width:20px">${i + 1}</div>
-      <div class="client-avatar" style="background:${avatarColor(c.name)}">${c.name[0]}</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">${c.name}</div>
-        <div style="font-size:11px;color:var(--muted)">${c.totalSpent.toLocaleString()} сом</div>
-      </div>
-      <div style="font-size:12px;color:var(--accent)">🎁 ${c.bonus}</div>
-    </div>`).join('') : '<div style="color:var(--muted);font-size:13px">Нет клиентов</div>';
-
-  // Badge
-  const newCount = DB.orders.filter(o => o.status === 'new').length;
-  document.getElementById('badge-orders').textContent = newCount;
-  document.getElementById('badge-orders').style.display = newCount ? '' : 'none';
-}
-
-// ============ ORDERS ============
-function renderOrders() {
-  const tbody = document.getElementById('ordersTable');
-  let list = [...DB.orders].reverse();
-  if (orderFilter !== 'all') list = list.filter(o => o.status === orderFilter);
-  tbody.innerHTML = list.length ? list.map(o => `
-    <tr>
-      <td style="color:var(--muted);font-weight:600">#${o.id}</td>
-      <td>${o.clientName}</td>
-      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.product}</td>
-      <td style="color:var(--accent);font-weight:600">${o.amount.toLocaleString()}</td>
-      <td style="color:var(--muted)">${o.date}</td>
-      <td>${statusBadge(o.status)}</td>
-      <td>
-        <div style="display:flex;gap:6px">
-          <button class="btn btn-ghost btn-sm" onclick="viewOrder(${o.id})">👁</button>
-          ${o.status !== 'done' && o.status !== 'cancelled' ? `<button class="btn btn-success btn-sm" onclick="setStatus(${o.id},'done')">✓</button>` : ''}
-          ${o.status === 'new' ? `<button class="btn btn-ghost btn-sm" onclick="setStatus(${o.id},'processing')">⚙️</button>` : ''}
-          ${o.status !== 'cancelled' && o.status !== 'done' ? `<button class="btn btn-danger btn-sm" onclick="setStatus(${o.id},'cancelled')">✕</button>` : ''}
-        </div>
-      </td>
-    </tr>`).join('') : `<tr><td colspan="7"><div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Нет заказов</div></div></td></tr>`;
-}
-
-function filterOrders(type, el) {
-  orderFilter = type;
-  document.querySelectorAll('#page-orders .tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  renderOrders();
-}
-
-function setStatus(id, status) {
-  const o = DB.orders.find(x => x.id === id);
-  if (!o) return;
-  o.status = status;
-  // Auto-bonus on done
-  if (status === 'done' && o.clientId) {
-    const pct = DB.settings.bonusPct || 3;
-    const pts = Math.floor(o.amount * pct / 100);
-    if (pts > 0) {
-      const c = DB.clients.find(x => x.id === o.clientId);
-      if (c) {
-        c.bonus += pts;
-        DB.bonusLog.push({ clientId: c.id, clientName: c.name, type: 'add', amount: pts, comment: `Авто: заказ #${o.id}`, date: today() });
-        toast(`✅ Заказ завершён. +${pts} бонусов для ${c.name}`);
-      }
-    }
-  } else {
-    const msgs = { processing: '⚙️ Заказ в обработке', cancelled: '❌ Заказ отменён', done: '✅ Заказ завершён' };
-    toast(msgs[status] || 'Статус обновлён');
-  }
-  saveDB();
-  renderOrders();
-  renderDashboard();
-}
-
-function viewOrder(id) {
-  const o = DB.orders.find(x => x.id === id);
-  if (!o) return;
-  document.getElementById('detailTitle').textContent = `Заказ #${o.id}`;
-  document.getElementById('detailBody').innerHTML = `
-    <div class="detail-row"><div class="dl">Клиент</div><div class="dv">${o.clientName}</div></div>
-    <div class="detail-row"><div class="dl">Товар</div><div class="dv">${o.product}</div></div>
-    <div class="detail-row"><div class="dl">Сумма</div><div class="dv" style="color:var(--accent);font-weight:600">${o.amount.toLocaleString()} сом</div></div>
-    <div class="detail-row"><div class="dl">Оплата</div><div class="dv">${o.payment}</div></div>
-    <div class="detail-row"><div class="dl">Дата</div><div class="dv">${o.date}</div></div>
-    <div class="detail-row"><div class="dl">Статус</div><div class="dv">${statusBadge(o.status)}</div></div>
-    ${o.note ? `<div class="detail-row"><div class="dl">Примечание</div><div class="dv">${o.note}</div></div>` : ''}
-  `;
-  const footer = document.getElementById('detailFooter');
-  let btns = `<button class="btn btn-ghost" onclick="closeModal('modalOrderDetail')">Закрыть</button>`;
-  if (o.status === 'new') btns += `<button class="btn btn-ghost" onclick="setStatus(${o.id},'processing');closeModal('modalOrderDetail')">В обработку</button>`;
-  if (o.status !== 'done' && o.status !== 'cancelled') btns += `<button class="btn btn-success" onclick="setStatus(${o.id},'done');closeModal('modalOrderDetail')">Завершить</button>`;
-  if (o.status !== 'cancelled' && o.status !== 'done') btns += `<button class="btn btn-danger" onclick="setStatus(${o.id},'cancelled');closeModal('modalOrderDetail')">Отменить</button>`;
-  footer.innerHTML = btns;
-  openModal('modalOrderDetail');
-}
-
-function addOrder() {
-  const clientId = document.getElementById('orderClient').value;
-  const newClientName = document.getElementById('orderNewClient').value.trim();
-  const newClientPhone = document.getElementById('orderNewPhone').value.trim();
-  const product = document.getElementById('orderProduct').value.trim();
-  const amount = parseInt(document.getElementById('orderAmount').value) || 0;
-  const payment = document.getElementById('orderPayment').value;
-  const note = document.getElementById('orderNote').value.trim();
-
-  if (!product || !amount) { toast('Укажите товар и сумму', true); return; }
-
-  let cId = parseInt(clientId) || null;
-  let cName = '';
-
-  if (cId) {
-    const c = DB.clients.find(x => x.id === cId);
-    cName = c ? c.name : 'Неизвестно';
-    if (c) { c.orders++; c.totalSpent += amount; }
-  } else if (newClientName) {
-    const newC = { id: idCounter.client++, name: newClientName, phone: newClientPhone || '—', address: '', bonus: 0, totalSpent: amount, orders: 1, joinDate: today() };
-    DB.clients.push(newC);
-    cId = newC.id;
-    cName = newC.name;
-  } else {
-    cName = 'Без клиента';
-  }
-
-  DB.orders.push({ id: idCounter.order++, clientId: cId, clientName: cName, product, amount, payment, status: 'new', date: today(), note });
-  saveDB();
-  closeModal('modalAddOrder');
-  toast('📦 Заказ создан!');
-  renderDashboard();
-  renderOrders();
-  renderClients();
-  clearForm(['orderClient','orderNewClient','orderNewPhone','orderProduct','orderAmount','orderNote']);
-}
-
-// ============ CLIENTS ============
-function renderClients() {
-  const tbody = document.getElementById('clientsTable');
-  tbody.innerHTML = DB.clients.length ? DB.clients.map(c => `
-    <tr>
-      <td>
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="client-avatar" style="background:${avatarColor(c.name)}">${c.name[0]}</div>
-          <div>
-            <div style="font-weight:500">${c.name}</div>
-            <div style="font-size:11px;color:var(--muted)">${c.joinDate}</div>
-          </div>
-        </div>
-      </td>
-      <td style="color:var(--muted)">${c.phone}</td>
-      <td>${c.orders}</td>
-      <td><span class="badge badge-bonus">🎁 ${c.bonus}</span></td>
-      <td style="color:var(--accent)">${c.totalSpent.toLocaleString()}</td>
-      <td>
-        <div style="display:flex;gap:6px">
-          <button class="btn btn-ghost btn-sm" onclick="quickBonus(${c.id})">🎁 Бонус</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteClient(${c.id})">✕</button>
-        </div>
-      </td>
-    </tr>`).join('') : `<tr><td colspan="6"><div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Нет клиентов</div></div></td></tr>`;
-}
-
-function addClient() {
-  const name = document.getElementById('cName').value.trim();
-  const phone = document.getElementById('cPhone').value.trim();
-  const address = document.getElementById('cAddress').value.trim();
-  if (!name) { toast('Введите имя клиента', true); return; }
-  DB.clients.push({ id: idCounter.client++, name, phone: phone || '—', address, bonus: 0, totalSpent: 0, orders: 0, joinDate: today() });
-  saveDB();
-  closeModal('modalAddClient');
-  toast('👤 Клиент добавлен!');
-  renderClients();
-  refreshClientSelects();
-  clearForm(['cName', 'cPhone', 'cAddress']);
-}
-
-function deleteClient(id) {
-  if (!confirm('Удалить клиента?')) return;
-  DB.clients = DB.clients.filter(c => c.id !== id);
-  saveDB();
-  renderClients();
-  toast('Клиент удалён');
-}
-
-function quickBonus(clientId) {
-  goPage('bonuses', document.querySelector('.nav-item:nth-child(8)'));
-  setTimeout(() => {
-    const sel = document.getElementById('bonusClientSelect');
-    sel.value = clientId;
-    updateBonusBalance();
-  }, 100);
-}
-
-// ============ BONUSES ============
-function renderBonuses() {
-  refreshClientSelects();
-  updateBonusBalance();
-  renderBonusHistory();
-}
-
-function updateBonusBalance() {
-  const id = parseInt(document.getElementById('bonusClientSelect').value);
-  const c = DB.clients.find(x => x.id === id);
-  document.getElementById('bonusBalanceVal').textContent = c ? c.bonus + ' балл.' : '—';
-}
-
-function mUpdateBonus() {
-  const id = parseInt(document.getElementById('mBonusClient').value);
-  const c = DB.clients.find(x => x.id === id);
-  document.getElementById('mBonusBalance').textContent = c ? c.bonus + ' балл.' : '—';
-}
-
-function renderBonusHistory() {
-  const log = [...DB.bonusLog].reverse();
-  const div = document.getElementById('bonusHistory');
-  div.innerHTML = log.length ? log.map(b => `
-    <div class="bonus-item">
-      <div>
-        <div style="font-size:13px;font-weight:500">${b.clientName}</div>
-        <div style="font-size:11px;color:var(--muted)">${b.comment} · ${b.date}</div>
-      </div>
-      <div class="${b.type === 'add' ? 'bonus-plus' : 'bonus-minus'}">${b.type === 'add' ? '+' : '-'}${b.amount}</div>
-    </div>`).join('') : '<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">История пуста</div></div>';
-}
-
-function applyBonus() {
-  const id = parseInt(document.getElementById('bonusClientSelect').value);
-  const type = document.getElementById('bonusType').value;
-  const amount = parseInt(document.getElementById('bonusAmount').value) || 0;
-  const comment = document.getElementById('bonusComment').value.trim();
-  _applyBonus(id, type, amount, comment);
-  updateBonusBalance();
-  renderBonusHistory();
-  renderDashboard();
-}
-
-function applyBonusModal() {
-  const id = parseInt(document.getElementById('mBonusClient').value);
-  const type = document.getElementById('mBonusType').value;
-  const amount = parseInt(document.getElementById('mBonusAmount').value) || 0;
-  const comment = document.getElementById('mBonusComment').value.trim();
-  if (_applyBonus(id, type, amount, comment)) {
-    closeModal('modalBonus');
-    clearForm(['mBonusAmount', 'mBonusComment']);
-  }
-}
-
-function _applyBonus(id, type, amount, comment) {
-  const c = DB.clients.find(x => x.id === id);
-  if (!c) { toast('Выберите клиента', true); return false; }
-  if (!amount) { toast('Укажите количество баллов', true); return false; }
-  if (type === 'remove' && c.bonus < amount) { toast('Недостаточно баллов', true); return false; }
-  if (type === 'add') c.bonus += amount;
-  else c.bonus -= amount;
-  DB.bonusLog.push({ clientId: c.id, clientName: c.name, type, amount, comment: comment || '—', date: today() });
-  saveDB();
-  toast(type === 'add' ? `🎁 +${amount} бонусов для ${c.name}` : `➖ -${amount} бонусов`);
-  renderClients();
-  return true;
-}
-
-// ============ PRODUCTS ============
-function renderProducts() {
-  const tbody = document.getElementById('productsTable');
-  tbody.innerHTML = DB.products.length ? DB.products.map(p => `
-    <tr>
-      <td style="font-weight:500">${p.name}</td>
-      <td><span style="font-size:11px;background:var(--surface2);padding:3px 8px;border-radius:6px">${p.category}</span></td>
-      <td style="color:var(--accent);font-weight:600">${p.price.toLocaleString()}</td>
-      <td style="color:var(--muted)">${p.installment || '—'}</td>
-      <td>
-        <span style="color:${p.stock > 3 ? 'var(--success)' : p.stock > 0 ? 'var(--warning)' : 'var(--danger)'};font-weight:600">
-          ${p.stock > 0 ? p.stock + ' шт.' : '❌ Нет'}
-        </span>
-      </td>
-      <td>
-        <div style="display:flex;gap:6px">
-          <button class="btn btn-ghost btn-sm" onclick="editStock(${p.id})">✏️ Остаток</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">✕</button>
-        </div>
-      </td>
-    </tr>`).join('') : `<tr><td colspan="6"><div class="empty"><div class="empty-icon">🛍️</div><div class="empty-text">Нет товаров</div></div></td></tr>`;
-}
-
-function addProduct() {
-  const name = document.getElementById('pName').value.trim();
-  const category = document.getElementById('pCategory').value;
-  const price = parseInt(document.getElementById('pPrice').value) || 0;
-  const installment = document.getElementById('pInstallment').value.trim();
-  const stock = parseInt(document.getElementById('pStock').value) || 0;
-  if (!name) { toast('Введите название товара', true); return; }
-  DB.products.push({ id: idCounter.product++, name, category, price, installment, stock });
-  saveDB();
-  closeModal('modalAddProduct');
-  toast('🛍️ Товар добавлен!');
-  renderProducts();
-  clearForm(['pName','pPrice','pInstallment','pStock']);
-}
-
-function editStock(id) {
-  const p = DB.products.find(x => x.id === id);
-  if (!p) return;
-  const val = prompt(`Остаток для "${p.name}":`, p.stock);
-  if (val === null) return;
-  p.stock = parseInt(val) || 0;
-  saveDB();
-  renderProducts();
-  toast('Остаток обновлён');
-}
-
-function deleteProduct(id) {
-  if (!confirm('Удалить товар?')) return;
-  DB.products = DB.products.filter(p => p.id !== id);
-  saveDB();
-  renderProducts();
-  toast('Товар удалён');
-}
-
-// ============ SETTINGS ============
-function renderSettings() {
-  document.getElementById('setStoreName').value = DB.settings.storeName || '';
-  document.getElementById('setCity').value = DB.settings.city || '';
-  document.getElementById('setPhone').value = DB.settings.phone || '';
-  document.getElementById('setBonusPct').value = DB.settings.bonusPct || 3;
-}
-
-function saveSettings() {
-  DB.settings.storeName = document.getElementById('setStoreName').value;
-  DB.settings.city = document.getElementById('setCity').value;
-  DB.settings.phone = document.getElementById('setPhone').value;
-  DB.settings.bonusPct = parseInt(document.getElementById('setBonusPct').value) || 3;
-  saveDB();
-  toast('✅ Настройки сохранены');
-}
-
-function exportData() {
-  const blob = new Blob([JSON.stringify(DB, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'mi-techno-backup.json';
-  a.click();
-}
-
-function importDataClick() { document.getElementById('importFile').click(); }
-
-function importData(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    try {
-      DB = JSON.parse(ev.target.result);
-      saveDB();
-      renderDashboard();
-      toast('✅ Данные импортированы!');
-    } catch { toast('Ошибка файла', true); }
-  };
-  reader.readAsText(file);
-}
-
-function clearAllData() {
-  if (!confirm('Удалить ВСЕ данные? Это нельзя отменить!')) return;
-  localStorage.removeItem('miTechnoAdmin');
+function doLogout() {
+  sessionStorage.removeItem('adminAuth');
   location.reload();
 }
+if (sessionStorage.getItem('adminAuth') === '1') {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  document.addEventListener('keydown', e => { if(e.key==='Enter') doAdminLogin(); });
+}
 
-// ============ UTILS ============
+/* ════ DATA ════ */
+let orders = [
+  {id:'#ORD-084',name:'Алиджон К.',phone:'+992 93 501 23 45',product:'Redmi X Pro 65"',sum:4500,date:'06.06.2026',status:'new',note:''},
+  {id:'#ORD-083',name:'Нилуфар М.',phone:'+992 93 712 88 01',product:'Стиральная Xiaomi 10кг',sum:4000,date:'05.06.2026',status:'processing',note:'Нужна доставка'},
+  {id:'#ORD-082',name:'Фирдавс Т.',phone:'+992 98 340 55 12',product:'Кондиционер KFR-35GW',sum:4270,date:'04.06.2026',status:'done',note:''},
+  {id:'#ORD-081',name:'Зулайхо Р.',phone:'+992 93 550 40 22',product:'Xiaomi Robot Vacuum S10+',sum:2990,date:'03.06.2026',status:'done',note:''},
+  {id:'#ORD-080',name:'Камол С.',phone:'+992 93 777 11 99',product:'Mi TV A 55"',sum:5000,date:'02.06.2026',status:'cancelled',note:'Передумал'},
+  {id:'#ORD-079',name:'Рустам Д.',phone:'+992 98 200 77 44',product:'Холодильник Mijia 346л',sum:3790,date:'01.06.2026',status:'done',note:''},
+  {id:'#ORD-078',name:'Санобар К.',phone:'+992 93 811 22 33',product:'Redmi G27Q 2025 Edition',sum:2200,date:'31.05.2026',status:'new',note:''},
+  {id:'#ORD-077',name:'Бехруз Н.',phone:'+992 93 412 66 55',product:'Xiaomi BW500',sum:900,date:'30.05.2026',status:'processing',note:''},
+];
+let products = [
+  {id:1,name:'Mi TV A Pro 43"',cat:'Телевизоры',price:2900,oldPrice:3100,badge:'Хит',desc:'4K UHD, Dolby Vision, MEMC, Android TV.',emoji:'📺'},
+  {id:2,name:'Redmi X Pro 55"',cat:'Телевизоры',price:3500,oldPrice:4000,badge:'Новинка',desc:'4K UHD, 120Hz, Dolby Vision IQ, Google TV.',emoji:'📺'},
+  {id:3,name:'S Mini LED 65"',cat:'Телевизоры',price:5200,oldPrice:5800,badge:'Mini LED',desc:'4K QLED, Mini LED, 144Hz, Dolby Vision IQ.',emoji:'📺'},
+  {id:4,name:'Кондиционер KFR-35GW',cat:'Кондиционеры',price:4270,oldPrice:null,badge:'Хит',desc:'Настенный сплит на 30-35 м².',emoji:'❄️'},
+  {id:5,name:'Redmi G27Q 2025',cat:'Мониторы',price:2200,oldPrice:null,badge:'Новинка',desc:'27", 2K QHD IPS, 180 Гц, 1 мс.',emoji:'🖥️'},
+  {id:6,name:'Robot Vacuum S10+',cat:'Пылесосы',price:2990,oldPrice:3490,badge:'Новинка',desc:'4000 Па, лазерная навигация, самоочистка.',emoji:'🌀'},
+  {id:7,name:'Mijia Fridge 346л',cat:'Холодильники',price:3790,oldPrice:4290,badge:'Хит',desc:'346л, French Door, LED-подсветка, A++.',emoji:'❄️'},
+  {id:8,name:'Outdoor Camera CW700S',cat:'Камеры',price:800,oldPrice:null,badge:'Хит',desc:'2.5K, 9x зум, IP66.',emoji:'📷'},
+];
+let reviews = [
+  {name:'Алиджон К.',city:'Худжанд · Xiaomi 14 Pro',text:'Заказал Xiaomi 14 Pro, привезли в тот же день. Качество отличное!',stars:5,color:'#FF6900',status:'published'},
+  {name:'Нилуфар М.',city:'Худжанд · Mi Band 8',text:'Очень довольна покупкой Mi Band 8. Консультант помог выбрать нужную модель.',stars:5,color:'#7C3AED',status:'published'},
+  {name:'Фирдавс Т.',city:'Худжанд · KFR-35GW',text:'Купил кондиционер — рассрочка через Алиф Салом сильно помогла!',stars:5,color:'#059669',status:'published'},
+  {name:'Зулайхо Р.',city:'Бохтар · Xiaomi Pad 6',text:'Заказала планшет через Telegram, привезли на следующий день.',stars:5,color:'#DB2777',status:'pending'},
+  {name:'Камол С.',city:'Худжанд · Mi TV 4S 55"',text:'Взял телевизор 55" — картинка шикарная!',stars:4,color:'#0891B2',status:'published'},
+  {name:'Рустам Д.',city:'Худжанд · Redmi Note 13 Pro',text:'Redmi Note 13 Pro — лучший телефон за свою цену!',stars:5,color:'#D97706',status:'published'},
+];
+let messages = [
+  {from:'Анонимный пользователь',text:'Подскажите, есть ли кондиционер на 18000 BTU?',time:'Сегодня, 14:32',icon:'💬',unread:true},
+  {from:'Бехруз Н.',text:'Когда доставят мой заказ #ORD-077?',time:'Сегодня, 11:14',icon:'📦',unread:true},
+  {from:'Санобар К.',text:'Можно ли оплатить наличными при получении?',time:'Вчера, 19:05',icon:'💳',unread:false},
+  {from:'Алиджон К.',text:'Спасибо за быструю доставку! Всё отлично.',time:'Вчера, 16:44',icon:'⭐',unread:false},
+  {from:'Анонимный',text:'Хочу заказать Mi TV A 65". Как оформить?',time:'05.06.2026',icon:'📺',unread:true},
+];
+
+let editingOrderIdx = null;
+let editingProductIdx = null;
+
+/* ════ NAVIGATION ════ */
+function goPage(id, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  const titles = {dashboard:'Дашборд',orders:'Заказы',messages:'Сообщения',products:'Товары',reviews:'Отзывы',analytics:'Аналитика',settings:'Настройки'};
+  document.getElementById('topbarTitle').textContent = titles[id] || id;
+  if (id==='orders') renderOrders();
+  if (id==='messages') renderMessages();
+  if (id==='products') renderProducts();
+  if (id==='reviews') renderReviews();
+  if (id==='analytics') renderCatChart();
+}
+
+/* ════ INIT ════ */
+function init() {
+  renderDashboard();
+}
+
+function renderDashboard() {
+  renderChartBars();
+  renderTopProducts();
+  renderRecentOrders();
+}
+
+function renderChartBars() {
+  const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+  const vals = [18400,22100,15800,31200,28700,42000,35600];
+  const max = Math.max(...vals);
+  const el = document.getElementById('chartBars');
+  el.innerHTML = vals.map((v,i)=>`
+    <div class="chart-bar-wrap">
+      <div style="font-size:10px;color:var(--text2);margin-bottom:4px;font-weight:700">${v.toLocaleString()}</div>
+      <div class="chart-bar" style="height:${Math.round((v/max)*90)}px" title="${days[i]}: ${v} сом."></div>
+      <div class="chart-bar-label">${days[i]}</div>
+    </div>`).join('');
+}
+
+function renderTopProducts() {
+  const top = [
+    {name:'Mi TV A 55"',qty:8,sum:40000},
+    {name:'Redmi X Pro 65"',qty:5,sum:22500},
+    {name:'Кондиционер KFR-35GW',qty:7,sum:29890},
+    {name:'Robot Vacuum S10+',qty:4,sum:11960},
+    {name:'Mijia Fridge 346л',qty:3,sum:11370},
+  ];
+  document.getElementById('topProductsTbl').innerHTML = top.map((p,i)=>`
+    <tr>
+      <td><span style="color:var(--text3);font-size:12px;margin-right:6px">${i+1}.</span>${p.name}</td>
+      <td><span class="badge orange">${p.qty} шт.</span></td>
+      <td style="font-family:'Space Mono';font-weight:700;color:var(--green)">${p.sum.toLocaleString()} сом.</td>
+    </tr>`).join('');
+}
+
+function renderRecentOrders() {
+  const el = document.getElementById('recentOrdersTbl');
+  el.innerHTML = orders.slice(0,5).map((o,i)=>`
+    <tr>
+      <td style="font-family:'Space Mono';font-size:12px;color:var(--text2)">${o.id}</td>
+      <td><strong>${o.name}</strong></td>
+      <td style="color:var(--text2)">${o.product}</td>
+      <td style="font-family:'Space Mono';font-weight:700;color:var(--accent)">${o.sum.toLocaleString()} сом.</td>
+      <td>${statusBadge(o.status)}</td>
+      <td>
+        <button class="btn-icon btn-sm" title="Редактировать" onclick="openEditOrder(${i})">
+          <svg width="13" height="13" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+/* ════ ORDERS ════ */
 function statusBadge(s) {
-  const map = { new: ['badge-new', 'Новый'], processing: ['badge-processing', 'В обработке'], done: ['badge-done', 'Завершён'], cancelled: ['badge-cancelled', 'Отменён'] };
-  const [cls, label] = map[s] || ['', s];
+  const map = {new:['orange','Новый'],processing:['blue','В обработке'],done:['green','Выполнен'],cancelled:['red','Отменён']};
+  const [cls,label] = map[s]||['gray',s];
   return `<span class="badge ${cls}">${label}</span>`;
 }
 
-const colors = ['#ff6b00','#3b82f6','#22c55e','#a855f7','#f59e0b','#ef4444','#06b6d4'];
-function avatarColor(name) { return colors[name.charCodeAt(0) % colors.length]; }
-
-function refreshClientSelects() {
-  const selects = ['orderClient', 'bonusClientSelect', 'mBonusClient'];
-  selects.forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const cur = el.value;
-    el.innerHTML = '<option value="">— Выберите —</option>' + DB.clients.map(c => `<option value="${c.id}">${c.name} (${c.phone})</option>`).join('');
-    el.value = cur;
-  });
+function renderOrders() {
+  const filter = document.getElementById('orderFilter')?.value || 'all';
+  const filtered = filter==='all' ? orders : orders.filter(o=>o.status===filter);
+  document.getElementById('ordersTbl').innerHTML = filtered.map((o,i)=>`
+    <tr>
+      <td style="font-family:'Space Mono';font-size:12px;color:var(--text2)">${o.id}</td>
+      <td><strong>${o.name}</strong></td>
+      <td style="color:var(--text2);font-size:12px">${o.phone}</td>
+      <td>${o.product}</td>
+      <td style="font-family:'Space Mono';font-weight:700;color:var(--accent)">${o.sum.toLocaleString()}</td>
+      <td style="color:var(--text2);font-size:12px">${o.date}</td>
+      <td>${statusBadge(o.status)}</td>
+      <td style="display:flex;gap:5px;align-items:center">
+        <button class="btn-icon" title="Редактировать" onclick="openEditOrder(${orders.indexOf(o)})">
+          <svg width="13" height="13" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="btn-icon" title="Удалить" onclick="deleteOrder(${orders.indexOf(o)})" style="color:var(--red)">
+          <svg width="13" height="13" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>
+      </td>
+    </tr>`).join('');
 }
 
-function openModal(id) {
-  document.getElementById(id).classList.add('open');
-  refreshClientSelects();
+function openNewOrderModal() {
+  editingOrderIdx = null;
+  document.getElementById('orderModalTitle').textContent = 'Новый заказ';
+  ['oName','oPhone','oProduct','oNote'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('oSum').value='';
+  document.getElementById('oStatus').value='new';
+  openModal('orderModal');
+}
+function openEditOrder(i) {
+  editingOrderIdx = i;
+  const o = orders[i];
+  document.getElementById('orderModalTitle').textContent = 'Редактировать заказ';
+  document.getElementById('oName').value=o.name;
+  document.getElementById('oPhone').value=o.phone;
+  document.getElementById('oProduct').value=o.product;
+  document.getElementById('oSum').value=o.sum;
+  document.getElementById('oStatus').value=o.status;
+  document.getElementById('oNote').value=o.note||'';
+  openModal('orderModal');
+}
+function saveOrder() {
+  const o = {
+    id: editingOrderIdx!==null ? orders[editingOrderIdx].id : '#ORD-'+(orders.length+85).toString().padStart(3,'0'),
+    name:document.getElementById('oName').value||'—',
+    phone:document.getElementById('oPhone').value||'—',
+    product:document.getElementById('oProduct').value||'—',
+    sum:parseInt(document.getElementById('oSum').value)||0,
+    date:new Date().toLocaleDateString('ru-RU'),
+    status:document.getElementById('oStatus').value,
+    note:document.getElementById('oNote').value,
+  };
+  if (editingOrderIdx!==null) orders[editingOrderIdx]=o; else orders.unshift(o);
+  closeModal('orderModal');
+  renderOrders();
+  showToastAdmin(editingOrderIdx!==null?'Заказ обновлён ✓':'Заказ добавлен ✓','success');
+}
+function deleteOrder(i) {
+  if(!confirm('Удалить заказ?')) return;
+  orders.splice(i,1);
+  renderOrders();
+  showToastAdmin('Заказ удалён','success');
 }
 
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
+/* ════ MESSAGES ════ */
+function renderMessages() {
+  document.getElementById('msgList').innerHTML = messages.map((m,i)=>`
+    <div class="msg-card ${m.unread?'unread':''}">
+      <div class="msg-icon">${m.icon}</div>
+      <div class="msg-content">
+        <div class="msg-from">${m.from} ${m.unread?'<span class="badge orange" style="font-size:9px;padding:1px 6px">Новое</span>':''}</div>
+        <div class="msg-text">${m.text}</div>
+        <div class="msg-time">${m.time}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
+        <a href="https://wa.me/992935070070" target="_blank" class="btn btn-ghost btn-sm">WhatsApp</a>
+        <button class="btn btn-danger btn-sm" onclick="deleteMsg(${i})">Удалить</button>
+      </div>
+      ${m.unread?'<div class="unread-dot"></div>':''}
+    </div>`).join('');
+}
+function deleteMsg(i) { messages.splice(i,1); renderMessages(); showToastAdmin('Удалено','success'); }
+
+/* ════ PRODUCTS ════ */
+function renderProducts() {
+  document.getElementById('productsAdminGrid').innerHTML = products.map((p,i)=>`
+    <div class="product-admin-card">
+      <div class="prod-img-placeholder">${p.emoji}</div>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-cat"><span class="badge gray">${p.cat}</span> ${p.badge?`<span class="badge orange">${p.badge}</span>`:''}</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.5">${p.desc}</div>
+      <div class="prod-footer">
+        <div>
+          <div class="prod-price">${p.price.toLocaleString()} сом.</div>
+          ${p.oldPrice?`<div style="font-size:11px;color:var(--text3);text-decoration:line-through">${p.oldPrice.toLocaleString()}</div>`:''}
+        </div>
+        <div class="prod-actions">
+          <button class="btn-icon" title="Редактировать" onclick="openEditProduct(${i})">
+            <svg width="13" height="13" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="btn-icon" title="Удалить" onclick="deleteProduct(${i})" style="color:var(--red)">
+            <svg width="13" height="13" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function openProductModal(i) {
+  editingProductIdx = i ?? null;
+  if (i !== undefined) {
+    const p = products[i];
+    document.getElementById('productModalTitle').textContent = 'Редактировать товар';
+    document.getElementById('pName').value=p.name;
+    document.getElementById('pCat').value=p.cat;
+    document.getElementById('pPrice').value=p.price;
+    document.getElementById('pOldPrice').value=p.oldPrice||'';
+    document.getElementById('pBadge').value=p.badge||'';
+    document.getElementById('pDesc').value=p.desc;
+    document.getElementById('pEmoji').value=p.emoji;
+  } else {
+    document.getElementById('productModalTitle').textContent = 'Добавить товар';
+    ['pName','pPrice','pOldPrice','pDesc'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('pEmoji').value='📦';
+    document.getElementById('pBadge').value='';
+  }
+  openModal('productModal');
+}
+function openEditProduct(i) { openProductModal(i); }
+function saveProduct() {
+  const p = {
+    id: editingProductIdx!==null ? products[editingProductIdx].id : Date.now(),
+    name:document.getElementById('pName').value||'Без названия',
+    cat:document.getElementById('pCat').value,
+    price:parseInt(document.getElementById('pPrice').value)||0,
+    oldPrice:parseInt(document.getElementById('pOldPrice').value)||null,
+    badge:document.getElementById('pBadge').value,
+    desc:document.getElementById('pDesc').value,
+    emoji:document.getElementById('pEmoji').value||'📦',
+  };
+  if (editingProductIdx!==null) products[editingProductIdx]=p; else products.unshift(p);
+  closeModal('productModal');
+  renderProducts();
+  showToastAdmin(editingProductIdx!==null?'Товар обновлён ✓':'Товар добавлен ✓','success');
+}
+function deleteProduct(i) {
+  if(!confirm('Удалить товар?')) return;
+  products.splice(i,1);
+  renderProducts();
+  showToastAdmin('Товар удалён','success');
 }
 
-function openQuickOrder() {
-  refreshClientSelects();
-  openModal('modalAddOrder');
+/* ════ REVIEWS ════ */
+function renderReviews() {
+  document.getElementById('reviewsAdmin').innerHTML = reviews.map((r,i)=>`
+    <div class="review-admin-card">
+      <div class="review-meta">
+        <div class="review-author-wrap">
+          <div class="rev-avatar" style="background:${r.color}">${r.name[0]}</div>
+          <div><div class="rev-name">${r.name}</div><div class="rev-city">${r.city}</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="rev-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+          ${r.status==='published'?'<span class="badge green">Опубликован</span>':'<span class="badge yellow">На модерации</span>'}
+        </div>
+      </div>
+      <div class="rev-text">${r.text}</div>
+      <div class="rev-actions">
+        ${r.status==='pending'?`<button class="btn btn-ghost btn-sm" onclick="publishReview(${i})">✓ Опубликовать</button>`:''}
+        <button class="btn btn-danger btn-sm" onclick="deleteReview(${i})">Удалить</button>
+      </div>
+    </div>`).join('');
+}
+function publishReview(i) { reviews[i].status='published'; renderReviews(); showToastAdmin('Отзыв опубликован ✓','success'); }
+function deleteReview(i) { reviews.splice(i,1); renderReviews(); showToastAdmin('Отзыв удалён','success'); }
+
+/* ════ ANALYTICS CHART ════ */
+function renderCatChart() {
+  const cats = [
+    {name:'Телевизоры',val:82,color:'#FF6600'},
+    {name:'Кондиционеры',val:68,color:'#3b82f6'},
+    {name:'Мониторы',val:41,color:'#a855f7'},
+    {name:'Пылесосы',val:28,color:'#22c55e'},
+    {name:'Холодильники',val:19,color:'#f59e0b'},
+    {name:'Камеры',val:15,color:'#06b6d4'},
+  ];
+  const max = Math.max(...cats.map(c=>c.val));
+  document.getElementById('catChart').innerHTML = cats.map(c=>`
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="width:110px;font-size:12px;color:var(--text2);text-align:right;flex-shrink:0">${c.name}</div>
+      <div style="flex:1;background:var(--surface2);border-radius:99px;height:10px;overflow:hidden">
+        <div style="width:${Math.round((c.val/max)*100)}%;height:100%;background:${c.color};border-radius:99px;transition:width .6s"></div>
+      </div>
+      <div style="font-size:12px;font-weight:700;font-family:'Space Mono';width:40px;flex-shrink:0">${c.val}</div>
+    </div>`).join('');
 }
 
-function clearForm(ids) {
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = '';
-  });
-}
-
-let toastTimer;
-function toast(msg, isError = false) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast show' + (isError ? ' error' : '');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
-}
-
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('overlayBg').classList.toggle('open');
-}
-
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('overlayBg').classList.remove('open');
-}
-
-function handleSearch() {
-  const q = document.getElementById('globalSearch').value.toLowerCase();
+/* ════ SEARCH ════ */
+function globalSearchFn(q) {
   if (!q) return;
-  // Simple: search in orders
-  const found = DB.orders.find(o => o.clientName.toLowerCase().includes(q) || o.product.toLowerCase().includes(q));
-  if (found) { goPage('orders', null); orderFilter = 'all'; renderOrders(); }
+  // visual feedback only
 }
 
-// Close modals on backdrop click
-document.querySelectorAll('.modal-overlay').forEach(el => {
-  el.addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('open');
-  });
-});
+/* ════ MODAL ════ */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('open'); }));
 
-// ============ INIT ============
-loadDB();
-renderDashboard();
-refreshClientSelects();
+/* ════ TOAST ════ */
+function showToastAdmin(msg, type='success') {
+  const t = document.getElementById('adminToast');
+  const tx = document.getElementById('adminToastText');
+  t.className = 'admin-toast ' + type;
+  tx.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+/* ════ KEYBOARD ESC ════ */
+document.addEventListener('keydown', e=>{
+  if (e.key==='Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'));
+  }
+});
 </script>
 </body>
 </html>
