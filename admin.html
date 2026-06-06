@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Техно — Админ Панель</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: #1e2330;
+    --accent: #ff6b00;
+    --accent2: #ff9a40;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 220px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: transform .3s;
+  }
+
+  .logo {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .logo-sub { font-size: 10px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-top: 2px; }
+
+  .nav { flex: 1; padding: 12px 0; overflow-y: auto; }
+
+  .nav-section { padding: 16px 20px 6px; font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--muted);
+    transition: all .2s;
+    border-left: 3px solid transparent;
+    position: relative;
+  }
+  .nav-item:hover { color: var(--text); background: var(--surface2); }
+  .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(255,107,0,.08); }
+  .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
+  .nav-badge {
+    margin-left: auto;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+  }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .admin-info { display: flex; align-items: center; gap: 8px; }
+  .admin-avatar {
+    width: 28px; height: 28px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff;
+  }
+
+  /* MAIN */
+  .main {
+    margin-left: 220px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: sticky; top: 0; z-index: 50;
+  }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; }
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+
+  .search-box {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--text);
+    width: 220px;
+  }
+  .search-box input {
+    background: none; border: none; outline: none;
+    color: var(--text); font-family: inherit; font-size: 13px; flex: 1;
+  }
+  .search-box input::placeholder { color: var(--muted); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); }
+  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-danger { background: rgba(239,68,68,.15); color: var(--danger); border: 1px solid rgba(239,68,68,.3); }
+  .btn-danger:hover { background: rgba(239,68,68,.25); }
+  .btn-success { background: rgba(34,197,94,.15); color: var(--success); border: 1px solid rgba(34,197,94,.3); }
+  .btn-success:hover { background: rgba(34,197,94,.25); }
+  .btn-sm { padding: 5px 10px; font-size: 12px; }
+
+  .content { padding: 28px; flex: 1; }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* DASHBOARD */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .stat-card:hover { border-color: var(--accent); }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    border-radius: 0 12px 0 60px;
+    opacity: .08;
+  }
+  .stat-card.orange::before { background: var(--accent); }
+  .stat-card.green::before { background: var(--success); }
+  .stat-card.blue::before { background: var(--info); }
+  .stat-card.yellow::before { background: var(--warning); }
+
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 1px; line-height: 1; }
+  .stat-value.orange { color: var(--accent); }
+  .stat-value.green { color: var(--success); }
+  .stat-value.blue { color: var(--info); }
+  .stat-value.yellow { color: var(--warning); }
+  .stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-title { font-size: 13px; font-weight: 600; }
+  .card-body { padding: 20px; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+  }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(30,35,48,.6);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,107,0,.03); }
+
+  /* BADGES */
+  .badge {
+    display: inline-flex; align-items: center;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    gap: 4px;
+  }
+  .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .badge-new { background: rgba(59,130,246,.15); color: var(--info); }
+  .badge-processing { background: rgba(245,158,11,.15); color: var(--warning); }
+  .badge-done { background: rgba(34,197,94,.15); color: var(--success); }
+  .badge-cancelled { background: rgba(239,68,68,.15); color: var(--danger); }
+  .badge-bonus { background: rgba(255,107,0,.15); color: var(--accent); }
+
+  /* FORMS */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 12px; color: var(--muted); font-weight: 500; }
+  input, select, textarea {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+  select option { background: var(--surface2); }
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.7);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp .25s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; }
+  .modal-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 20px; padding: 4px; }
+  .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+  .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
+
+  /* BONUS HISTORY */
+  .bonus-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .bonus-item:last-child { border-bottom: none; }
+  .bonus-plus { color: var(--success); font-weight: 600; font-size: 14px; }
+  .bonus-minus { color: var(--danger); font-weight: 600; font-size: 14px; }
+
+  /* EMPTY STATE */
+  .empty {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--muted);
+  }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-text { font-size: 14px; }
+
+  /* QUICK ACTIONS */
+  .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .quick-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .quick-btn:hover { border-color: var(--accent); background: rgba(255,107,0,.05); }
+  .quick-btn .q-icon { font-size: 22px; }
+  .quick-btn .q-label { font-size: 12px; font-weight: 500; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+  .tab {
+    padding: 10px 20px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all .2s;
+    font-weight: 500;
+  }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* NOTIFICATION */
+  .toast {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--success);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    z-index: 999;
+    animation: fadeIn .3s ease;
+    max-width: 280px;
+    display: none;
+  }
+  .toast.show { display: block; }
+  .toast.error { border-left-color: var(--danger); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* AVATAR */
+  .client-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* MOBILE HAMBURGER */
+  .hamburger {
+    display: none;
+    background: none; border: none; color: var(--text);
+    font-size: 20px; cursor: pointer; padding: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .hamburger { display: block; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .quick-actions { grid-template-columns: repeat(3, 1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+    .search-box { width: 150px; }
+  }
+  @media (max-width: 500px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .quick-actions { grid-template-columns: repeat(3, 1fr); }
+    .content { padding: 16px; }
+  }
+
+  .overlay-bg {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 99;
+  }
+  .overlay-bg.open { display: block; }
+
+  /* order detail tags */
+  .detail-row { display: flex; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+  .detail-row .dl { color: var(--muted); width: 100px; flex-shrink: 0; }
+  .detail-row .dv { color: var(--text); }
+
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<div class="overlay-bg" id="overlayBg" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-title">Mi Техно</div>
+    <div class="logo-sub">Admin Panel</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">Главное</div>
+    <div class="nav-item active" onclick="goPage('dashboard', this)">
+      <span class="icon">📊</span> Дашборд
+    </div>
+    <div class="nav-section">Магазин</div>
+    <div class="nav-item" onclick="goPage('orders', this)" id="nav-orders">
+      <span class="icon">📦</span> Заказы
+      <span class="nav-badge" id="badge-orders">0</span>
+    </div>
+    <div class="nav-item" onclick="goPage('clients', this)">
+      <span class="icon">👥</span> Клиенты
+    </div>
+    <div class="nav-item" onclick="goPage('bonuses', this)">
+      <span class="icon">🎁</span> Бонусы
+    </div>
+    <div class="nav-item" onclick="goPage('products', this)">
+      <span class="icon">🛍️</span> Товары
+    </div>
+    <div class="nav-section">Настройки</div>
+    <div class="nav-item" onclick="goPage('settings', this)">
+      <span class="icon">⚙️</span> Настройки
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="admin-info">
+      <div class="admin-avatar">A</div>
+      <div>
+        <div style="font-size:12px;color:var(--text);font-weight:500">Администратор</div>
+        <div style="font-size:10px">Mi Техно Худжанд</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+      <div class="page-title" id="pageTitle">Дашборд</div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" placeholder="Поиск..." id="globalSearch" oninput="handleSearch()">
+      </div>
+      <button class="btn btn-primary" onclick="openQuickOrder()">+ Заказ</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card orange">
+          <div class="stat-label">Заказов сегодня</div>
+          <div class="stat-value orange" id="stat-today">0</div>
+          <div class="stat-sub">новых</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">Выручка (сом)</div>
+          <div class="stat-value green" id="stat-revenue">0</div>
+          <div class="stat-sub">всего</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label">Клиентов</div>
+          <div class="stat-value blue" id="stat-clients">0</div>
+          <div class="stat-sub">зарегистрировано</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-label">Бонусов выдано</div>
+          <div class="stat-value yellow" id="stat-bonuses">0</div>
+          <div class="stat-sub">баллов</div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <div class="quick-btn" onclick="openModal('modalBonus')">
+          <div class="q-icon">🎁</div>
+          <div class="q-label">Начислить бонус</div>
+        </div>
+        <div class="quick-btn" onclick="openModal('modalAddClient')">
+          <div class="q-icon">👤</div>
+          <div class="q-label">Новый клиент</div>
+        </div>
+        <div class="quick-btn" onclick="openModal('modalAddOrder')">
+          <div class="q-icon">📦</div>
+          <div class="q-label">Новый заказ</div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Последние заказы</span>
+            <span style="font-size:12px;color:var(--muted);cursor:pointer" onclick="goPage('orders', null)">Все →</span>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Клиент</th>
+                  <th>Сумма</th>
+                  <th>Статус</th>
+                </tr>
+              </thead>
+              <tbody id="dashOrdersTable"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Топ клиенты</span></div>
+          <div class="card-body" id="topClients" style="padding:12px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div class="page" id="page-orders">
+      <div class="tabs">
+        <div class="tab active" onclick="filterOrders('all', this)">Все</div>
+        <div class="tab" onclick="filterOrders('new', this)">Новые</div>
+        <div class="tab" onclick="filterOrders('processing', this)">В обработке</div>
+        <div class="tab" onclick="filterOrders('done', this)">Завершены</div>
+        <div class="tab" onclick="filterOrders('cancelled', this)">Отменены</div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Заказы</span>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modalAddOrder')">+ Новый заказ</button>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Клиент</th>
+                  <th>Товар</th>
+                  <th>Сумма (сом)</th>
+                  <th>Дата</th>
+                  <th>Статус</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENTS -->
+    <div class="page" id="page-clients">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Клиенты</span>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modalAddClient')">+ Добавить</button>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Клиент</th>
+                  <th>Телефон</th>
+                  <th>Заказов</th>
+                  <th>Бонусы</th>
+                  <th>Потрачено (сом)</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="clientsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BONUSES -->
+    <div class="page" id="page-bonuses">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Начислить / Списать бонусы</span>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div class="form-group">
+                <label>Клиент</label>
+                <select id="bonusClientSelect" onchange="updateBonusBalance()">
+                  <option value="">— Выберите клиента —</option>
+                </select>
+              </div>
+              <div style="background:var(--surface2);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center" id="bonusBalanceBox">
+                <div style="font-size:12px;color:var(--muted)">Текущий баланс</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent)" id="bonusBalanceVal">—</div>
+              </div>
+              <div class="form-group">
+                <label>Тип операции</label>
+                <select id="bonusType">
+                  <option value="add">➕ Начислить</option>
+                  <option value="remove">➖ Списать</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Количество баллов</label>
+                <input type="number" id="bonusAmount" placeholder="Например: 100" min="1">
+              </div>
+              <div class="form-group">
+                <label>Комментарий</label>
+                <input type="text" id="bonusComment" placeholder="Причина начисления...">
+              </div>
+              <button class="btn btn-primary" onclick="applyBonus()">Применить</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">История бонусов</span></div>
+          <div class="card-body" id="bonusHistory" style="max-height:420px;overflow-y:auto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="page" id="page-products">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Товары</span>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modalAddProduct')">+ Добавить</button>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Товар</th>
+                  <th>Категория</th>
+                  <th>Цена (сом)</th>
+                  <th>В рассрочку</th>
+                  <th>Остаток</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="productsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><span class="card-title">Настройки магазина</span></div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div class="form-group">
+                <label>Название магазина</label>
+                <input type="text" id="setStoreName" value="Mi Техно">
+              </div>
+              <div class="form-group">
+                <label>Город</label>
+                <input type="text" id="setCity" value="Худжанд">
+              </div>
+              <div class="form-group">
+                <label>Телефон</label>
+                <input type="text" id="setPhone" value="+992 92-866-35-10">
+              </div>
+              <div class="form-group">
+                <label>% бонусов с покупки</label>
+                <input type="number" id="setBonusPct" value="3" min="0" max="20">
+              </div>
+              <button class="btn btn-primary" onclick="saveSettings()">Сохранить</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Данные</span></div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <button class="btn btn-ghost" onclick="exportData()">📤 Экспорт данных (JSON)</button>
+              <button class="btn btn-ghost" onclick="importDataClick()">📥 Импорт данных</button>
+              <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+              <hr style="border-color:var(--border)">
+              <button class="btn btn-danger" onclick="clearAllData()">🗑️ Очистить все данные</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- MODAL: ADD ORDER -->
+<div class="modal-overlay" id="modalAddOrder">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Новый заказ</div>
+      <button class="modal-close" onclick="closeModal('modalAddOrder')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Клиент</label>
+          <select id="orderClient">
+            <option value="">— Выберите —</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Или новый (имя)</label>
+          <input type="text" id="orderNewClient" placeholder="Имя клиента">
+        </div>
+        <div class="form-group">
+          <label>Телефон (нового)</label>
+          <input type="text" id="orderNewPhone" placeholder="+992...">
+        </div>
+        <div class="form-group">
+          <label>Товар</label>
+          <input type="text" id="orderProduct" placeholder="Xiaomi TV 55...">
+        </div>
+        <div class="form-group">
+          <label>Сумма (сом)</label>
+          <input type="number" id="orderAmount" placeholder="0" min="0">
+        </div>
+        <div class="form-group">
+          <label>Способ оплаты</label>
+          <select id="orderPayment">
+            <option>Наличные</option>
+            <option>Карта</option>
+            <option>Рассрочка Alif Salom</option>
+            <option>Рассрочка Eskhata</option>
+            <option>Перевод</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Комментарий</label>
+          <textarea id="orderNote" placeholder="Дополнительная информация..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalAddOrder')">Отмена</button>
+      <button class="btn btn-primary" onclick="addOrder()">Создать заказ</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: BONUS -->
+<div class="modal-overlay" id="modalBonus">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Бонусы</div>
+      <button class="modal-close" onclick="closeModal('modalBonus')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Клиент</label>
+        <select id="mBonusClient" onchange="mUpdateBonus()">
+          <option value="">— Выберите —</option>
+        </select>
+      </div>
+      <div style="background:var(--surface2);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:11px;color:var(--muted)">Баланс</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--accent)" id="mBonusBalance">—</div>
+      </div>
+      <div class="form-group">
+        <label>Операция</label>
+        <select id="mBonusType">
+          <option value="add">➕ Начислить</option>
+          <option value="remove">➖ Списать</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Баллы</label>
+        <input type="number" id="mBonusAmount" placeholder="100" min="1">
+      </div>
+      <div class="form-group">
+        <label>Причина</label>
+        <input type="text" id="mBonusComment" placeholder="Покупка / Подарок / Акция...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalBonus')">Отмена</button>
+      <button class="btn btn-primary" onclick="applyBonusModal()">Применить</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD CLIENT -->
+<div class="modal-overlay" id="modalAddClient">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Новый клиент</div>
+      <button class="modal-close" onclick="closeModal('modalAddClient')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Имя</label>
+          <input type="text" id="cName" placeholder="Имя Фамилия">
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input type="text" id="cPhone" placeholder="+992...">
+        </div>
+        <div class="form-group full">
+          <label>Адрес (необязательно)</label>
+          <input type="text" id="cAddress" placeholder="Улица, дом...">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalAddClient')">Отмена</button>
+      <button class="btn btn-primary" onclick="addClient()">Добавить</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD PRODUCT -->
+<div class="modal-overlay" id="modalAddProduct">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Новый товар</div>
+      <button class="modal-close" onclick="closeModal('modalAddProduct')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Название</label>
+          <input type="text" id="pName" placeholder="Xiaomi TV 55...">
+        </div>
+        <div class="form-group">
+          <label>Категория</label>
+          <select id="pCategory">
+            <option>Телевизоры</option>
+            <option>Кондиционеры</option>
+            <option>Мониторы</option>
+            <option>Стиральные машины</option>
+            <option>Холодильники</option>
+            <option>Пылесосы</option>
+            <option>Камеры</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Цена (сом)</label>
+          <input type="number" id="pPrice" placeholder="0" min="0">
+        </div>
+        <div class="form-group">
+          <label>Рассрочка (сом/мес)</label>
+          <input type="text" id="pInstallment" placeholder="от 500/мес">
+        </div>
+        <div class="form-group">
+          <label>Остаток (шт)</label>
+          <input type="number" id="pStock" placeholder="1" min="0">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalAddProduct')">Отмена</button>
+      <button class="btn btn-primary" onclick="addProduct()">Добавить</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ORDER DETAIL -->
+<div class="modal-overlay" id="modalOrderDetail">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="detailTitle">Заказ #</div>
+      <button class="modal-close" onclick="closeModal('modalOrderDetail')">✕</button>
+    </div>
+    <div class="modal-body" id="detailBody"></div>
+    <div class="modal-footer" id="detailFooter"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============ DATA ============
+let DB = {
+  orders: [],
+  clients: [],
+  products: [],
+  bonusLog: [],
+  settings: { storeName: 'Mi Техно', city: 'Худжанд', phone: '+992 92-866-35-10', bonusPct: 3 }
+};
+
+let orderFilter = 'all';
+let idCounter = { order: 1000, client: 100, product: 200 };
+
+function loadDB() {
+  const saved = localStorage.getItem('miTechnoAdmin');
+  if (saved) {
+    DB = JSON.parse(saved);
+    // restore counters
+    if (DB.orders.length) idCounter.order = Math.max(...DB.orders.map(o => o.id)) + 1;
+    if (DB.clients.length) idCounter.client = Math.max(...DB.clients.map(c => c.id)) + 1;
+    if (DB.products.length) idCounter.product = Math.max(...DB.products.map(p => p.id)) + 1;
+  } else {
+    seedData();
+  }
+}
+
+function saveDB() {
+  localStorage.setItem('miTechnoAdmin', JSON.stringify(DB));
+}
+
+function seedData() {
+  // Sample clients
+  const clients = [
+    { id: 101, name: 'Алишер Мамадов', phone: '+992 90-123-45-67', address: 'Худжанд, ул. Ленина 10', bonus: 450, totalSpent: 15000, orders: 3, joinDate: '2024-11-01' },
+    { id: 102, name: 'Зарина Рахимова', phone: '+992 93-987-65-43', address: 'Худжанд', bonus: 200, totalSpent: 6700, orders: 1, joinDate: '2025-01-15' },
+    { id: 103, name: 'Бобур Юсупов', phone: '+992 98-555-12-34', address: 'Худжанд, пр. Исмоили Сомони', bonus: 0, totalSpent: 3200, orders: 1, joinDate: '2025-03-10' },
+  ];
+  DB.clients = clients;
+  idCounter.client = 104;
+
+  const orders = [
+    { id: 1001, clientId: 101, clientName: 'Алишер Мамадов', product: 'Xiaomi TV A55 2025', amount: 5000, payment: 'Рассрочка Alif Salom', status: 'done', date: '2025-05-20', note: '' },
+    { id: 1002, clientId: 102, clientName: 'Зарина Рахимова', product: 'Xiaomi Mijia AC 1.5HP', amount: 6700, payment: 'Карта', status: 'processing', date: '2025-06-01', note: 'Доставка на дом' },
+    { id: 1003, clientId: 103, clientName: 'Бобур Юсупов', product: 'Xiaomi Monitor 27"', amount: 3200, payment: 'Наличные', status: 'new', date: today(), note: '' },
+  ];
+  DB.orders = orders;
+  idCounter.order = 1004;
+
+  const products = [
+    { id: 201, name: 'Xiaomi TV A55 2025', category: 'Телевизоры', price: 5000, installment: 'от 420/мес', stock: 5 },
+    { id: 202, name: 'Xiaomi Mijia AC 1.5HP', category: 'Кондиционеры', price: 6700, installment: 'от 560/мес', stock: 8 },
+    { id: 203, name: 'Xiaomi Monitor 27"', category: 'Мониторы', price: 3200, installment: 'от 267/мес', stock: 3 },
+    { id: 204, name: 'Haier Washing Machine 7kg', category: 'Стиральные машины', price: 4100, installment: 'от 342/мес', stock: 4 },
+  ];
+  DB.products = products;
+  idCounter.product = 205;
+
+  DB.bonusLog = [
+    { clientId: 101, clientName: 'Алишер Мамадов', type: 'add', amount: 150, comment: 'Покупка TV', date: '2025-05-20' },
+    { clientId: 101, clientName: 'Алишер Мамадов', type: 'add', amount: 300, comment: 'Акция ноябрь', date: '2024-11-10' },
+    { clientId: 102, clientName: 'Зарина Рахимова', type: 'add', amount: 200, comment: 'Покупка AC', date: '2025-06-01' },
+  ];
+
+  saveDB();
+}
+
+function today() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+// ============ NAV ============
+function goPage(name, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  else {
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.textContent.trim().toLowerCase().includes(name.substring(0, 3))) n.classList.add('active');
+    });
+  }
+  const titles = { dashboard: 'Дашборд', orders: 'Заказы', clients: 'Клиенты', bonuses: 'Бонусы', products: 'Товары', settings: 'Настройки' };
+  document.getElementById('pageTitle').textContent = titles[name] || name;
+  renderPage(name);
+  closeSidebar();
+}
+
+function renderPage(name) {
+  if (name === 'dashboard') renderDashboard();
+  if (name === 'orders') renderOrders();
+  if (name === 'clients') renderClients();
+  if (name === 'bonuses') renderBonuses();
+  if (name === 'products') renderProducts();
+  if (name === 'settings') renderSettings();
+}
+
+// ============ DASHBOARD ============
+function renderDashboard() {
+  const todayStr = today();
+  const todayOrders = DB.orders.filter(o => o.date === todayStr).length;
+  const totalRevenue = DB.orders.filter(o => o.status === 'done').reduce((s, o) => s + o.amount, 0);
+  const totalBonus = DB.bonusLog.filter(b => b.type === 'add').reduce((s, b) => s + b.amount, 0);
+
+  document.getElementById('stat-today').textContent = todayOrders;
+  document.getElementById('stat-revenue').textContent = totalRevenue.toLocaleString();
+  document.getElementById('stat-clients').textContent = DB.clients.length;
+  document.getElementById('stat-bonuses').textContent = totalBonus;
+
+  // Last 5 orders
+  const tbody = document.getElementById('dashOrdersTable');
+  const recent = [...DB.orders].reverse().slice(0, 5);
+  tbody.innerHTML = recent.length ? recent.map(o => `
+    <tr>
+      <td style="color:var(--muted)">#${o.id}</td>
+      <td>${o.clientName}</td>
+      <td style="color:var(--accent)">${o.amount.toLocaleString()}</td>
+      <td>${statusBadge(o.status)}</td>
+    </tr>`).join('') : `<tr><td colspan="4"><div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Нет заказов</div></div></td></tr>`;
+
+  // Top clients
+  const top = [...DB.clients].sort((a, b) => b.totalSpent - a.totalSpent).slice(0, 5);
+  document.getElementById('topClients').innerHTML = top.length ? top.map((c, i) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--muted);width:20px">${i + 1}</div>
+      <div class="client-avatar" style="background:${avatarColor(c.name)}">${c.name[0]}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:500">${c.name}</div>
+        <div style="font-size:11px;color:var(--muted)">${c.totalSpent.toLocaleString()} сом</div>
+      </div>
+      <div style="font-size:12px;color:var(--accent)">🎁 ${c.bonus}</div>
+    </div>`).join('') : '<div style="color:var(--muted);font-size:13px">Нет клиентов</div>';
+
+  // Badge
+  const newCount = DB.orders.filter(o => o.status === 'new').length;
+  document.getElementById('badge-orders').textContent = newCount;
+  document.getElementById('badge-orders').style.display = newCount ? '' : 'none';
+}
+
+// ============ ORDERS ============
+function renderOrders() {
+  const tbody = document.getElementById('ordersTable');
+  let list = [...DB.orders].reverse();
+  if (orderFilter !== 'all') list = list.filter(o => o.status === orderFilter);
+  tbody.innerHTML = list.length ? list.map(o => `
+    <tr>
+      <td style="color:var(--muted);font-weight:600">#${o.id}</td>
+      <td>${o.clientName}</td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.product}</td>
+      <td style="color:var(--accent);font-weight:600">${o.amount.toLocaleString()}</td>
+      <td style="color:var(--muted)">${o.date}</td>
+      <td>${statusBadge(o.status)}</td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-ghost btn-sm" onclick="viewOrder(${o.id})">👁</button>
+          ${o.status !== 'done' && o.status !== 'cancelled' ? `<button class="btn btn-success btn-sm" onclick="setStatus(${o.id},'done')">✓</button>` : ''}
+          ${o.status === 'new' ? `<button class="btn btn-ghost btn-sm" onclick="setStatus(${o.id},'processing')">⚙️</button>` : ''}
+          ${o.status !== 'cancelled' && o.status !== 'done' ? `<button class="btn btn-danger btn-sm" onclick="setStatus(${o.id},'cancelled')">✕</button>` : ''}
+        </div>
+      </td>
+    </tr>`).join('') : `<tr><td colspan="7"><div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Нет заказов</div></div></td></tr>`;
+}
+
+function filterOrders(type, el) {
+  orderFilter = type;
+  document.querySelectorAll('#page-orders .tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderOrders();
+}
+
+function setStatus(id, status) {
+  const o = DB.orders.find(x => x.id === id);
+  if (!o) return;
+  o.status = status;
+  // Auto-bonus on done
+  if (status === 'done' && o.clientId) {
+    const pct = DB.settings.bonusPct || 3;
+    const pts = Math.floor(o.amount * pct / 100);
+    if (pts > 0) {
+      const c = DB.clients.find(x => x.id === o.clientId);
+      if (c) {
+        c.bonus += pts;
+        DB.bonusLog.push({ clientId: c.id, clientName: c.name, type: 'add', amount: pts, comment: `Авто: заказ #${o.id}`, date: today() });
+        toast(`✅ Заказ завершён. +${pts} бонусов для ${c.name}`);
+      }
+    }
+  } else {
+    const msgs = { processing: '⚙️ Заказ в обработке', cancelled: '❌ Заказ отменён', done: '✅ Заказ завершён' };
+    toast(msgs[status] || 'Статус обновлён');
+  }
+  saveDB();
+  renderOrders();
+  renderDashboard();
+}
+
+function viewOrder(id) {
+  const o = DB.orders.find(x => x.id === id);
+  if (!o) return;
+  document.getElementById('detailTitle').textContent = `Заказ #${o.id}`;
+  document.getElementById('detailBody').innerHTML = `
+    <div class="detail-row"><div class="dl">Клиент</div><div class="dv">${o.clientName}</div></div>
+    <div class="detail-row"><div class="dl">Товар</div><div class="dv">${o.product}</div></div>
+    <div class="detail-row"><div class="dl">Сумма</div><div class="dv" style="color:var(--accent);font-weight:600">${o.amount.toLocaleString()} сом</div></div>
+    <div class="detail-row"><div class="dl">Оплата</div><div class="dv">${o.payment}</div></div>
+    <div class="detail-row"><div class="dl">Дата</div><div class="dv">${o.date}</div></div>
+    <div class="detail-row"><div class="dl">Статус</div><div class="dv">${statusBadge(o.status)}</div></div>
+    ${o.note ? `<div class="detail-row"><div class="dl">Примечание</div><div class="dv">${o.note}</div></div>` : ''}
+  `;
+  const footer = document.getElementById('detailFooter');
+  let btns = `<button class="btn btn-ghost" onclick="closeModal('modalOrderDetail')">Закрыть</button>`;
+  if (o.status === 'new') btns += `<button class="btn btn-ghost" onclick="setStatus(${o.id},'processing');closeModal('modalOrderDetail')">В обработку</button>`;
+  if (o.status !== 'done' && o.status !== 'cancelled') btns += `<button class="btn btn-success" onclick="setStatus(${o.id},'done');closeModal('modalOrderDetail')">Завершить</button>`;
+  if (o.status !== 'cancelled' && o.status !== 'done') btns += `<button class="btn btn-danger" onclick="setStatus(${o.id},'cancelled');closeModal('modalOrderDetail')">Отменить</button>`;
+  footer.innerHTML = btns;
+  openModal('modalOrderDetail');
+}
+
+function addOrder() {
+  const clientId = document.getElementById('orderClient').value;
+  const newClientName = document.getElementById('orderNewClient').value.trim();
+  const newClientPhone = document.getElementById('orderNewPhone').value.trim();
+  const product = document.getElementById('orderProduct').value.trim();
+  const amount = parseInt(document.getElementById('orderAmount').value) || 0;
+  const payment = document.getElementById('orderPayment').value;
+  const note = document.getElementById('orderNote').value.trim();
+
+  if (!product || !amount) { toast('Укажите товар и сумму', true); return; }
+
+  let cId = parseInt(clientId) || null;
+  let cName = '';
+
+  if (cId) {
+    const c = DB.clients.find(x => x.id === cId);
+    cName = c ? c.name : 'Неизвестно';
+    if (c) { c.orders++; c.totalSpent += amount; }
+  } else if (newClientName) {
+    const newC = { id: idCounter.client++, name: newClientName, phone: newClientPhone || '—', address: '', bonus: 0, totalSpent: amount, orders: 1, joinDate: today() };
+    DB.clients.push(newC);
+    cId = newC.id;
+    cName = newC.name;
+  } else {
+    cName = 'Без клиента';
+  }
+
+  DB.orders.push({ id: idCounter.order++, clientId: cId, clientName: cName, product, amount, payment, status: 'new', date: today(), note });
+  saveDB();
+  closeModal('modalAddOrder');
+  toast('📦 Заказ создан!');
+  renderDashboard();
+  renderOrders();
+  renderClients();
+  clearForm(['orderClient','orderNewClient','orderNewPhone','orderProduct','orderAmount','orderNote']);
+}
+
+// ============ CLIENTS ============
+function renderClients() {
+  const tbody = document.getElementById('clientsTable');
+  tbody.innerHTML = DB.clients.length ? DB.clients.map(c => `
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="client-avatar" style="background:${avatarColor(c.name)}">${c.name[0]}</div>
+          <div>
+            <div style="font-weight:500">${c.name}</div>
+            <div style="font-size:11px;color:var(--muted)">${c.joinDate}</div>
+          </div>
+        </div>
+      </td>
+      <td style="color:var(--muted)">${c.phone}</td>
+      <td>${c.orders}</td>
+      <td><span class="badge badge-bonus">🎁 ${c.bonus}</span></td>
+      <td style="color:var(--accent)">${c.totalSpent.toLocaleString()}</td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-ghost btn-sm" onclick="quickBonus(${c.id})">🎁 Бонус</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteClient(${c.id})">✕</button>
+        </div>
+      </td>
+    </tr>`).join('') : `<tr><td colspan="6"><div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Нет клиентов</div></div></td></tr>`;
+}
+
+function addClient() {
+  const name = document.getElementById('cName').value.trim();
+  const phone = document.getElementById('cPhone').value.trim();
+  const address = document.getElementById('cAddress').value.trim();
+  if (!name) { toast('Введите имя клиента', true); return; }
+  DB.clients.push({ id: idCounter.client++, name, phone: phone || '—', address, bonus: 0, totalSpent: 0, orders: 0, joinDate: today() });
+  saveDB();
+  closeModal('modalAddClient');
+  toast('👤 Клиент добавлен!');
+  renderClients();
+  refreshClientSelects();
+  clearForm(['cName', 'cPhone', 'cAddress']);
+}
+
+function deleteClient(id) {
+  if (!confirm('Удалить клиента?')) return;
+  DB.clients = DB.clients.filter(c => c.id !== id);
+  saveDB();
+  renderClients();
+  toast('Клиент удалён');
+}
+
+function quickBonus(clientId) {
+  goPage('bonuses', document.querySelector('.nav-item:nth-child(8)'));
+  setTimeout(() => {
+    const sel = document.getElementById('bonusClientSelect');
+    sel.value = clientId;
+    updateBonusBalance();
+  }, 100);
+}
+
+// ============ BONUSES ============
+function renderBonuses() {
+  refreshClientSelects();
+  updateBonusBalance();
+  renderBonusHistory();
+}
+
+function updateBonusBalance() {
+  const id = parseInt(document.getElementById('bonusClientSelect').value);
+  const c = DB.clients.find(x => x.id === id);
+  document.getElementById('bonusBalanceVal').textContent = c ? c.bonus + ' балл.' : '—';
+}
+
+function mUpdateBonus() {
+  const id = parseInt(document.getElementById('mBonusClient').value);
+  const c = DB.clients.find(x => x.id === id);
+  document.getElementById('mBonusBalance').textContent = c ? c.bonus + ' балл.' : '—';
+}
+
+function renderBonusHistory() {
+  const log = [...DB.bonusLog].reverse();
+  const div = document.getElementById('bonusHistory');
+  div.innerHTML = log.length ? log.map(b => `
+    <div class="bonus-item">
+      <div>
+        <div style="font-size:13px;font-weight:500">${b.clientName}</div>
+        <div style="font-size:11px;color:var(--muted)">${b.comment} · ${b.date}</div>
+      </div>
+      <div class="${b.type === 'add' ? 'bonus-plus' : 'bonus-minus'}">${b.type === 'add' ? '+' : '-'}${b.amount}</div>
+    </div>`).join('') : '<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">История пуста</div></div>';
+}
+
+function applyBonus() {
+  const id = parseInt(document.getElementById('bonusClientSelect').value);
+  const type = document.getElementById('bonusType').value;
+  const amount = parseInt(document.getElementById('bonusAmount').value) || 0;
+  const comment = document.getElementById('bonusComment').value.trim();
+  _applyBonus(id, type, amount, comment);
+  updateBonusBalance();
+  renderBonusHistory();
+  renderDashboard();
+}
+
+function applyBonusModal() {
+  const id = parseInt(document.getElementById('mBonusClient').value);
+  const type = document.getElementById('mBonusType').value;
+  const amount = parseInt(document.getElementById('mBonusAmount').value) || 0;
+  const comment = document.getElementById('mBonusComment').value.trim();
+  if (_applyBonus(id, type, amount, comment)) {
+    closeModal('modalBonus');
+    clearForm(['mBonusAmount', 'mBonusComment']);
+  }
+}
+
+function _applyBonus(id, type, amount, comment) {
+  const c = DB.clients.find(x => x.id === id);
+  if (!c) { toast('Выберите клиента', true); return false; }
+  if (!amount) { toast('Укажите количество баллов', true); return false; }
+  if (type === 'remove' && c.bonus < amount) { toast('Недостаточно баллов', true); return false; }
+  if (type === 'add') c.bonus += amount;
+  else c.bonus -= amount;
+  DB.bonusLog.push({ clientId: c.id, clientName: c.name, type, amount, comment: comment || '—', date: today() });
+  saveDB();
+  toast(type === 'add' ? `🎁 +${amount} бонусов для ${c.name}` : `➖ -${amount} бонусов`);
+  renderClients();
+  return true;
+}
+
+// ============ PRODUCTS ============
+function renderProducts() {
+  const tbody = document.getElementById('productsTable');
+  tbody.innerHTML = DB.products.length ? DB.products.map(p => `
+    <tr>
+      <td style="font-weight:500">${p.name}</td>
+      <td><span style="font-size:11px;background:var(--surface2);padding:3px 8px;border-radius:6px">${p.category}</span></td>
+      <td style="color:var(--accent);font-weight:600">${p.price.toLocaleString()}</td>
+      <td style="color:var(--muted)">${p.installment || '—'}</td>
+      <td>
+        <span style="color:${p.stock > 3 ? 'var(--success)' : p.stock > 0 ? 'var(--warning)' : 'var(--danger)'};font-weight:600">
+          ${p.stock > 0 ? p.stock + ' шт.' : '❌ Нет'}
+        </span>
+      </td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-ghost btn-sm" onclick="editStock(${p.id})">✏️ Остаток</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">✕</button>
+        </div>
+      </td>
+    </tr>`).join('') : `<tr><td colspan="6"><div class="empty"><div class="empty-icon">🛍️</div><div class="empty-text">Нет товаров</div></div></td></tr>`;
+}
+
+function addProduct() {
+  const name = document.getElementById('pName').value.trim();
+  const category = document.getElementById('pCategory').value;
+  const price = parseInt(document.getElementById('pPrice').value) || 0;
+  const installment = document.getElementById('pInstallment').value.trim();
+  const stock = parseInt(document.getElementById('pStock').value) || 0;
+  if (!name) { toast('Введите название товара', true); return; }
+  DB.products.push({ id: idCounter.product++, name, category, price, installment, stock });
+  saveDB();
+  closeModal('modalAddProduct');
+  toast('🛍️ Товар добавлен!');
+  renderProducts();
+  clearForm(['pName','pPrice','pInstallment','pStock']);
+}
+
+function editStock(id) {
+  const p = DB.products.find(x => x.id === id);
+  if (!p) return;
+  const val = prompt(`Остаток для "${p.name}":`, p.stock);
+  if (val === null) return;
+  p.stock = parseInt(val) || 0;
+  saveDB();
+  renderProducts();
+  toast('Остаток обновлён');
+}
+
+function deleteProduct(id) {
+  if (!confirm('Удалить товар?')) return;
+  DB.products = DB.products.filter(p => p.id !== id);
+  saveDB();
+  renderProducts();
+  toast('Товар удалён');
+}
+
+// ============ SETTINGS ============
+function renderSettings() {
+  document.getElementById('setStoreName').value = DB.settings.storeName || '';
+  document.getElementById('setCity').value = DB.settings.city || '';
+  document.getElementById('setPhone').value = DB.settings.phone || '';
+  document.getElementById('setBonusPct').value = DB.settings.bonusPct || 3;
+}
+
+function saveSettings() {
+  DB.settings.storeName = document.getElementById('setStoreName').value;
+  DB.settings.city = document.getElementById('setCity').value;
+  DB.settings.phone = document.getElementById('setPhone').value;
+  DB.settings.bonusPct = parseInt(document.getElementById('setBonusPct').value) || 3;
+  saveDB();
+  toast('✅ Настройки сохранены');
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(DB, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mi-techno-backup.json';
+  a.click();
+}
+
+function importDataClick() { document.getElementById('importFile').click(); }
+
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      DB = JSON.parse(ev.target.result);
+      saveDB();
+      renderDashboard();
+      toast('✅ Данные импортированы!');
+    } catch { toast('Ошибка файла', true); }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllData() {
+  if (!confirm('Удалить ВСЕ данные? Это нельзя отменить!')) return;
+  localStorage.removeItem('miTechnoAdmin');
+  location.reload();
+}
+
+// ============ UTILS ============
+function statusBadge(s) {
+  const map = { new: ['badge-new', 'Новый'], processing: ['badge-processing', 'В обработке'], done: ['badge-done', 'Завершён'], cancelled: ['badge-cancelled', 'Отменён'] };
+  const [cls, label] = map[s] || ['', s];
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+const colors = ['#ff6b00','#3b82f6','#22c55e','#a855f7','#f59e0b','#ef4444','#06b6d4'];
+function avatarColor(name) { return colors[name.charCodeAt(0) % colors.length]; }
+
+function refreshClientSelects() {
+  const selects = ['orderClient', 'bonusClientSelect', 'mBonusClient'];
+  selects.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const cur = el.value;
+    el.innerHTML = '<option value="">— Выберите —</option>' + DB.clients.map(c => `<option value="${c.id}">${c.name} (${c.phone})</option>`).join('');
+    el.value = cur;
+  });
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  refreshClientSelects();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function openQuickOrder() {
+  refreshClientSelects();
+  openModal('modalAddOrder');
+}
+
+function clearForm(ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+}
+
+let toastTimer;
+function toast(msg, isError = false) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (isError ? ' error' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlayBg').classList.toggle('open');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlayBg').classList.remove('open');
+}
+
+function handleSearch() {
+  const q = document.getElementById('globalSearch').value.toLowerCase();
+  if (!q) return;
+  // Simple: search in orders
+  const found = DB.orders.find(o => o.clientName.toLowerCase().includes(q) || o.product.toLowerCase().includes(q));
+  if (found) { goPage('orders', null); orderFilter = 'all'; renderOrders(); }
+}
+
+// Close modals on backdrop click
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+});
+
+// ============ INIT ============
+loadDB();
+renderDashboard();
+refreshClientSelects();
+</script>
+</body>
+</html>
